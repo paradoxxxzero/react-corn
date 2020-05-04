@@ -1,42 +1,60 @@
-import fastDeepEqual from 'fast-deep-equal'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-export const useCorn = ({ item, onSubmit: superOnSubmit }) => {
+import { diff, get, insert } from './object'
+
+export const useCorn = ({
+  item,
+  onChange: propagateChange = () => {},
+  onSubmit: propagateSubmit = () => {},
+}) => {
   const [transient, setTransient] = useState(item)
+  const names = useRef([])
 
-  const modified = useMemo(() => {
-    return !fastDeepEqual(item, transient)
-  }, [item, transient])
+  const delta = useMemo(() => diff(item, transient, names.current), [
+    item,
+    transient,
+  ])
+
+  const modified = !!Object.keys(delta).length
 
   const onSubmit = useCallback(
     e => {
       e.preventDefault()
-      superOnSubmit && superOnSubmit(transient)
+      propagateSubmit(transient)
     },
-    [transient, superOnSubmit]
+    [transient, propagateSubmit]
   )
 
   const field = useCallback(
-    name => ({
-      name,
-      value: transient[name],
-      onChange: value => {
-        setTransient(o => ({
-          ...o,
-          [name]: value,
-        }))
-      },
-    }),
-    [transient]
+    name => {
+      if (!names.current.includes(name)) {
+        names.current.push(name)
+      }
+      return {
+        name,
+        value: get(transient, name),
+        modified: !!get(delta, name),
+        onChange: value => {
+          setTransient(o => insert(o, name, value, names.current))
+        },
+      }
+    },
+    [transient, delta]
   )
 
   const reset = useCallback(() => {
-    setTransient(item)
-  }, [item, setTransient])
+    if (modified) {
+      setTransient(item)
+    }
+  }, [item, setTransient, modified])
 
   useEffect(() => {
     setTransient(item)
   }, [item])
+
+  useEffect(() => {
+    propagateChange(transient)
+  }, [transient, propagateChange])
 
   return {
     form: {

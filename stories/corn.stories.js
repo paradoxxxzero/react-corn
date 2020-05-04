@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions'
 import React, { useState } from 'react'
 
 import { useCorn } from '../src'
-import { Input, TextArea } from '../src/fields/core'
+import { Input, Number, TextArea } from '../src/fields/core'
 
 export default {
   title: 'react-corn',
@@ -18,6 +18,9 @@ export const CornForm = () => {
 
   const corn = useCorn({
     item,
+    onChange: item => {
+      action('change')(item)
+    },
     onSubmit: item => {
       action('submit')(item)
       setItem(item)
@@ -26,23 +29,20 @@ export const CornForm = () => {
 
   return (
     <form {...corn.form}>
-      <label>
-        string
-        <Input type="text" {...corn.field('string')} />
-      </label>
-      <label>
-        int
-        <Input type="number" {...corn.field('int')} />
-      </label>
-      <label>
-        Long String
-        <TextArea {...corn.field('long string')} />
-      </label>
+      <Input type="text" required {...corn.field('string')}>
+        String
+      </Input>
+      <Number min={12} {...corn.field('int')}>
+        Int
+      </Number>
+      <TextArea {...corn.field('long string')}>Long String</TextArea>
+
       <button type="button" disabled={!corn.modified} onClick={corn.reset}>
         Reset
       </button>
       <button disabled={!corn.modified}>Submit</button>
       <button
+        type="button"
         onClick={() => {
           let newItem = prompt('Object json', JSON.stringify(item))
           if (newItem === null) {
