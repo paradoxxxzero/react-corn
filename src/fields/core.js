@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 
-import { useOptions } from '../hooks'
+import { useMaybeMultipleValue, useOptions } from '../hooks'
 
 export const Input = ({ onChange, onError, error, ...props }) => {
   const inputRef = useRef()
@@ -57,8 +57,9 @@ export const TextArea = ({ onChange, ...props }) => {
   return <textarea onChange={handleChange} {...props} />
 }
 
-export const Select = ({ onChange, choices, ...props }) => {
+export const Select = ({ onChange, choices, value, ...props }) => {
   const options = useOptions(choices)
+  const multipleValue = useMaybeMultipleValue(props.multiple, value)
   const handleChange = useCallback(
     e =>
       onChange(
@@ -70,7 +71,8 @@ export const Select = ({ onChange, choices, ...props }) => {
   )
 
   return (
-    <select onChange={handleChange} {...props}>
+    // eslint-disable-next-line jsx-a11y/no-onchange
+    <select onChange={handleChange} value={multipleValue} {...props}>
       {!props.multiple && options.every(([k]) => k) && <option value="" />}
       {options.map(([label, key]) => (
         <option key={key} value={key}>

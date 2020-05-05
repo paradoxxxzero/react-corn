@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import * as core from './core'
 import { withTheme } from './theme'
 
-const Field = withTheme(styled.div`
+export const Field = withTheme(styled.div`
   border-color: ${props =>
     props.error
       ? props.theme.color.error
@@ -22,11 +22,13 @@ const Field = withTheme(styled.div`
     border-color: inherit;
     color: inherit;
     margin: 0.5em 0;
-    background-color: ${props => props.theme.backgroundColor};
+    background-color: ${props => props.theme.backgroundColor.base};
   }
 `)
-const Error = styled.div``
-const Label = withTheme(styled.label`
+
+export const Error = styled.div``
+
+export const Label = withTheme(styled.label`
   display: block;
   margin: 1.5em;
   transition: color 0.2s;
@@ -46,7 +48,16 @@ const Label = withTheme(styled.label`
     `}
 `)
 
-const Labelled = ({ label, children, ...props }) => {
+export const Inline = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.75em;
+
+  ${Label} {
+    margin: 0.75em;
+  }
+`
+export const Labelled = ({ label, children, ...props }) => {
   return (
     <Label {...props}>
       {label}
@@ -56,7 +67,12 @@ const Labelled = ({ label, children, ...props }) => {
   )
 }
 
-const withLabel = Component => ({ children, modified, error, ...props }) => {
+export const withLabel = Component => ({
+  children,
+  modified,
+  error,
+  ...props
+}) => {
   return (
     <Labelled
       label={children}

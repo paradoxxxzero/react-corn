@@ -4,7 +4,14 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { useCorn } from '../src'
-import { Email, Number, Select, Text, TextArea } from '../src/fields/labelled'
+import {
+  Email,
+  Inline,
+  Number,
+  Select,
+  Text,
+  TextArea,
+} from '../src/fields/labelled'
 import StoryItem from './story.item'
 
 export default {
@@ -45,14 +52,18 @@ export const LabelledCornForm = () => {
     <Story>
       <StoryItem item={item} transient={transient} onItemEdited={setItem} />
       <form {...corn.form}>
-        <Text required {...corn.field('name')} maxLength={25}>
-          Name
-        </Text>
-        <Email {...corn.field('mail')}>Mail</Email>
-        <Text size={5} {...corn.field('address.zipcode')}>
-          Zip code
-        </Text>
-        <Text {...corn.field('address.city')}>City</Text>
+        <Inline>
+          <Text required {...corn.field('name')} maxLength={25}>
+            Name
+          </Text>
+          <Email {...corn.field('mail')}>Mail</Email>
+        </Inline>
+        <Inline>
+          <Text size={5} {...corn.field('address.zipcode')}>
+            Zip code
+          </Text>
+          <Text {...corn.field('address.city')}>City</Text>
+        </Inline>
         <Select
           choices={[
             'Africa',

@@ -9,3 +9,17 @@ export const useOptions = choices => {
 
   return options
 }
+
+export const useMaybeMultipleValue = (multiple, value) => {
+  const multipleValue = useMemo(() => {
+    if (!multiple && Array.isArray(value)) {
+      return value.length ? value[0] : ''
+    }
+    if (multiple && !Array.isArray(value)) {
+      return value !== null && value !== void 0 && value !== '' ? [value] : []
+    }
+    return value
+  }, [multiple, value])
+
+  return multipleValue
+}
