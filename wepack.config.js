@@ -10,4 +10,8 @@ module.exports = {
       },
     ],
   },
+
+  output: {
+    path: 'lib',
+  },
 }
