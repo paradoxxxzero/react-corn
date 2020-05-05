@@ -23,8 +23,8 @@ const ObjectEditor = styled(Editor).withConfig({
   margin: 1em;
   padding: 1em;
   flex: 1;
-  font-family: 'Menlo, monospace';
-  font-size: 14px;
+  font-family: Menlo, monospace;
+  font-size: 11px;
 
   textarea {
     outline: none;
@@ -74,10 +74,10 @@ export default function StoryItem({ item, transient, onItemEdited }) {
   return (
     <Objects>
       <Object>
-        <Inspector name="Item" data={[item]} expandLevel={3} />
+        <Inspector name="Item" data={[item]} expandLevel={99} />
       </Object>
       <Object>
-        <Inspector name="Transient Item" data={[transient]} expandLevel={3} />
+        <Inspector name="Transient Item" data={[transient]} expandLevel={99} />
       </Object>
       <ObjectEditor
         syntaxError={syntaxError}

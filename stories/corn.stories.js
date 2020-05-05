@@ -1,20 +1,31 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { action } from '@storybook/addon-actions'
 import React, { useState } from 'react'
+import styled from 'styled-components'
 
 import { useCorn } from '../src'
-import { Input, Number, TextArea } from '../src/fields/core'
+import { Email, Number, Select, Text, TextArea } from '../src/fields/labelled'
 import StoryItem from './story.item'
 
 export default {
   title: 'react-corn',
 }
 
-export const CornForm = () => {
+const Story = styled.div`
+  font-family: 'Nunito', sans-serif;
+`
+
+export const LabelledCornForm = () => {
   const [item, setItem] = useState({
-    string: 'String',
-    int: 12,
-    'long string': 'Long\nString',
+    name: 'John Foo',
+    mail: 'john.foo@example.com',
+    address: {
+      zipcode: 'Z4755A',
+      city: 'Barville',
+      continent: null,
+    },
+    age: 25,
+    message: 'Hello,\n\nHow are you?',
   })
 
   const [transient, setTransient] = useState({})
@@ -31,22 +42,42 @@ export const CornForm = () => {
   })
 
   return (
-    <>
+    <Story>
       <StoryItem item={item} transient={transient} onItemEdited={setItem} />
       <form {...corn.form}>
-        <Input type="text" required {...corn.field('string')}>
-          String
-        </Input>
-        <Number min={12} {...corn.field('int')}>
-          Int
+        <Text required {...corn.field('name')} maxLength={25}>
+          Name
+        </Text>
+        <Email {...corn.field('mail')}>Mail</Email>
+        <Text size={5} {...corn.field('address.zipcode')}>
+          Zip code
+        </Text>
+        <Text {...corn.field('address.city')}>City</Text>
+        <Select
+          choices={[
+            'Africa',
+            'Antarctica',
+            'Asia',
+            'Europe',
+            'North America',
+            'Australia/Oceania',
+            'South America',
+          ]}
+          multiple
+          {...corn.field('address.continent')}
+        >
+          Continent
+        </Select>
+        <Number min={12} {...corn.field('age')}>
+          Age
         </Number>
-        <TextArea {...corn.field('long string')}>Long String</TextArea>
+        <TextArea {...corn.field('message')}>Message</TextArea>
 
         <button type="button" disabled={!corn.modified} onClick={corn.reset}>
           Reset
         </button>
         <button disabled={!corn.modified}>Submit</button>
       </form>
-    </>
+    </Story>
   )
 }

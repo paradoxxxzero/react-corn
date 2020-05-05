@@ -1,5 +1,5 @@
 {
-  "name": "react-corn",
+  "name": "@react-corn/core",
   "version": "0.0.1",
   "description": "Controlled forms with hooks for advanced object editing.",
   "main": "lib/corn.js",

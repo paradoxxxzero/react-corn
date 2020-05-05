@@ -1,25 +1,9 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
-const black = '#000'
-const blue = '#00f'
+import { useOptions } from '../hooks'
 
-const Labelled = ({ label, children, modified, required }) => {
-  return (
-    <label
-      style={{
-        display: 'block',
-        margin: '1em',
-        color: modified ? blue : black,
-      }}
-    >
-      {label}
-      {required ? '*' : ''}
-      <div>{children}</div>
-    </label>
-  )
-}
-
-export const Input = ({ onChange, children, modified, ...props }) => {
+export const Input = ({ onChange, onError, error, ...props }) => {
+  const inputRef = useRef()
   const handleChange = useCallback(
     e =>
       onChange(
@@ -30,12 +14,34 @@ export const Input = ({ onChange, children, modified, ...props }) => {
     [onChange, props.type]
   )
 
-  return (
-    <Labelled label={children} modified={modified} required={props.required}>
-      <input onChange={handleChange} {...props} />
-    </Labelled>
-  )
+  useEffect(() => {
+    onError(
+      inputRef.current.checkValidity()
+        ? null
+        : inputRef.current.validationMessage
+    )
+  }, [onError, props.value])
+
+  return <input ref={inputRef} onChange={handleChange} {...props} />
 }
+
+export const Checkbox = props => <Input type="checkbox" {...props} />
+export const Color = props => <Input type="color" {...props} />
+export const Date = props => <Input type="date" {...props} />
+export const DatetimeLocal = props => <Input type="datetime-local" {...props} />
+export const Email = props => <Input type="email" {...props} />
+export const File = props => <Input type="file" {...props} />
+export const Hidden = props => <Input type="hidden" {...props} />
+export const Month = props => <Input type="month" {...props} />
+export const Password = props => <Input type="password" {...props} />
+export const Radio = props => <Input type="radio" {...props} />
+export const Range = props => <Input type="range" {...props} />
+export const Search = props => <Input type="search" {...props} />
+export const Tel = props => <Input type="tel" {...props} />
+export const Text = props => <Input type="text" {...props} />
+export const Time = props => <Input type="time" {...props} />
+export const Url = props => <Input type="url" {...props} />
+export const Week = props => <Input type="week" {...props} />
 
 export const Number = ({ onChange, ...props }) => {
   const handleChange = useCallback(
@@ -45,12 +51,32 @@ export const Number = ({ onChange, ...props }) => {
   return <Input type="number" onChange={handleChange} {...props} />
 }
 
-export const TextArea = ({ onChange, children, modified, ...props }) => {
+export const TextArea = ({ onChange, ...props }) => {
   const handleChange = useCallback(e => onChange(e.target.value), [onChange])
 
+  return <textarea onChange={handleChange} {...props} />
+}
+
+export const Select = ({ onChange, choices, ...props }) => {
+  const options = useOptions(choices)
+  const handleChange = useCallback(
+    e =>
+      onChange(
+        props.multiple
+          ? [...e.target.options].filter(o => o.selected).map(o => o.value)
+          : e.target.value
+      ),
+    [onChange, props.multiple]
+  )
+
   return (
-    <Labelled label={children} modified={modified} required={props.required}>
-      <textarea onChange={handleChange} {...props} />
-    </Labelled>
+    <select onChange={handleChange} {...props}>
+      {!props.multiple && options.every(([k]) => k) && <option value="" />}
+      {options.map(([label, key]) => (
+        <option key={key} value={key}>
+          {label}
+        </option>
+      ))}
+    </select>
   )
 }
