@@ -42,7 +42,7 @@ export const Input = memo(function Input({
         ? null
         : inputRef.current.validationMessage
     )
-  }, [name, onError, props.value])
+  }, [name, onError, value])
 
   return (
     <Component
@@ -60,18 +60,15 @@ export const Checkbox = props => <Input type="checkbox" {...props} />
 export const Color = props => <Input type="color" {...props} />
 export const Date = props => <Input type="date" {...props} />
 export const DatetimeLocal = props => <Input type="datetime-local" {...props} />
-export const Email = props => (
-  <Input
-    type="email"
-    onKeyDown={e => {
-      // https://github.com/facebook/react/issues/6368
-      if (e.key === ' ') {
-        e.preventDefault()
-      }
-    }}
-    {...props}
-  />
-)
+export const Email = props => {
+  const avoidSpacesThatBreakReact = useCallback(e => {
+    // https://github.com/facebook/react/issues/6368
+    if (e.key === ' ') {
+      e.preventDefault()
+    }
+  }, [])
+  return <Input type="email" onKeyDown={avoidSpacesThatBreakReact} {...props} />
+}
 export const File = props => <Input type="file" {...props} />
 export const Hidden = props => <Input type="hidden" {...props} />
 export const Month = props => <Input type="month" {...props} />
@@ -118,17 +115,20 @@ export const Select = memo(function Select({
   const options = useOptions(choices)
   const multipleValue = useMaybeMultipleValue(props.multiple, value)
   const handleChange = useCallback(
-    e =>
+    e => {
       onChange(
         name,
         props.multiple
           ? [...e.target.options].filter(o => o.selected).map(o => o.value)
           : e.target.value
-      ),
+      )
+    },
     [name, onChange, props.multiple]
   )
 
-  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
+  const handleBlur = useCallback(() => {
+    onBlur(value)
+  }, [value, onBlur])
 
   useEffect(() => {
     onError(

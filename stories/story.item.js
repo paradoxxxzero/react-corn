@@ -17,7 +17,7 @@ const ObjectWithTitle = styled.div`
   margin: 0.5em;
 `
 
-const Object = styled.div`
+const EditorContainer = styled.div`
   padding: 0.5em;
   color: ${props => (props.syntaxError ? 'red' : 'black')};
   background-color: ${props =>
@@ -32,16 +32,22 @@ const Object = styled.div`
     outline: none;
   }
 `
+const Icon = styled.span`
+  font-size: 1.5em;
+  font-weight: normal;
+`
+
 const Title = styled.h4`
   margin: 0.25em;
 `
+
 const Mute = styled.small`
   color: rgba(0, 0, 0, 0.2);
 `
 
 const highlightJson = code => highlight(code, languages.json)
 
-const ObjectEditor = ({ item, readOnly, onItemEdited, children }) => {
+const Object = ({ item, onItemEdited, children }) => {
   const [strItem, setStrItem] = useState(prettyJson(item))
   const [syntaxError, setSyntaxError] = useState(false)
 
@@ -58,18 +64,17 @@ const ObjectEditor = ({ item, readOnly, onItemEdited, children }) => {
   }, [item])
 
   useEffect(() => {
-    !readOnly &&
-      onItemEdited(it => {
-        try {
-          const parsed = JSON.parse(strItem)
-          setSyntaxError(false)
-          return parsed
-        } catch (e) {
-          setSyntaxError(true)
-        }
-        return it
-      })
-  }, [readOnly, onItemEdited, strItem])
+    if (!onItemEdited) {
+      return
+    }
+    try {
+      const parsed = JSON.parse(strItem)
+      setSyntaxError(false)
+      onItemEdited(parsed)
+    } catch (e) {
+      setSyntaxError(true)
+    }
+  }, [onItemEdited, strItem])
 
   const reprettify = useCallback(() => {
     setStrItem(oldStr => {
@@ -78,30 +83,45 @@ const ObjectEditor = ({ item, readOnly, onItemEdited, children }) => {
   }, [])
   return (
     <ObjectWithTitle syntaxError={syntaxError}>
-      <Title>{children}</Title>
-      <Object syntaxError={syntaxError}>
+      <Title>
+        {children}
+        {onItemEdited && <Icon> &#128393;</Icon>}
+      </Title>
+      <EditorContainer syntaxError={syntaxError}>
         <Editor
-          readOnly={readOnly}
+          readOnly={!onItemEdited}
           value={strItem}
           onValueChange={setStrItem}
           onBlur={reprettify}
           highlight={highlightJson}
         />
-      </Object>
+      </EditorContainer>
     </ObjectWithTitle>
   )
 }
 
 export const prettyJson = json => JSON.stringify(json, null, 2)
-export default function StoryItem({ item, transient, onItemEdited }) {
+export default function StoryItem({
+  item,
+  transient,
+  delta,
+  errors,
+  onItemEdited,
+}) {
   return (
     <Objects>
-      <ObjectEditor item={transient} readOnly highlight={highlightJson}>
+      <Object item={transient}>
         Transient item <Mute>(onChange)</Mute>
-      </ObjectEditor>
-      <ObjectEditor item={item} onItemEdited={onItemEdited}>
+      </Object>
+      <Object item={errors}>
+        Current errors <Mute>(onChange)</Mute>
+      </Object>
+      <Object item={item} onItemEdited={onItemEdited}>
         Item <Mute>(onSubmit)</Mute>
-      </ObjectEditor>
+      </Object>
+      <Object item={delta}>
+        Delta <Mute>(onSubmit)</Mute>
+      </Object>
     </Objects>
   )
 }

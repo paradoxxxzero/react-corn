@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { action } from '@storybook/addon-actions'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCorn } from '../src'
@@ -12,6 +11,7 @@ import {
   Text,
   TextArea,
 } from '../src/fields/labelled'
+import { debounce } from '../src/utils'
 import StoryItem from './story.item'
 
 export default {
@@ -35,21 +35,40 @@ export const LabelledCornForm = () => {
     message: 'Hello,\nHow are you?',
   })
 
+  const [errors, setErrors] = useState({})
+  const handleChange = useCallback(
+    debounce((item, delta, errors) => {
+      setTransient(item)
+      setErrors(errors)
+    }, 5),
+    []
+  )
+  const [delta, setDelta] = useState({})
+  const handleSubmit = useCallback((item, delta, errors) => {
+    setItem(item)
+    setDelta(delta)
+  }, [])
+
   const [transient, setTransient] = useState({})
   const { form, field, modified, reset } = useCorn({
     item,
-    onChange: item => {
-      setTransient(item)
-    },
-    onSubmit: item => {
-      action('onSubmit')(item)
-      setItem(item)
-    },
+    onChange: handleChange,
+    onSubmit: handleSubmit,
   })
+
+  const handleItemEdited = useCallback(it => {
+    setItem(it)
+  }, [])
 
   return (
     <Story>
-      <StoryItem item={item} transient={transient} onItemEdited={setItem} />
+      <StoryItem
+        item={item}
+        transient={transient}
+        delta={delta}
+        errors={errors}
+        onItemEdited={handleItemEdited}
+      />
       <form {...form}>
         <Inline>
           <Text required maxLength={25} {...field('name')}>
@@ -73,7 +92,7 @@ export const LabelledCornForm = () => {
             'Australia/Oceania',
             'South America',
           ]}
-          multiple
+          // multiple
           {...field('address.continent')}
         >
           Continent
