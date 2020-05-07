@@ -32,7 +32,7 @@ export const LabelledCornForm = () => {
       continent: null,
     },
     age: 25,
-    message: 'Hello,\n\nHow are you?',
+    message: 'Hello,\nHow are you?',
   })
 
   const [transient, setTransient] = useState({})

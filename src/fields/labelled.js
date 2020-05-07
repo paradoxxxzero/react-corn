@@ -23,6 +23,9 @@ export const Field = withTheme(styled.div`
     color: inherit;
     margin: 0.5em 0;
     background-color: ${props => props.theme.backgroundColor.base};
+    border-radius: 0.15em;
+    margin: 0.5em 0;
+    max-width: 100%;
   }
 `)
 
