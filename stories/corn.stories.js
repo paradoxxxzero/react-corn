@@ -36,10 +36,9 @@ export const LabelledCornForm = () => {
   })
 
   const [transient, setTransient] = useState({})
-  const corn = useCorn({
+  const { form, field, modified, reset } = useCorn({
     item,
     onChange: item => {
-      action('onChange')(item)
       setTransient(item)
     },
     onSubmit: item => {
@@ -51,18 +50,18 @@ export const LabelledCornForm = () => {
   return (
     <Story>
       <StoryItem item={item} transient={transient} onItemEdited={setItem} />
-      <form {...corn.form}>
+      <form {...form}>
         <Inline>
-          <Text required {...corn.field('name')} maxLength={25}>
+          <Text required maxLength={25} {...field('name')}>
             Name
           </Text>
-          <Email {...corn.field('mail')}>Mail</Email>
+          <Email {...field('mail')}>Mail</Email>
         </Inline>
         <Inline>
-          <Text size={5} {...corn.field('address.zipcode')}>
+          <Text size={5} {...field('address.zipcode')}>
             Zip code
           </Text>
-          <Text {...corn.field('address.city')}>City</Text>
+          <Text {...field('address.city')}>City</Text>
         </Inline>
         <Select
           choices={[
@@ -75,19 +74,19 @@ export const LabelledCornForm = () => {
             'South America',
           ]}
           multiple
-          {...corn.field('address.continent')}
+          {...field('address.continent')}
         >
           Continent
         </Select>
-        <Number min={12} {...corn.field('age')}>
+        <Number min={12} {...field('age')}>
           Age
         </Number>
-        <TextArea {...corn.field('message')}>Message</TextArea>
+        <TextArea {...field('message')}>Message</TextArea>
 
-        <button type="button" disabled={!corn.modified} onClick={corn.reset}>
+        <button type="button" disabled={!modified} onClick={reset}>
           Reset
         </button>
-        <button disabled={!corn.modified}>Submit</button>
+        <button disabled={!modified}>Submit</button>
       </form>
     </Story>
   )

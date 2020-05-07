@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { diff, get, insert } from './object'
 
+// Normalize the value on field exit (defaults to removing extra spaces)
+const normalizer = v => (v && v.trim ? v.trim() : v)
+
 export const useCorn = ({
   // The item to edit:
   item,
@@ -41,23 +44,43 @@ export const useCorn = ({
 
   // On transient changes, call the super onChange
   useEffect(() => {
-    propagateChange(transient)
+    // Propagate async to avoid render freeze when other computational extensive
+    // components uses onChange
+    setTimeout(() => propagateChange(transient))
   }, [transient, propagateChange])
+
+  const plant = useCallback(name => {
+    names.current = [...names.current, name]
+  }, [])
+
+  const unplant = useCallback(name => {
+    names.current = names.current.filter(n => n !== name)
+  }, [])
+
+  // Update transient object on field change
+  // Fields must call this with the value (and not the event)
+  const onChange = useCallback((name, value) => {
+    setTransient(o => insert(o, name, value, names.current))
+  }, [])
+
+  // Normalize value on blur
+  const onBlur = useCallback(value => {
+    const normalized = normalizer(value)
+    if (normalized !== value) {
+      setTransient(o => insert(o, name, normalized, names.current))
+    }
+  }, [])
+
+  // Update the error holder on value change
+  // Fields should call this functions when there's an error in the field
+  // value (and then with null when there's no more error).
+  const onError = useCallback((name, error) => {
+    setErrors(e => (e[name] !== error ? { ...e, [name]: error } : e))
+  }, [])
 
   // This function generate field props from a field name and corn options
   const field = useCallback(
-    (
-      // The field name, can be composed with a dot to edit sub objects
-      // i.e.: key or key.0.subkey.subsubkey
-      name,
-      {
-        // Normalize the value on field exit (defaults to removing extra spaces)
-        normalizer = v => (v && v.trim ? v.trim() : v),
-      } = {}
-    ) => {
-      if (!names.current.includes(name)) {
-        names.current.push(name)
-      }
+    name => {
       // This field current value is stored in transient
       const value = get(transient, name)
       // If there is a delta for this field, it's modified
@@ -70,27 +93,14 @@ export const useCorn = ({
         value,
         modified,
         error,
-        // Update transient object on field change
-        // Fields must call this with the value (and not the event)
-        onChange: value => {
-          setTransient(o => insert(o, name, value, names.current))
-        },
-        // Normalize value on blur
-        onBlur: () => {
-          const normalized = normalizer(value)
-          if (normalized !== value) {
-            setTransient(o => insert(o, name, normalized, names.current))
-          }
-        },
-        // Update the error holder on value change
-        // Fields should call this functions when there's an error in the field
-        // value (and then with null when there's no more error).
-        onError: error => {
-          setErrors(e => (e[name] !== error ? { ...e, [name]: error } : e))
-        },
+        plant,
+        unplant,
+        onChange,
+        onError,
+        onBlur,
       }
     },
-    [delta, transient, errors]
+    [transient, delta, errors, plant, unplant, onChange, onError, onBlur]
   )
 
   // Reset the transient item to the orginal one, resetting all field to item values

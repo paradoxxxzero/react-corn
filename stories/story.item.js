@@ -1,9 +1,10 @@
+import 'prismjs/themes/prism-coy.css'
+
 import { highlight, languages } from 'prismjs/components/prism-core'
 import {} from 'prismjs/components/prism-json'
-import React, { useEffect, useState } from 'react'
-import Inspector, { chromeLight } from 'react-inspector'
+import React, { useCallback, useEffect, useState } from 'react'
 import Editor from 'react-simple-code-editor'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const Objects = styled.aside`
   display: flex;
@@ -11,54 +12,54 @@ const Objects = styled.aside`
   justify-content: space-between;
 `
 
-const Object = styled.div`
-  margin: 1em;
+const ObjectWithTitle = styled.div`
   flex: 1;
-  word-break: break-all;
+  margin: 0.5em;
 `
 
-const ObjectEditor = styled(Editor).withConfig({
-  shouldForwardProp: prop => prop !== 'syntaxError',
-})`
-  margin: 1em;
-  padding: 1em;
-  flex: 1;
-  font-family: Menlo, monospace;
-  font-size: 11px;
+const Object = styled.div`
+  padding: 0.5em;
+  color: ${props => (props.syntaxError ? 'red' : 'black')};
+  background-color: ${props =>
+    props.syntaxError ? 'rgba(255, 0, 0, 0.025)' : 'inherit'};
+
+  pre {
+    font-family: Menlo, monospace;
+    font-size: 11px;
+  }
 
   textarea {
     outline: none;
   }
-
-  .token.punctuation {
-    color: ${props => (props.syntaxError ? 'red' : chromeLight.BASE_COLOR)};
-  }
-  .token.property {
-    color: ${chromeLight.OBJECT_NAME_COLOR};
-  }
-  ${[
-    'null',
-    'undefined',
-    'regexp',
-    'string',
-    'symbol',
-    'number',
-    'boolean',
-  ].map(
-    k => css`
-      .token.${k} {
-        color: ${chromeLight[`OBJECT_VALUE_${k.toUpperCase()}_COLOR`]};
-      }
-    `
-  )}
 `
-export default function StoryItem({ item, transient, onItemEdited }) {
-  const [strItem, setStrItem] = useState(JSON.stringify(item, null, 2))
+const Title = styled.h4`
+  margin: 0.25em;
+`
+const Mute = styled.small`
+  color: rgba(0, 0, 0, 0.2);
+`
+
+const highlightJson = code => highlight(code, languages.json)
+
+const ObjectEditor = ({ item, readOnly, onItemEdited, children }) => {
+  const [strItem, setStrItem] = useState(prettyJson(item))
   const [syntaxError, setSyntaxError] = useState(false)
 
   useEffect(() => {
-    onItemEdited(it => {
-      if (JSON.stringify(it, null, 2) !== strItem) {
+    setStrItem(oldStr => {
+      const newStr = prettyJson(item)
+
+      if (newStr !== prettyJson(JSON.parse(oldStr))) {
+        return newStr
+      }
+
+      return oldStr
+    })
+  }, [item])
+
+  useEffect(() => {
+    !readOnly &&
+      onItemEdited(it => {
         try {
           const parsed = JSON.parse(strItem)
           setSyntaxError(false)
@@ -66,25 +67,41 @@ export default function StoryItem({ item, transient, onItemEdited }) {
         } catch (e) {
           setSyntaxError(true)
         }
-      }
-      return it
-    })
-  }, [onItemEdited, strItem])
+        return it
+      })
+  }, [readOnly, onItemEdited, strItem])
 
+  const reprettify = useCallback(() => {
+    setStrItem(oldStr => {
+      return prettyJson(JSON.parse(oldStr))
+    })
+  }, [])
+  return (
+    <ObjectWithTitle syntaxError={syntaxError}>
+      <Title>{children}</Title>
+      <Object syntaxError={syntaxError}>
+        <Editor
+          readOnly={readOnly}
+          value={strItem}
+          onValueChange={setStrItem}
+          onBlur={reprettify}
+          highlight={highlightJson}
+        />
+      </Object>
+    </ObjectWithTitle>
+  )
+}
+
+export const prettyJson = json => JSON.stringify(json, null, 2)
+export default function StoryItem({ item, transient, onItemEdited }) {
   return (
     <Objects>
-      <Object>
-        <Inspector name="Item" data={[item]} expandLevel={99} />
-      </Object>
-      <Object>
-        <Inspector name="Transient Item" data={[transient]} expandLevel={99} />
-      </Object>
-      <ObjectEditor
-        syntaxError={syntaxError}
-        value={strItem}
-        onValueChange={code => setStrItem(code)}
-        highlight={code => highlight(code, languages.json)}
-      />
+      <ObjectEditor item={transient} readOnly highlight={highlightJson}>
+        Transient item <Mute>(onChange)</Mute>
+      </ObjectEditor>
+      <ObjectEditor item={item} onItemEdited={onItemEdited}>
+        Item <Mute>(onSubmit)</Mute>
+      </ObjectEditor>
     </Objects>
   )
 }

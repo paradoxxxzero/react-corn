@@ -1,35 +1,77 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { memo, useCallback, useEffect, useRef } from 'react'
 
 import { useMaybeMultipleValue, useOptions } from '../hooks'
 
-export const Input = ({ onChange, onError, error, ...props }) => {
+export const Input = memo(function Input({
+  onChange,
+  onBlur,
+  onError,
+  error,
+  plant,
+  unplant,
+  name,
+  value,
+  Component = 'input',
+  ...props
+}) {
   const inputRef = useRef()
+  useEffect(() => {
+    plant(name)
+    return () => {
+      unplant(name)
+    }
+  }, [name, plant, unplant])
+
   const handleChange = useCallback(
     e =>
       onChange(
+        name,
         e.target[
           ['radio', 'checkbox'].includes(props.type) ? 'checked' : 'value'
         ]
       ),
-    [onChange, props.type]
+    [name, onChange, props.type]
   )
+
+  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
 
   useEffect(() => {
     onError(
+      name,
       inputRef.current.checkValidity()
         ? null
         : inputRef.current.validationMessage
     )
-  }, [onError, props.value])
+  }, [name, onError, props.value])
 
-  return <input ref={inputRef} onChange={handleChange} {...props} />
-}
+  return (
+    <Component
+      ref={inputRef}
+      name="name"
+      value={value}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      {...props}
+    />
+  )
+})
 
 export const Checkbox = props => <Input type="checkbox" {...props} />
 export const Color = props => <Input type="color" {...props} />
 export const Date = props => <Input type="date" {...props} />
 export const DatetimeLocal = props => <Input type="datetime-local" {...props} />
-export const Email = props => <Input type="email" {...props} />
+export const Email = props => (
+  <Input
+    type="email"
+    onKeyDown={e => {
+      // https://github.com/facebook/react/issues/6368
+      if (e.key === ' ') {
+        e.preventDefault()
+      }
+    }}
+    {...props}
+  />
+)
 export const File = props => <Input type="file" {...props} />
 export const Hidden = props => <Input type="hidden" {...props} />
 export const Month = props => <Input type="month" {...props} />
@@ -45,34 +87,66 @@ export const Week = props => <Input type="week" {...props} />
 
 export const Number = ({ onChange, ...props }) => {
   const handleChange = useCallback(
-    v => onChange(isNaN(parseFloat(v)) ? null : parseFloat(v)),
+    (n, v) => onChange(n, isNaN(parseFloat(v)) ? null : parseFloat(v)),
     [onChange]
   )
   return <Input type="number" onChange={handleChange} {...props} />
 }
 
-export const TextArea = ({ onChange, ...props }) => {
-  const handleChange = useCallback(e => onChange(e.target.value), [onChange])
+export const TextArea = props => <Input Component="textarea" {...props} />
 
-  return <textarea onChange={handleChange} {...props} />
-}
+export const Select = memo(function Select({
+  onChange,
+  onBlur,
+  onError,
+  choices,
+  plant,
+  unplant,
+  name,
+  value,
+  ...props
+}) {
+  const inputRef = useRef()
 
-export const Select = ({ onChange, choices, value, ...props }) => {
+  useEffect(() => {
+    plant(name)
+    return () => {
+      unplant(name)
+    }
+  }, [name, plant, unplant])
+
   const options = useOptions(choices)
   const multipleValue = useMaybeMultipleValue(props.multiple, value)
   const handleChange = useCallback(
     e =>
       onChange(
+        name,
         props.multiple
           ? [...e.target.options].filter(o => o.selected).map(o => o.value)
           : e.target.value
       ),
-    [onChange, props.multiple]
+    [name, onChange, props.multiple]
   )
 
+  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
+
+  useEffect(() => {
+    onError(
+      name,
+      inputRef.current.checkValidity()
+        ? null
+        : inputRef.current.validationMessage
+    )
+  }, [name, onError, props.value])
+
   return (
-    // eslint-disable-next-line jsx-a11y/no-onchange
-    <select onChange={handleChange} value={multipleValue} {...props}>
+    <select
+      ref={inputRef}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      value={multipleValue}
+      {...props}
+    >
       {!props.multiple && options.every(([k]) => k) && <option value="" />}
       {options.map(([label, key]) => (
         <option key={key} value={key}>
@@ -81,4 +155,4 @@ export const Select = ({ onChange, choices, value, ...props }) => {
       ))}
     </select>
   )
-}
+})
