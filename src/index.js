@@ -52,16 +52,25 @@ export const useCorn = ({
   const onSubmit = useCallback(
     e => {
       e.preventDefault()
-      propagateSubmit(merge(item, transient), merge({}, transient))
+      if (Object.values(errors).some(x => x)) {
+        // Should not happen as the form should prevent submit
+        window.alert(
+          `Please fix errors in the following fields: ${Object.entries(errors)
+            .filter(([_, v]) => v)
+            .map(([k]) => k)
+            .join(', ')}`
+        )
+        return
+      }
+      if (Object.keys(transient).length) {
+        propagateSubmit(merge(item, transient), merge({}, transient))
+      }
     },
-    [propagateSubmit, item, transient]
+    [errors, propagateSubmit, item, transient]
   )
 
   // On transient changes, call the super onChange
   useEffect(() => {
-    // Propagate async to avoid render freeze when other computational extensive
-    // components uses onChange
-    // setTimeout(() => propagateChange(merge(item, transient), transient), 1)
     propagateChange(
       merge(item, transient),
       merge({}, transient),
@@ -75,7 +84,10 @@ export const useCorn = ({
         }, {})
       )
     )
-  }, [transient, propagateChange, item, errors])
+    // We voluntarly omit everything except transient because it's only
+    // transient changes that should initiate onChange
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transient])
 
   const plant = useCallback(
     name => {

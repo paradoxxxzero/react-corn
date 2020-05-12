@@ -1,4 +1,6 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useState } from 'react'
+
+import { debounce } from './utils'
 
 export const useOptions = choices => {
   const options = useMemo(() => {
@@ -22,4 +24,16 @@ export const useMaybeMultipleValue = (multiple, value) => {
   }, [multiple, value])
 
   return multipleValue
+}
+
+export const useDebouncedState = (initial, wait = 50) => {
+  const setStateDebouncedRef = useRef()
+  const currentWaitRef = useRef(wait)
+  const [state, setState] = useState(initial)
+
+  if (!setStateDebouncedRef.current || currentWaitRef.current !== wait) {
+    setStateDebouncedRef.current = debounce(setState, wait)
+  }
+
+  return [state, setStateDebouncedRef.current]
 }

@@ -12,6 +12,8 @@ export const Input = memo(function Input({
   name,
   value,
   Component = 'input',
+  // Unused extra props in core:
+  modified,
   ...props
 }) {
   const inputRef = useRef()

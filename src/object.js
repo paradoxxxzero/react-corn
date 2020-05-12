@@ -18,6 +18,7 @@ export const update = (o, name, value) => {
 
 export const merge = (item, transient) =>
   // TODO: improve this
-  Object.entries(transient).reduce((o, [name, value]) => {
-    return update(o, name, emptyStringToNull(value))
-  }, item)
+  Object.entries(transient).reduce(
+    (o, [name, value]) => update(o, name, emptyStringToNull(value)),
+    item
+  )

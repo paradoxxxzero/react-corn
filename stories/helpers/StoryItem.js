@@ -8,11 +8,11 @@ import styled from 'styled-components'
 
 const Objects = styled.aside`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 `
 
-const ObjectWithTitle = styled.div`
+const ObjectWithTitle = styled.label`
   flex: 1;
   margin: 0.5em;
 `
@@ -23,6 +23,8 @@ const EditorContainer = styled.div`
   background-color: ${props =>
     props.syntaxError ? 'rgba(255, 0, 0, 0.025)' : 'inherit'};
 
+  border: ${props => (props.editable ? '1px solid hsl(0,0%,50%)' : 'none')};
+
   pre {
     font-family: Menlo, monospace;
     font-size: 11px;
@@ -31,10 +33,6 @@ const EditorContainer = styled.div`
   textarea {
     outline: none;
   }
-`
-const Icon = styled.span`
-  font-size: 1.5em;
-  font-weight: normal;
 `
 
 const Title = styled.h4`
@@ -85,9 +83,20 @@ const Object = ({ item, onItemEdited, children }) => {
     <ObjectWithTitle syntaxError={syntaxError}>
       <Title>
         {children}
-        {onItemEdited && <Icon> &#128393;</Icon>}
+        {onItemEdited && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            style={{ float: 'right' }}
+          >
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        )}
       </Title>
-      <EditorContainer syntaxError={syntaxError}>
+      <EditorContainer syntaxError={syntaxError} editable={!!onItemEdited}>
         <Editor
           readOnly={!onItemEdited}
           value={strItem}
@@ -113,14 +122,14 @@ export default function StoryItem({
       <Object item={transient}>
         Transient item <Mute>(onChange)</Mute>
       </Object>
-      <Object item={errors}>
-        Current errors <Mute>(onChange)</Mute>
-      </Object>
       <Object item={item} onItemEdited={onItemEdited}>
         Item <Mute>(onSubmit)</Mute>
       </Object>
       <Object item={delta}>
         Delta <Mute>(onSubmit)</Mute>
+      </Object>
+      <Object item={errors}>
+        Current errors <Mute>(onChange)</Mute>
       </Object>
     </Objects>
   )

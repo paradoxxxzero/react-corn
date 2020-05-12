@@ -31,6 +31,23 @@ export const Field = withTheme(styled.div`
 
 export const Error = styled.div``
 
+export const ButtonRow = styled.div`
+  button {
+    margin: 1em;
+    padding: 0.25em 0.75em;
+    font: inherit;
+    cursor: pointer;
+    &[disabled] {
+      cursor: not-allowed;
+    }
+
+    &[type='button'] {
+      background: none;
+      border: none;
+    }
+  }
+`
+
 export const Label = withTheme(styled.label`
   display: block;
   margin: 1.5em;
