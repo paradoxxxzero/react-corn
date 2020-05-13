@@ -2,7 +2,7 @@
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
-import { Email, Number, Select, Text, TextArea } from '@react-corn/material-ui'
+import { Email, Select, Slider, Text, TextArea } from '@react-corn/material-ui'
 import React, { memo, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
@@ -84,9 +84,9 @@ const MaterialUiCornForm = memo(
         >
           Continent
         </Select>
-        <Number min={12} {...field('age')}>
+        <Slider min={12} max={100} {...field('age')}>
           Age
-        </Number>
+        </Slider>
         <TextArea {...field('message')}>Message</TextArea>
 
         <Button

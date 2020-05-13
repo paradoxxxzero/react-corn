@@ -1,4 +1,9 @@
-import { MenuItem, TextField } from '@material-ui/core'
+import {
+  MenuItem,
+  Slider as MuiSlider,
+  TextField,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useMaybeMultipleValue, useOptions } from '@react-corn/core'
 import clsx from 'clsx'
@@ -71,6 +76,15 @@ const useStyles = makeStyles(theme => ({
     '& .MuiInput-root': {
       minWidth: '200px',
     },
+  },
+  hidden: {
+    width: 0,
+    height: 0,
+    visibility: 'hidden',
+  },
+  slider: {
+    margin: theme.spacing(4),
+    maxWidth: '200px',
   },
 }))
 export const Input = memo(function Input({
@@ -274,3 +288,46 @@ export const Select = memo(function Select({
     </TextField>
   )
 })
+
+export const Slider = ({
+  onChange,
+  onBlur,
+  onError,
+  error,
+  plant,
+  unplant,
+  name,
+  value,
+  min,
+  max,
+  step,
+  marks,
+  children,
+  ...props
+}) => {
+  const classes = useStyles()
+
+  useEffect(() => {
+    plant(name)
+    return () => {
+      unplant(name)
+    }
+  }, [name, plant, unplant])
+  const handleChange = useCallback(
+    (e, v) => onChange(name, isNaN(parseFloat(v)) ? null : parseFloat(v)),
+    [name, onChange]
+  )
+  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
+  return (
+    <div className={classes.slider}>
+      <Typography>{children}</Typography>
+      <MuiSlider
+        marks={marks}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        {...props}
+      />
+    </div>
+  )
+}
