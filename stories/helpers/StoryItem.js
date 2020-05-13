@@ -10,6 +10,7 @@ const Objects = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 400px;
 `
 
 const ObjectWithTitle = styled.label`

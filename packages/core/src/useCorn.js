@@ -90,7 +90,7 @@ export const useCorn = ({
     // We voluntarly omit everything except transient because it's only
     // transient changes that should initiate onChange
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transient])
+  }, [transient, errors])
 
   const plant = useCallback(
     name => {

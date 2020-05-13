@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useCorn } from '@react-corn/core'
-import { Number, Text } from '@react-corn/core/fields'
+import { Number, Text, useCorn } from '@react-corn/core'
 import React, { useState } from 'react'
 
 export default {

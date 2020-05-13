@@ -49,7 +49,7 @@ export const Input = memo(function Input({
   return (
     <Component
       ref={inputRef}
-      name="name"
+      name={name}
       value={value}
       onChange={handleChange}
       onBlur={handleBlur}

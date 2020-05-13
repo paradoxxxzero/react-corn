@@ -17,7 +17,6 @@ module.exports = {
   rules: {
     'simple-import-sort/sort': 'error',
     'import/order': 'off',
-    'import/no-unresolved': 'off',
     'react/prop-types': 'off',
     'no-unused-vars': ['error', { ignoreRestSiblings: true }],
   },

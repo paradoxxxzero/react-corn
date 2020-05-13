@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
 import { Email, Number, Select, Text, TextArea } from '@react-corn/material-ui'
 import React, { memo, useCallback } from 'react'
@@ -7,11 +8,33 @@ import React, { memo, useCallback } from 'react'
 import { Story } from './helpers/Story'
 
 export default {
-  title: '@react-corn/simple',
+  title: '@react-corn/material-ui',
 }
 
-const LabelledCornForm = memo(
+const useStyles = makeStyles(theme => ({
+  form: {
+    '& .MuiTextField-root': {
+      display: 'block',
+      margin: theme.spacing(4),
+    },
+  },
+  inline: {
+    margin: theme.spacing(2),
+
+    '& .MuiTextField-root': {
+      display: 'inline-flex',
+      margin: theme.spacing(2),
+    },
+  },
+  button: {
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(4),
+  },
+}))
+
+const MaterialUiCornForm = memo(
   ({ item, onItem, onTransient, onDelta, onErrors }) => {
+    const classes = useStyles()
     const handleChange = useCallback(
       (transient, delta, errors) => {
         onTransient(transient)
@@ -34,11 +57,13 @@ const LabelledCornForm = memo(
     })
 
     return (
-      <form {...form}>
-        <Text required maxLength={25} {...field('name')}>
-          Name
-        </Text>
-        <Email {...field('mail')}>Mail</Email>
+      <form className={classes.form} {...form}>
+        <div className={classes.inline}>
+          <Text required maxLength={25} {...field('name')}>
+            Name
+          </Text>
+          <Email {...field('mail')}>Mail</Email>
+        </div>
         <Text size={5} {...field('address.zipcode')}>
           Zip code
         </Text>
@@ -63,11 +88,17 @@ const LabelledCornForm = memo(
         </Number>
         <TextArea {...field('message')}>Message</TextArea>
 
-        <Button disabled={!modified}>Submit</Button>
         <Button
-          type="button"
+          className={classes.button}
+          disabled={!modified}
           color="primary"
           variant="contained"
+        >
+          Submit
+        </Button>
+        <Button
+          className={classes.button}
+          type="button"
           disabled={!modified}
           onClick={reset}
         >
@@ -78,10 +109,10 @@ const LabelledCornForm = memo(
   }
 )
 
-export const LabelledCornStory = () => {
+export const MaterialUiCornStory = () => {
   return (
     <Story
-      Chapter={LabelledCornForm}
+      Chapter={MaterialUiCornForm}
       initialItem={{
         name: 'John Foo',
         mail: 'john.foo@example.com',

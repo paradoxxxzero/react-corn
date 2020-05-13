@@ -2,6 +2,58 @@ import { TextField } from '@material-ui/core'
 import { useMaybeMultipleValue, useOptions } from '@react-corn/core'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 
+const muiTextFieldProps = [
+  // TextField
+  'autoComplete',
+  'autoFocus',
+  'children',
+  'classes',
+  'className',
+  'color',
+  'defaultValue',
+  'disabled',
+  'error',
+  'FormHelperTextProps',
+  'fullWidth',
+  'helperText',
+  'hiddenLabel',
+  'id',
+  'InputLabelProps',
+  'inputProps',
+  'InputProps',
+  'inputRef',
+  'label',
+  'multiline',
+  'name',
+  'onBlur',
+  'onChange',
+  'onFocus',
+  'placeholder',
+  'required',
+  'rows',
+  'rowsMax',
+  'select',
+  'SelectProps',
+  'type',
+  'value',
+  'variant',
+  // FormControl
+  'children',
+  'classes',
+  'className',
+  'color',
+  'component',
+  'disabled',
+  'error',
+  'fullWidth',
+  'focused',
+  'hiddenLabel',
+  'margin',
+  'required',
+  'size',
+  'variant',
+]
+
 // TODO implement this
 export const Input = memo(function Input({
   onChange,
@@ -12,6 +64,8 @@ export const Input = memo(function Input({
   unplant,
   name,
   value,
+  children,
+
   // Unused extra props in core:
   modified,
   ...props
@@ -46,14 +100,26 @@ export const Input = memo(function Input({
     )
   }, [name, onError, value])
 
+  const { muiProps, inputProps } = Object.entries(props).reduce(
+    (acc, [k, v]) => {
+      acc[muiTextFieldProps.includes(k) ? 'muiProps' : 'inputProps'][k] = v
+      return acc
+    },
+    { muiProps: {}, inputProps: {} }
+  )
+
   return (
     <TextField
-      ref={inputRef}
-      name="name"
+      {...muiProps}
+      inputRef={inputRef}
+      name={name}
       value={value}
       onChange={handleChange}
       onBlur={handleBlur}
-      {...props}
+      label={muiProps.label || children}
+      error={!!error}
+      helperText={error || muiProps.helperText}
+      inputProps={inputProps}
     />
   )
 })
