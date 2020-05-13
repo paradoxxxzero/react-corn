@@ -103,6 +103,8 @@ export const Select = memo(function Select({
   unplant,
   name,
   value,
+  // Unused extra props in core:
+  modified,
   ...props
 }) {
   const inputRef = useRef()

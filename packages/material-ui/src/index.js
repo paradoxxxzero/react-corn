@@ -1,5 +1,7 @@
-import { TextField } from '@material-ui/core'
+import { MenuItem, TextField } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { useMaybeMultipleValue, useOptions } from '@react-corn/core'
+import clsx from 'clsx'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 
 const muiTextFieldProps = [
@@ -50,11 +52,27 @@ const muiTextFieldProps = [
   'hiddenLabel',
   'margin',
   'required',
-  'size',
+  // 'size',
   'variant',
 ]
 
-// TODO implement this
+const useStyles = makeStyles(theme => ({
+  base: {
+    '& .MuiInput-root': {
+      color: theme.palette.text.secondary,
+    },
+  },
+  modified: {
+    '& .MuiInput-root': {
+      color: theme.palette.text.primary,
+    },
+  },
+  select: {
+    '& .MuiInput-root': {
+      minWidth: '200px',
+    },
+  },
+}))
 export const Input = memo(function Input({
   onChange,
   onBlur,
@@ -65,12 +83,13 @@ export const Input = memo(function Input({
   name,
   value,
   children,
-
-  // Unused extra props in core:
   modified,
+  muiSize,
   ...props
 }) {
+  const classes = useStyles()
   const inputRef = useRef()
+
   useEffect(() => {
     plant(name)
     return () => {
@@ -111,6 +130,11 @@ export const Input = memo(function Input({
   return (
     <TextField
       {...muiProps}
+      size={muiSize}
+      className={clsx(muiProps.className, {
+        [classes.base]: !modified,
+        [classes.modified]: modified,
+      })}
       inputRef={inputRef}
       name={name}
       value={value}
@@ -158,19 +182,26 @@ export const Number = ({ onChange, ...props }) => {
   return <Input type="number" onChange={handleChange} {...props} />
 }
 
-export const TextArea = props => <Input Component="textarea" {...props} />
+export const TextArea = props => <Input multiline {...props} />
 
 export const Select = memo(function Select({
+  choices,
   onChange,
   onBlur,
   onError,
-  choices,
+  error,
   plant,
   unplant,
   name,
   value,
+  children,
+  modified,
+  multiple,
+  SelectProps = {},
+
   ...props
 }) {
+  const classes = useStyles()
   const inputRef = useRef()
 
   useEffect(() => {
@@ -181,17 +212,12 @@ export const Select = memo(function Select({
   }, [name, plant, unplant])
 
   const options = useOptions(choices)
-  const multipleValue = useMaybeMultipleValue(props.multiple, value)
+  const multipleValue = useMaybeMultipleValue(multiple, value)
   const handleChange = useCallback(
     e => {
-      onChange(
-        name,
-        props.multiple
-          ? [...e.target.options].filter(o => o.selected).map(o => o.value)
-          : e.target.value
-      )
+      onChange(name, e.target.value)
     },
-    [name, onChange, props.multiple]
+    [name, onChange]
   )
 
   const handleBlur = useCallback(() => {
@@ -201,26 +227,48 @@ export const Select = memo(function Select({
   useEffect(() => {
     onError(
       name,
-      inputRef.current.checkValidity()
+      inputRef.current.node.checkValidity()
         ? null
-        : inputRef.current.validationMessage
+        : inputRef.current.node.validationMessage
     )
   }, [name, onError, props.value])
 
+  const { muiProps, inputProps } = Object.entries(props).reduce(
+    (acc, [k, v]) => {
+      acc[muiTextFieldProps.includes(k) ? 'muiProps' : 'inputProps'][k] = v
+      return acc
+    },
+    { muiProps: {}, inputProps: {} }
+  )
+
   return (
-    <select
-      ref={inputRef}
+    <TextField
+      {...muiProps}
+      select
+      SelectProps={{
+        multiple,
+        ...SelectProps,
+      }}
+      className={clsx(muiProps.className, classes.select, {
+        [classes.base]: !modified,
+        [classes.modified]: modified,
+      })}
+      inputRef={inputRef}
+      name={name}
+      value={multipleValue}
       onChange={handleChange}
       onBlur={handleBlur}
-      value={multipleValue}
-      {...props}
+      label={muiProps.label || children}
+      error={!!error}
+      helperText={error || muiProps.helperText}
+      inputProps={inputProps}
     >
-      {!props.multiple && options.every(([k]) => k) && <option value="" />}
+      {!multiple && options.every(([k]) => k) && <option value="" />}
       {options.map(([label, key]) => (
-        <option key={key} value={key}>
+        <MenuItem key={key} value={key}>
           {label}
-        </option>
+        </MenuItem>
       ))}
-    </select>
+    </TextField>
   )
 })

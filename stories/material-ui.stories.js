@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 const MaterialUiCornForm = memo(
   ({ item, onItem, onTransient, onDelta, onErrors }) => {
     const classes = useStyles()
+
     const handleChange = useCallback(
       (transient, delta, errors) => {
         onTransient(transient)
@@ -90,18 +91,14 @@ const MaterialUiCornForm = memo(
 
         <Button
           className={classes.button}
+          type="submit"
           disabled={!modified}
           color="primary"
           variant="contained"
         >
           Submit
         </Button>
-        <Button
-          className={classes.button}
-          type="button"
-          disabled={!modified}
-          onClick={reset}
-        >
+        <Button className={classes.button} disabled={!modified} onClick={reset}>
           Reset
         </Button>
       </form>
