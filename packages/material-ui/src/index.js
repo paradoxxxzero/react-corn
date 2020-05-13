@@ -1,7 +1,8 @@
+import { TextField } from '@material-ui/core'
+import { useMaybeMultipleValue, useOptions } from '@react-corn/core'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 
-import { useMaybeMultipleValue, useOptions } from '../hooks'
-
+// TODO implement this
 export const Input = memo(function Input({
   onChange,
   onBlur,
@@ -11,7 +12,6 @@ export const Input = memo(function Input({
   unplant,
   name,
   value,
-  Component = 'input',
   // Unused extra props in core:
   modified,
   ...props
@@ -47,7 +47,7 @@ export const Input = memo(function Input({
   }, [name, onError, value])
 
   return (
-    <Component
+    <TextField
       ref={inputRef}
       name="name"
       value={value}

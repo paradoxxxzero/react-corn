@@ -6,7 +6,9 @@ import { get, merge } from './object'
 const normalizer = v => (v && v.trim ? v.trim() : v)
 
 const reducer = (state, action) => {
-  let _, transient
+  // eslint-disable-next-line no-unused-vars
+  let _
+  let transient
   switch (action.type) {
     case 'change':
       if (action.value === action.itemValue) {
@@ -56,6 +58,7 @@ export const useCorn = ({
         // Should not happen as the form should prevent submit
         window.alert(
           `Please fix errors in the following fields: ${Object.entries(errors)
+            // eslint-disable-next-line no-unused-vars
             .filter(([_, v]) => v)
             .map(([k]) => k)
             .join(', ')}`

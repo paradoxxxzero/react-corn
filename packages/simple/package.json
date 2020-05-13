@@ -1,0 +1,20 @@
+{
+  "name": "@react-corn/simple",
+  "version": "1.0.0",
+  "description": "Controlled forms with hooks for advanced object editing. Simple ui field package.",
+  "main": "dist/bundle.js",
+  "module": "src/index.js",
+  "repository": "https://github.com/paradoxxxzero/react-corn",
+  "author": "Florian Mounier",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "react": "^16.x.x",
+    "react-dom": "^16.x.x"
+  },
+  "dependencies": {
+    "styled-components": "^5.1.0"
+  }
+}

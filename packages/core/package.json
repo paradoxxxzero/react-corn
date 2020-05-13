@@ -1,0 +1,17 @@
+{
+  "name": "@react-corn/core",
+  "version": "1.0.0",
+  "description": "Controlled forms with hooks for advanced object editing. Core package.",
+  "main": "dist/bundle.js",
+  "module": "src/index.js",
+  "repository": "https://github.com/paradoxxxzero/react-corn",
+  "author": "Florian Mounier",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "react": "^16.x.x",
+    "react-dom": "^16.x.x"
+  }
+}

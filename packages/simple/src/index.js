@@ -1,9 +1,10 @@
+import * as core from '@react-corn/core'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import * as core from './core'
-import { withTheme } from './theme'
+import theme, { withTheme } from './theme'
 
+export { theme, withTheme }
 export const Field = withTheme(styled.div`
   border-color: ${props =>
     props.error

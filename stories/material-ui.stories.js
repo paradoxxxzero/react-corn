@@ -1,14 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { Button } from '@material-ui/core'
 import { useCorn } from '@react-corn/core'
-import {
-  ButtonRow,
-  Email,
-  Inline,
-  Number,
-  Select,
-  Text,
-  TextArea,
-} from '@react-corn/simple'
+import { Email, Number, Select, Text, TextArea } from '@react-corn/material-ui'
 import React, { memo, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
@@ -42,18 +35,14 @@ const LabelledCornForm = memo(
 
     return (
       <form {...form}>
-        <Inline>
-          <Text required maxLength={25} {...field('name')}>
-            Name
-          </Text>
-          <Email {...field('mail')}>Mail</Email>
-        </Inline>
-        <Inline>
-          <Text size={5} {...field('address.zipcode')}>
-            Zip code
-          </Text>
-          <Text {...field('address.city')}>City</Text>
-        </Inline>
+        <Text required maxLength={25} {...field('name')}>
+          Name
+        </Text>
+        <Email {...field('mail')}>Mail</Email>
+        <Text size={5} {...field('address.zipcode')}>
+          Zip code
+        </Text>
+        <Text {...field('address.city')}>City</Text>
         <Select
           choices={[
             'Africa',
@@ -74,12 +63,16 @@ const LabelledCornForm = memo(
         </Number>
         <TextArea {...field('message')}>Message</TextArea>
 
-        <ButtonRow>
-          <button disabled={!modified}>Submit</button>
-          <button type="button" disabled={!modified} onClick={reset}>
-            Reset
-          </button>
-        </ButtonRow>
+        <Button disabled={!modified}>Submit</Button>
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          disabled={!modified}
+          onClick={reset}
+        >
+          Reset
+        </Button>
       </form>
     )
   }
