@@ -263,7 +263,9 @@ export const Select = memo(function Select({
       helperText={error || muiProps.helperText}
       inputProps={inputProps}
     >
-      {!multiple && options.every(([k]) => k) && <option value="" />}
+      {!multiple && options.every(([k]) => k) && (
+        <MenuItem value="">&nbsp;</MenuItem>
+      )}
       {options.map(([label, key]) => (
         <MenuItem key={key} value={key}>
           {label}
