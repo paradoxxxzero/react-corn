@@ -49,10 +49,16 @@ const LabelledCornForm = memo(
           <Email {...field('mail')}>Mail</Email>
         </Inline>
         <Inline>
-          <Text size={5} {...field('address.zipcode')}>
+          <Text size={5} maxLength={5} {...field('address.zipcode')}>
             Zip code
           </Text>
-          <Text {...field('address.city')}>City</Text>
+          <Text
+            {...field('address.city', {
+              required: ({ address: { zipcode } }) => !!zipcode,
+            })}
+          >
+            City
+          </Text>
         </Inline>
         <Select
           choices={[

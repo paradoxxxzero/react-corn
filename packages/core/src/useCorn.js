@@ -142,13 +142,21 @@ export const useCorn = ({
 
   // This function generate field props from a field name and corn options
   const field = useCallback(
-    name => {
+    (name, options) => {
       // If there is a transient entry for this field, it's modified
       const modified = Object.keys(transient).includes(name)
       // This field current value is stored in transient
       const value = modified ? transient[name] : get(item, name)
       // If there's an error, pass it
       const error = errors[name]
+
+      const dynamicProps = Object.entries(options || {}).reduce(
+        (acc, [k, v]) => {
+          acc[k] = typeof v === 'function' ? v(merge(item, transient)) : v
+          return acc
+        },
+        {}
+      )
 
       return {
         name,
@@ -160,6 +168,7 @@ export const useCorn = ({
         onChange,
         onError,
         onBlur,
+        ...dynamicProps,
       }
     },
     [transient, item, errors, plant, unplant, onChange, onError, onBlur]

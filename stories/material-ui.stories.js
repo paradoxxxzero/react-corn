@@ -84,7 +84,7 @@ const MaterialUiCornForm = memo(
         >
           Continent
         </Select>
-        <Slider min={12} max={100} {...field('age')}>
+        <Slider min={12} max={100} valueLabelDisplay="auto" {...field('age')}>
           Age
         </Slider>
         <TextArea {...field('message')}>Message</TextArea>

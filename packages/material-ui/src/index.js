@@ -131,7 +131,7 @@ export const Input = memo(function Input({
         ? null
         : inputRef.current.validationMessage
     )
-  }, [name, onError, value])
+  }, [name, onError, value, props])
 
   const { muiProps, inputProps } = Object.entries(props).reduce(
     (acc, [k, v]) => {
@@ -245,7 +245,7 @@ export const Select = memo(function Select({
         ? null
         : inputRef.current.node.validationMessage
     )
-  }, [name, onError, props.value])
+  }, [name, onError, props, choices])
 
   const { muiProps, inputProps } = Object.entries(props).reduce(
     (acc, [k, v]) => {
@@ -303,6 +303,7 @@ export const Slider = ({
   step,
   marks,
   children,
+  modified,
   ...props
 }) => {
   const classes = useStyles()

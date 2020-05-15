@@ -44,7 +44,7 @@ export const Input = memo(function Input({
         ? null
         : inputRef.current.validationMessage
     )
-  }, [name, onError, value])
+  }, [name, onError, value, props])
 
   return (
     <Component
@@ -139,7 +139,7 @@ export const Select = memo(function Select({
         ? null
         : inputRef.current.validationMessage
     )
-  }, [name, onError, props.value])
+  }, [name, onError, props, choices])
 
   return (
     <select
