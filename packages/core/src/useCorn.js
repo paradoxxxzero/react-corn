@@ -66,7 +66,11 @@ export const useCorn = ({
         return
       }
       if (Object.keys(transient).length) {
-        propagateSubmit(merge(item, transient), merge({}, transient))
+        propagateSubmit(
+          merge(item, transient),
+          merge({}, transient),
+          merge(item, transient, names.current)
+        )
       }
     },
     [errors, propagateSubmit, item, transient]
@@ -94,6 +98,7 @@ export const useCorn = ({
 
   const plant = useCallback(
     name => {
+      console.log('Plant', name)
       names.current = [...names.current, name]
       dispatch({ type: 'plant', name, value: get(item, name) })
     },
@@ -102,6 +107,7 @@ export const useCorn = ({
 
   const unplant = useCallback(
     name => {
+      console.log('Unplant', name)
       names.current = names.current.filter(n => n !== name)
       dispatch({ type: 'unplant', name, value: get(item, name) })
     },
@@ -174,6 +180,13 @@ export const useCorn = ({
     [transient, item, errors, plant, unplant, onChange, onError, onBlur]
   )
 
+  const current = useCallback(
+    getter => {
+      return getter(merge(item, transient))
+    },
+    [item, transient]
+  )
+
   // Reset the transient item to the orginal one, resetting all field to item values
   const reset = useCallback(() => {
     dispatch({ type: 'reset' })
@@ -190,6 +203,7 @@ export const useCorn = ({
       onSubmit,
     },
     field,
+    current,
     modified,
     reset,
   }

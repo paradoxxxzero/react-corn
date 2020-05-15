@@ -27,14 +27,14 @@ const LabelledCornForm = memo(
       [onErrors, onTransient]
     )
     const handleSubmit = useCallback(
-      (item, delta) => {
-        onItem(item)
+      (item, delta, cleanItem) => {
+        onItem(cleanItem)
         onDelta(delta)
       },
       [onDelta, onItem]
     )
 
-    const { form, field, modified, reset } = useCorn({
+    const { form, field, modified, reset, current } = useCorn({
       item,
       onChange: handleChange,
       onSubmit: handleSubmit,
@@ -60,21 +60,23 @@ const LabelledCornForm = memo(
             City
           </Text>
         </Inline>
-        <Select
-          choices={[
-            'Africa',
-            'Antarctica',
-            'Asia',
-            'Europe',
-            'North America',
-            'Australia/Oceania',
-            'South America',
-          ]}
-          // multiple
-          {...field('address.continent')}
-        >
-          Continent
-        </Select>
+        {current(({ address }) => address.zipcode || address.city) && (
+          <Select
+            choices={[
+              'Africa',
+              'Antarctica',
+              'Asia',
+              'Europe',
+              'North America',
+              'Australia/Oceania',
+              'South America',
+            ]}
+            // multiple
+            {...field('address.continent')}
+          >
+            Continent
+          </Select>
+        )}
         <Number min={12} {...field('age')}>
           Age
         </Number>
