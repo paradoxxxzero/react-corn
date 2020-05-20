@@ -1,61 +1,12 @@
-import React, { memo, useCallback, useEffect, useRef } from 'react'
+import React, { memo, useCallback } from 'react'
 
+import { useCornField } from '.'
 import { useMaybeMultipleValue, useOptions } from './hooks'
 
-export const Input = memo(function Input({
-  onChange,
-  onBlur,
-  onError,
-  error,
-  plant,
-  unplant,
-  name,
-  value,
-  Component = 'input',
-  // Unused extra props in core:
-  modified,
-  ...props
-}) {
-  const inputRef = useRef()
-  useEffect(() => {
-    plant(name)
-    return () => {
-      unplant(name)
-    }
-  }, [name, plant, unplant])
+export const Input = memo(function Input({ Component = 'input', ...props }) {
+  const inputProps = useCornField(props)
 
-  const handleChange = useCallback(
-    e =>
-      onChange(
-        name,
-        e.target[
-          ['radio', 'checkbox'].includes(props.type) ? 'checked' : 'value'
-        ]
-      ),
-    [name, onChange, props.type]
-  )
-
-  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
-
-  useEffect(() => {
-    onError(
-      name,
-      inputRef.current.checkValidity()
-        ? null
-        : inputRef.current.validationMessage
-    )
-  }, [name, onError, value, props])
-
-  return (
-    <Component
-      ref={inputRef}
-      name={name}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      {...props}
-    />
-  )
+  return <Component {...inputProps} />
 })
 
 export const Checkbox = props => <Input type="checkbox" {...props} />
@@ -94,62 +45,29 @@ export const Number = ({ onChange, ...props }) => {
 
 export const TextArea = props => <Input Component="textarea" {...props} />
 
-export const Select = memo(function Select({
-  onChange,
-  onBlur,
-  onError,
-  choices,
-  plant,
-  unplant,
-  name,
-  value,
-  ...props
-}) {
-  const inputRef = useRef()
-
-  useEffect(() => {
-    plant(name)
-    return () => {
-      unplant(name)
-    }
-  }, [name, plant, unplant])
+export const Select = memo(function Select({ choices, ...props }) {
+  const { onChange } = props
+  const selectProps = useCornField(props)
+  const { name, multiple, value } = selectProps
 
   const options = useOptions(choices)
-  const multipleValue = useMaybeMultipleValue(props.multiple, value)
+  const multipleValue = useMaybeMultipleValue(multiple, value)
   const handleChange = useCallback(
     e => {
       onChange(
         name,
-        props.multiple
+        multiple
           ? [...e.target.options].filter(o => o.selected).map(o => o.value)
           : e.target.value
       )
     },
-    [name, onChange, props.multiple]
+    [name, onChange, multiple]
   )
 
-  const handleBlur = useCallback(() => {
-    onBlur(value)
-  }, [value, onBlur])
-
-  useEffect(() => {
-    onError(
-      name,
-      inputRef.current.checkValidity()
-        ? null
-        : inputRef.current.validationMessage
-    )
-  }, [name, onError, props, choices])
-
   return (
-    <select
-      ref={inputRef}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      value={multipleValue}
-      {...props}
-    >
-      {!props.multiple && options.every(([k]) => k) && <option value="" />}
+    // eslint-disable-next-line jsx-a11y/no-onchange
+    <select {...selectProps} onChange={handleChange} value={multipleValue}>
+      {!multiple && options.every(([k]) => k) && <option value="" />}
       {options.map(([label, key]) => (
         <option key={key} value={key}>
           {label}

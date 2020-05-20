@@ -6,7 +6,7 @@ export default {
   title: '@react-corn/core',
 }
 
-export const ControlledCoreForm = () => {
+export const ControlledForm = () => {
   const [item, setItem] = useState({
     name: 'Foo',
     value: 42,

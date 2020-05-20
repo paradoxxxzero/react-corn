@@ -28,7 +28,7 @@ const reducer = (state, action) => {
   }
 }
 
-export const useCorn = ({
+export default ({
   // The item to edit:
   item,
   // onChange will be called with the name, the current item state and its diff
@@ -98,7 +98,6 @@ export const useCorn = ({
 
   const plant = useCallback(
     name => {
-      console.log('Plant', name)
       names.current = [...names.current, name]
       dispatch({ type: 'plant', name, value: get(item, name) })
     },
@@ -107,7 +106,6 @@ export const useCorn = ({
 
   const unplant = useCallback(
     name => {
-      console.log('Unplant', name)
       names.current = names.current.filter(n => n !== name)
       dispatch({ type: 'unplant', name, value: get(item, name) })
     },
@@ -148,7 +146,17 @@ export const useCorn = ({
 
   // This function generate field props from a field name and corn options
   const field = useCallback(
-    (name, options) => {
+    (name, customValidator, options) => {
+      // customValidator is not required, options can be passed as second arg
+      if (
+        customValidator &&
+        typeof customValidator !== 'function' &&
+        !options
+      ) {
+        options = customValidator
+        customValidator = null
+      }
+
       // If there is a transient entry for this field, it's modified
       const modified = Object.keys(transient).includes(name)
       // This field current value is stored in transient
@@ -156,19 +164,23 @@ export const useCorn = ({
       // If there's an error, pass it
       const error = errors[name]
 
+      const mergedItem = merge(item, transient)
+
       const dynamicProps = Object.entries(options || {}).reduce(
         (acc, [k, v]) => {
-          acc[k] = typeof v === 'function' ? v(merge(item, transient)) : v
+          acc[k] = typeof v === 'function' ? v(mergedItem) : v
           return acc
         },
         {}
       )
 
+      const customError = customValidator && customValidator(mergedItem)
       return {
         name,
         value,
         modified,
         error,
+        customError,
         plant,
         unplant,
         onChange,

@@ -37,7 +37,7 @@ const Divider = styled.hr`
 `
 
 export const Story = ({ Chapter, initialItem }) => {
-  const [item, setItem] = useState(initialItem)
+  const [item, setItem] = useState(initialItem || {})
   const [transient, setTransient] = useDebouncedState({})
   const [delta, setDelta] = useState({})
   const [errors, setErrors] = useState({})

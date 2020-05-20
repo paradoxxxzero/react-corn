@@ -106,7 +106,7 @@ const MaterialUiCornForm = memo(
   }
 )
 
-export const MaterialUiCornStory = () => {
+export const MaterialUiCorn = () => {
   return (
     <Story
       Chapter={MaterialUiCornForm}

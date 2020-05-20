@@ -13,10 +13,6 @@ import React, { memo, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
 
-export default {
-  title: '@react-corn/simple',
-}
-
 const LabelledCornForm = memo(
   ({ item, onItem, onTransient, onDelta, onErrors }) => {
     const handleChange = useCallback(
@@ -110,4 +106,8 @@ export const LabelledCornStory = () => {
       }}
     />
   )
+}
+
+export default {
+  title: '@react-corn/simple',
 }
