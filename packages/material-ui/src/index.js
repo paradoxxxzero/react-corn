@@ -59,6 +59,12 @@ const useStyles = makeStyles(theme => ({
   slider: {
     top: '1.75em',
   },
+  sliderUnmodified: {
+    opacity: 0.75,
+  },
+  sliderModified: {
+    opacity: 1,
+  },
   sliderLabel: {
     top: '1.75em',
     position: 'relative',
@@ -241,8 +247,8 @@ export const Slider = memo(function Slider({ children, ...props }) {
     <FormControl
       {...fcProps}
       className={clsx(className, classes.sliderControl, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
+        [classes.sliderUnmodified]: !modified,
+        [classes.sliderModified]: modified,
       })}
       error={!!error}
       fullWidth

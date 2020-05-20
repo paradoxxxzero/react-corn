@@ -131,7 +131,7 @@ export const MaterialUiCorn = () => {
         address: {
           zipcode: 'Z4755A',
           city: 'Barville',
-          continent: null,
+          continent: 'Europe',
         },
         age: 25,
         message: 'Hello,\nHow are you?',
