@@ -63,7 +63,9 @@ const MaterialUiCornForm = memo(
           <Text required maxLength={25} {...field('name')}>
             Name
           </Text>
-          <Email {...field('mail')}>Mail</Email>
+          <Email disabled {...field('mail')}>
+            Mail
+          </Email>
         </div>
         <Text size={5} {...field('address.zipcode')}>
           Zip code
@@ -80,11 +82,24 @@ const MaterialUiCornForm = memo(
             'South America',
           ]}
           // multiple
-          {...field('address.continent')}
+          {...field(
+            'address.continent',
+            continent =>
+              continent === 'Australia/Oceania' &&
+              'Sorry but choose a closest continent'
+          )}
         >
           Continent
         </Select>
-        <Slider min={12} max={100} valueLabelDisplay="auto" {...field('age')}>
+        <Slider
+          min={12}
+          max={100}
+          valueLabelDisplay="auto"
+          {...field(
+            'age',
+            v => v > 90 && 'You might be too old for that, sorry.'
+          )}
+        >
           Age
         </Slider>
         <TextArea {...field('message')}>Message</TextArea>

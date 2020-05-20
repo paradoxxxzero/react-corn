@@ -1,65 +1,28 @@
 import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
   MenuItem,
   Slider as MuiSlider,
   TextField,
-  Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useMaybeMultipleValue, useOptions } from '@react-corn/core'
+import {
+  useCornField,
+  useMaybeMultipleValue,
+  useOptions,
+} from '@react-corn/core'
 import clsx from 'clsx'
-import React, { memo, useCallback, useEffect, useRef } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 
-const muiTextFieldProps = [
-  // TextField
-  'autoComplete',
-  'autoFocus',
-  'children',
-  'classes',
-  'className',
-  'color',
-  'defaultValue',
-  'disabled',
-  'error',
-  'FormHelperTextProps',
-  'fullWidth',
-  'helperText',
-  'hiddenLabel',
-  'id',
-  'InputLabelProps',
-  'inputProps',
-  'InputProps',
-  'inputRef',
-  'label',
-  'multiline',
-  'name',
-  'onBlur',
-  'onChange',
-  'onFocus',
-  'placeholder',
-  'required',
-  'rows',
-  'rowsMax',
-  'select',
-  'SelectProps',
-  'type',
-  'value',
-  'variant',
-  // FormControl
-  'children',
-  'classes',
-  'className',
-  'color',
-  'component',
-  'disabled',
-  'error',
-  'fullWidth',
-  'focused',
-  'hiddenLabel',
-  'margin',
-  'required',
-  // 'size',
-  'variant',
-]
+import {
+  muiFormControlProps,
+  muiSliderProps,
+  muiTextFieldProps,
+  useFilteredProps,
+} from './attributes'
+
+export const VALUE_DELIMITER = '/--/'
 
 const useStyles = makeStyles(theme => ({
   base: {
@@ -78,85 +41,51 @@ const useStyles = makeStyles(theme => ({
     },
   },
   hidden: {
-    width: 0,
+    top: '50%',
     height: 0,
-    visibility: 'hidden',
+    left: 0,
+    margin: 'auto !important',
+    opacity: 0,
+    position: 'absolute',
+    right: 0,
+    width: 0,
+    zIndex: -1,
   },
-  slider: {
+  sliderControl: {
+    display: 'block',
     margin: theme.spacing(4),
     maxWidth: '200px',
   },
+  slider: {
+    top: '1.75em',
+  },
+  sliderLabel: {
+    top: '1.75em',
+    position: 'relative',
+  },
 }))
-export const Input = memo(function Input({
-  onChange,
-  onBlur,
-  onError,
-  error,
-  plant,
-  unplant,
-  name,
-  value,
-  children,
-  modified,
-  muiSize,
-  ...props
-}) {
+export const Input = memo(function Input({ children, muiSize, ...props }) {
   const classes = useStyles()
-  const inputRef = useRef()
+  const { modified, error } = props
+  const { ref, ...cornProps } = useCornField(props)
 
-  useEffect(() => {
-    plant(name)
-    return () => {
-      unplant(name)
-    }
-  }, [name, plant, unplant])
-
-  const handleChange = useCallback(
-    e =>
-      onChange(
-        name,
-        e.target[
-          ['radio', 'checkbox'].includes(props.type) ? 'checked' : 'value'
-        ]
-      ),
-    [name, onChange, props.type]
-  )
-
-  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
-
-  useEffect(() => {
-    onError(
-      name,
-      inputRef.current.checkValidity()
-        ? null
-        : inputRef.current.validationMessage
-    )
-  }, [name, onError, value, props])
-
-  const { muiProps, inputProps } = Object.entries(props).reduce(
-    (acc, [k, v]) => {
-      acc[muiTextFieldProps.includes(k) ? 'muiProps' : 'inputProps'][k] = v
-      return acc
-    },
-    { muiProps: {}, inputProps: {} }
+  const [textFieldProps, inputProps] = useFilteredProps(
+    cornProps,
+    muiTextFieldProps
   )
 
   return (
     <TextField
-      {...muiProps}
+      {...textFieldProps}
       size={muiSize}
-      className={clsx(muiProps.className, {
+      className={clsx(textFieldProps.className, {
         [classes.base]: !modified,
         [classes.modified]: modified,
       })}
-      inputRef={inputRef}
-      name={name}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      label={muiProps.label || children}
+      inputRef={ref}
+      label={textFieldProps.label || children}
       error={!!error}
-      helperText={error || muiProps.helperText}
+      helperText={error || textFieldProps.helperText}
       inputProps={inputProps}
     />
   )
@@ -200,30 +129,15 @@ export const TextArea = props => <Input multiline {...props} />
 
 export const Select = memo(function Select({
   choices,
-  onChange,
-  onBlur,
-  onError,
-  error,
-  plant,
-  unplant,
-  name,
-  value,
   children,
-  modified,
   multiple,
-  SelectProps = {},
-
+  className,
   ...props
 }) {
   const classes = useStyles()
-  const inputRef = useRef()
-
-  useEffect(() => {
-    plant(name)
-    return () => {
-      unplant(name)
-    }
-  }, [name, plant, unplant])
+  const { modified, error, onChange } = props
+  const { ref, ...cornProps } = useCornField(props)
+  const { name, value } = cornProps
 
   const options = useOptions(choices)
   const multipleValue = useMaybeMultipleValue(multiple, value)
@@ -234,47 +148,65 @@ export const Select = memo(function Select({
     [name, onChange]
   )
 
-  const handleBlur = useCallback(() => {
-    onBlur(value)
-  }, [value, onBlur])
+  const [textFieldProps, inputProps] = useFilteredProps(
+    cornProps,
+    muiTextFieldProps
+  )
 
-  useEffect(() => {
-    onError(
+  const InputProps = useMemo(
+    () => ({
+      ...(textFieldProps.InputProps || {}),
+      endAdornment: (
+        <>
+          {textFieldProps.InputProps || null}
+          <input
+            ref={ref}
+            name={`${name}-corn-control`}
+            required={textFieldProps.required}
+            disabled={textFieldProps.disabled}
+            defaultValue={
+              multiple ? multipleValue.join(VALUE_DELIMITER) : multipleValue
+            }
+            className={classes.hidden}
+          />
+        </>
+      ),
+    }),
+    [
+      classes.hidden,
+      textFieldProps.InputProps,
+      textFieldProps.disabled,
+      textFieldProps.required,
+      multiple,
+      multipleValue,
       name,
-      inputRef.current.node.checkValidity()
-        ? null
-        : inputRef.current.node.validationMessage
-    )
-  }, [name, onError, props, choices])
+      ref,
+    ]
+  )
 
-  const { muiProps, inputProps } = Object.entries(props).reduce(
-    (acc, [k, v]) => {
-      acc[muiTextFieldProps.includes(k) ? 'muiProps' : 'inputProps'][k] = v
-      return acc
-    },
-    { muiProps: {}, inputProps: {} }
+  const SelectProps = useMemo(
+    () => ({
+      ...(textFieldProps.SelectProps || {}),
+      multiple,
+    }),
+    [textFieldProps.SelectProps, multiple]
   )
 
   return (
     <TextField
-      {...muiProps}
+      {...textFieldProps}
       select
-      SelectProps={{
-        multiple,
-        ...SelectProps,
-      }}
-      className={clsx(muiProps.className, classes.select, {
+      SelectProps={SelectProps}
+      className={clsx(className, classes.select, {
         [classes.base]: !modified,
         [classes.modified]: modified,
       })}
-      inputRef={inputRef}
-      name={name}
-      value={multipleValue}
       onChange={handleChange}
-      onBlur={handleBlur}
-      label={muiProps.label || children}
+      value={multipleValue}
+      label={textFieldProps.label || children}
       error={!!error}
-      helperText={error || muiProps.helperText}
+      helperText={error || textFieldProps.helperText}
+      InputProps={InputProps}
       inputProps={inputProps}
     >
       {!multiple && options.every(([k]) => k) && (
@@ -289,46 +221,52 @@ export const Select = memo(function Select({
   )
 })
 
-export const Slider = ({
-  onChange,
-  onBlur,
-  onError,
-  error,
-  plant,
-  unplant,
-  name,
-  value,
-  min,
-  max,
-  step,
-  marks,
-  children,
-  modified,
-  ...props
-}) => {
+export const Slider = memo(function Slider({ children, ...props }) {
+  const { modified, error, onChange } = props
+  const { ref, className, ...cornProps } = useCornField(props)
+  const { name, value } = cornProps
   const classes = useStyles()
 
-  useEffect(() => {
-    plant(name)
-    return () => {
-      unplant(name)
-    }
-  }, [name, plant, unplant])
   const handleChange = useCallback(
-    (e, v) => onChange(name, isNaN(parseFloat(v)) ? null : parseFloat(v)),
+    (e, v) => onChange(name, isNaN(parseFloat(v)) ? '' : parseFloat(v)),
     [name, onChange]
   )
-  const handleBlur = useCallback(() => onBlur(value), [value, onBlur])
-  return (
-    <div className={classes.slider}>
-      <Typography>{children}</Typography>
-      <MuiSlider
-        marks={marks}
-        value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        {...props}
-      />
-    </div>
+  const [sliderProps, fcProps, inputProps] = useFilteredProps(
+    cornProps,
+    muiSliderProps,
+    muiFormControlProps
   )
-}
+
+  return (
+    <FormControl
+      {...fcProps}
+      className={clsx(className, classes.sliderControl, {
+        [classes.base]: !modified,
+        [classes.modified]: modified,
+      })}
+      error={!!error}
+      fullWidth
+    >
+      <InputLabel disableAnimation shrink>
+        {children}
+      </InputLabel>
+      <MuiSlider
+        {...sliderProps}
+        className={clsx(classes.slider, className)}
+        onChange={handleChange}
+      />
+      {error && (
+        <FormHelperText className={classes.sliderLabel}>{error}</FormHelperText>
+      )}
+      <input
+        {...inputProps}
+        ref={ref}
+        name={`${name}-corn-control`}
+        type="number"
+        defaultValue={value}
+        className={classes.hidden}
+        value={undefined}
+      />
+    </FormControl>
+  )
+})

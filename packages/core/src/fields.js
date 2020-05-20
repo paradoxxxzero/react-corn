@@ -37,7 +37,7 @@ export const Week = props => <Input type="week" {...props} />
 
 export const Number = ({ onChange, ...props }) => {
   const handleChange = useCallback(
-    (n, v) => onChange(n, isNaN(parseFloat(v)) ? null : parseFloat(v)),
+    (n, v) => onChange(n, isNaN(parseFloat(v)) ? '' : parseFloat(v)),
     [onChange]
   )
   return <Input type="number" onChange={handleChange} {...props} />
@@ -45,10 +45,10 @@ export const Number = ({ onChange, ...props }) => {
 
 export const TextArea = props => <Input Component="textarea" {...props} />
 
-export const Select = memo(function Select({ choices, ...props }) {
+export const Select = memo(function Select({ choices, multiple, ...props }) {
   const { onChange } = props
   const selectProps = useCornField(props)
-  const { name, multiple, value } = selectProps
+  const { name, value } = selectProps
 
   const options = useOptions(choices)
   const multipleValue = useMaybeMultipleValue(multiple, value)
@@ -66,7 +66,12 @@ export const Select = memo(function Select({ choices, ...props }) {
 
   return (
     // eslint-disable-next-line jsx-a11y/no-onchange
-    <select {...selectProps} onChange={handleChange} value={multipleValue}>
+    <select
+      {...selectProps}
+      multiple={multiple}
+      onChange={handleChange}
+      value={multipleValue}
+    >
       {!multiple && options.every(([k]) => k) && <option value="" />}
       {options.map(([label, key]) => (
         <option key={key} value={key}>

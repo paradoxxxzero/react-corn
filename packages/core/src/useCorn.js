@@ -17,7 +17,7 @@ const reducer = (state, action) => {
       }
       return { ...state, [action.name]: action.value }
     case 'plant':
-      return state
+      return { ...state, [action.name]: null }
     case 'unplant':
       ;({ [action.name]: _, ...transient } = state)
       return transient
@@ -174,7 +174,8 @@ export default ({
         {}
       )
 
-      const customError = customValidator && customValidator(mergedItem)
+      const customError =
+        customValidator && customValidator(value, mergedItem, name)
       return {
         name,
         value,

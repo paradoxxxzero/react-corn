@@ -110,21 +110,19 @@ const CustomErrorsForm = memo(
           required
           min={0}
           max={1000}
-          {...field(
-            'prime',
-            ({ prime }) => !isPrime(prime) && `${prime} is not a prime number`
-          )}
+          {...field('prime', v => !isPrime(v) && `${v} is not a prime number`)}
         >
           Prime number
         </Number>
         <Number
-          required
           min={0}
           max={1000}
           {...field(
             'bigger',
-            ({ prime, bigger }) =>
-              prime >= bigger && `${bigger} is not bigger than a ${prime}`
+            (bigger, { prime }) =>
+              window.Number.isInteger(bigger) &&
+              prime >= bigger &&
+              `${bigger} is not bigger than a ${prime}`
           )}
         >
           Bigger number
