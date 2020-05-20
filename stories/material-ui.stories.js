@@ -32,99 +32,97 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const MaterialUiCornForm = memo(
-  ({ item, onItem, onTransient, onDelta, onErrors }) => {
-    const classes = useStyles()
+const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
+  const classes = useStyles()
 
-    const handleChange = useCallback(
-      (transient, delta, errors) => {
-        onTransient(transient)
-        onErrors(errors)
-      },
-      [onErrors, onTransient]
-    )
-    const handleSubmit = useCallback(
-      (item, delta) => {
-        onItem(item)
-        onDelta(delta)
-      },
-      [onDelta, onItem]
-    )
+  const handleChange = useCallback(
+    (transient, delta, errors) => {
+      onTransient(transient)
+      onErrors(errors)
+    },
+    [onErrors, onTransient]
+  )
+  const handleSubmit = useCallback(
+    (item, delta) => {
+      onItem(item)
+      onDelta(delta)
+    },
+    [onDelta, onItem]
+  )
 
-    const { form, field, modified, reset } = useCorn({
-      item,
-      onChange: handleChange,
-      onSubmit: handleSubmit,
-    })
+  const { form, field, modified, reset } = useCorn({
+    item,
+    onChange: handleChange,
+    onSubmit: handleSubmit,
+  })
 
-    return (
-      <form className={classes.form} {...form}>
-        <div className={classes.inline}>
-          <Text required maxLength={25} {...field('name')}>
-            Name
-          </Text>
-          <Email disabled {...field('mail')}>
-            Mail
-          </Email>
-        </div>
-        <Text size={5} {...field('address.zipcode')}>
-          Zip code
+  return (
+    <form className={classes.form} {...form}>
+      <div className={classes.inline}>
+        <Text required maxLength={25} {...field('name')}>
+          Name
         </Text>
-        <Text {...field('address.city')}>City</Text>
-        <Select
-          choices={[
-            'Africa',
-            'Antarctica',
-            'Asia',
-            'Europe',
-            'North America',
-            'Australia/Oceania',
-            'South America',
-          ]}
-          // multiple
-          {...field(
-            'address.continent',
-            continent =>
-              continent === 'Australia/Oceania' &&
-              'Sorry but choose a closest continent'
-          )}
-        >
-          Continent
-        </Select>
-        <Slider
-          min={12}
-          max={100}
-          valueLabelDisplay="auto"
-          {...field(
-            'age',
-            v => v > 90 && 'You might be too old for that, sorry.'
-          )}
-        >
-          Age
-        </Slider>
-        <TextArea {...field('message')}>Message</TextArea>
+        <Email disabled {...field('mail')}>
+          Mail
+        </Email>
+      </div>
+      <Text size={5} {...field('address.zipcode')}>
+        Zip code
+      </Text>
+      <Text {...field('address.city')}>City</Text>
+      <Select
+        choices={[
+          'Africa',
+          'Antarctica',
+          'Asia',
+          'Europe',
+          'North America',
+          'Australia/Oceania',
+          'South America',
+        ]}
+        // multiple
+        {...field(
+          'address.continent',
+          continent =>
+            continent === 'Australia/Oceania' &&
+            'Sorry but choose a closest continent'
+        )}
+      >
+        Continent
+      </Select>
+      <Slider
+        min={12}
+        max={100}
+        valueLabelDisplay="auto"
+        {...field(
+          'age',
+          v => v > 90 && 'You might be too old for that, sorry.'
+        )}
+      >
+        Age
+      </Slider>
+      <TextArea {...field('message')}>Message</TextArea>
 
-        <Button
-          className={classes.button}
-          type="submit"
-          disabled={!modified}
-          color="primary"
-          variant="contained"
-        >
-          Submit
-        </Button>
-        <Button className={classes.button} disabled={!modified} onClick={reset}>
-          Reset
-        </Button>
-      </form>
-    )
-  }
-)
+      <Button
+        className={classes.button}
+        type="submit"
+        disabled={!modified}
+        color="primary"
+        variant="contained"
+      >
+        Submit
+      </Button>
+      <Button className={classes.button} disabled={!modified} onClick={reset}>
+        Reset
+      </Button>
+    </form>
+  )
+})
 
-export const MaterialUiCorn = () => {
+export const MaterialUIDemo = () => {
   return (
     <Story
-      Chapter={MaterialUiCornForm}
+      Chapter={CornForm}
       initialItem={{
         name: 'John Foo',
         mail: 'john.foo@example.com',
