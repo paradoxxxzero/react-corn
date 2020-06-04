@@ -22,17 +22,52 @@ export const update = (o, name, value) => {
   }
 }
 
-export const copy = o =>
-  Object.fromEntries(
-    Object.entries(o).map(([k, v]) => [
-      k,
-      v !== null && v !== undefined && typeof v === 'object'
-        ? copy(v)
-        : Array.isArray(v)
-        ? [...v]
-        : v,
-    ])
-  )
+export const cloneArray = array => {
+  const keys = Object.keys(array)
+
+  const clonedArray = new Array(keys.length)
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i]
+    const cur = array[k]
+    if (typeof cur !== 'object' || cur === null) {
+      clonedArray[k] = cur
+    } else if (cur instanceof Date) {
+      clonedArray[k] = new Date(cur)
+    } else {
+      clonedArray[k] = clone(cur)
+    }
+  }
+  return clonedArray
+}
+
+export const clone = o => {
+  if (typeof o !== 'object' || o === null) {
+    return o
+  }
+  if (o instanceof Date) {
+    return new Date(o)
+  }
+  if (Array.isArray(o)) {
+    return cloneArray(o)
+  }
+
+  const cloned = {}
+  for (let k in o) {
+    if (Object.hasOwnProperty.call(o, k) === false) {
+      continue
+    }
+
+    const cur = o[k]
+    if (typeof cur !== 'object' || cur === null) {
+      cloned[k] = cur
+    } else if (cur instanceof Date) {
+      cloned[k] = new Date(cur)
+    } else {
+      cloned[k] = clone(cur)
+    }
+  }
+  return cloned
+}
 
 export const merge = (item, transient, names = null) => {
   if (!Object.keys(transient).length) {
@@ -51,9 +86,9 @@ export const merge = (item, transient, names = null) => {
     })
     return newItem
   }
-  const itemCopy = copy(item)
+  const itemClone = clone(item)
   Object.entries(transient).forEach(([name, value]) =>
-    update(itemCopy, name, emptyStringToNull(value))
+    update(itemClone, name, emptyStringToNull(value))
   )
-  return itemCopy
+  return itemClone
 }
