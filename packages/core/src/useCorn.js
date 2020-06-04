@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 
 import { get, merge } from './object'
 
@@ -33,10 +40,10 @@ export default ({
   item,
   // onChange will be called with the name, the current item state and its diff
   // with the original item at each field change
-  onChange: propagateChange = () => {},
+  onChange: propagateChange,
   // onSubmit will be called with the current item state and its diff
   // with the original item on form submit
-  onSubmit: propagateSubmit = () => {},
+  onSubmit: propagateSubmit,
 }) => {
   // transient hold the currently edited item
   const [transient, dispatch] = useReducer(reducer, {})
@@ -49,6 +56,12 @@ export default ({
 
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
+
+  // Pre compute the modified item for field function calls
+  const mergedItem = useMemo(() => merge(item, transient, names.current), [
+    item,
+    transient,
+  ])
 
   // On form submit, call the super onSubmit function and prevent browser form submition
   const onSubmit = useCallback(
@@ -66,30 +79,22 @@ export default ({
         return
       }
       if (Object.keys(transient).length) {
-        propagateSubmit(
+        propagateSubmit?.(
           merge(item, transient),
           merge({}, transient),
-          merge(item, transient, names.current)
+          mergedItem
         )
       }
     },
-    [errors, propagateSubmit, item, transient]
+    [errors, transient, propagateSubmit, item, mergedItem]
   )
 
   // On transient changes, call the super onChange
   useEffect(() => {
-    propagateChange(
+    propagateChange?.(
       merge(item, transient),
       merge({}, transient),
-      merge(
-        {},
-        Object.entries(errors).reduce((o, [k, v]) => {
-          if (v) {
-            o[k] = v
-          }
-          return o
-        }, {})
-      )
+      merge({}, Object.fromEntries(Object.entries(errors).filter(([, v]) => v)))
     )
     // We voluntarly omit everything except transient because it's only
     // transient changes that should initiate onChange
@@ -164,8 +169,6 @@ export default ({
       // If there's an error, pass it
       const error = errors[name]
 
-      const mergedItem = merge(item, transient)
-
       const dynamicProps = Object.entries(options || {}).reduce(
         (acc, [k, v]) => {
           acc[k] = typeof v === 'function' ? v(mergedItem) : v
@@ -190,7 +193,17 @@ export default ({
         ...dynamicProps,
       }
     },
-    [transient, item, errors, plant, unplant, onChange, onError, onBlur]
+    [
+      transient,
+      item,
+      errors,
+      mergedItem,
+      plant,
+      unplant,
+      onChange,
+      onError,
+      onBlur,
+    ]
   )
 
   const current = useCallback(
