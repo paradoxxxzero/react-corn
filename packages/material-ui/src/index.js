@@ -4,6 +4,7 @@ import {
   InputLabel,
   MenuItem,
   Slider as MuiSlider,
+  Switch as MuiSwitch,
   TextField,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -18,6 +19,7 @@ import React, { memo, useCallback, useMemo } from 'react'
 import {
   muiFormControlProps,
   muiSliderProps,
+  muiSwitchProps,
   muiTextFieldProps,
   useFilteredProps,
 } from './attributes'
@@ -63,6 +65,16 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.75,
   },
   sliderModified: {
+    opacity: 1,
+  },
+  switch: {},
+  switchControl: {
+    minHeight: '2em',
+  },
+  switchUnmodified: {
+    opacity: 0.75,
+  },
+  switchModified: {
     opacity: 1,
   },
   sliderLabel: {
@@ -272,6 +284,58 @@ export const Slider = memo(function Slider({ children, ...props }) {
         defaultValue={value}
         className={classes.hidden}
         value={undefined}
+      />
+    </FormControl>
+  )
+})
+
+export const Switch = memo(function Switch({ children, onLabel, ...props }) {
+  const { modified, error } = props
+  const { ref, className, ...cornProps } = useCornField({
+    ...props,
+    type: 'checkbox',
+  })
+  const { name, value } = cornProps
+  const classes = useStyles()
+
+  const [switchProps, fcProps, inputProps] = useFilteredProps(
+    cornProps,
+    muiSwitchProps,
+    muiFormControlProps
+  )
+  switchProps.checked = switchProps.value
+  delete switchProps.value
+
+  return (
+    <FormControl
+      {...fcProps}
+      className={clsx(className, classes.switchControl, {
+        [classes.switchUnmodified]: !modified,
+        [classes.switchModified]: modified,
+      })}
+      error={!!error}
+      fullWidth
+    >
+      <InputLabel disableAnimation shrink>
+        {children}
+        <MuiSwitch
+          {...switchProps}
+          className={clsx(classes.switch, className)}
+        />
+        {onLabel}
+      </InputLabel>
+
+      {error && (
+        <FormHelperText className={classes.switchLabel}>{error}</FormHelperText>
+      )}
+      <input
+        {...inputProps}
+        ref={ref}
+        name={`${name}-corn-control`}
+        type="checkbox"
+        defaultChecked={value}
+        className={classes.hidden}
+        checked={undefined}
       />
     </FormControl>
   )

@@ -22,13 +22,13 @@ export const StressTest = () => {
   })
 
   return (
-    <form {...form}>
+    <form {...form} style={{ display: 'flex', flexWrap: 'wrap' }}>
       {new Array(fields).fill().map((_, i) => (
         <Text key={i} required {...field(`field-${i}`)}>
           Field {i}
         </Text>
       ))}
-
+      <div style={{ width: '100%' }} />
       <ButtonRow>
         <button disabled={!modified}>Submit</button>
         <button type="button" disabled={!modified} onClick={reset}>

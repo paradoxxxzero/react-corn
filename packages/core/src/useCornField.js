@@ -41,6 +41,9 @@ export default ({
 
   // After render check for field errors and dispatch them
   useEffect(() => {
+    if (!modified) {
+      return
+    }
     // Assign a custom error to the field or remove it
     elementRef.current.setCustomValidity(customError || '')
     // Dispatch the name and the custom error or the native one.
@@ -50,7 +53,7 @@ export default ({
         ? null
         : elementRef.current.validationMessage
     )
-  }, [name, customError, onError, value, props])
+  }, [name, customError, onError, value, props, modified])
 
   return {
     ref: elementRef,

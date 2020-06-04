@@ -88,18 +88,13 @@ export const Labelled = ({ label, children, ...props }) => {
   )
 }
 
-export const withLabel = Component => ({
-  children,
-  modified,
-  error,
-  ...props
-}) => {
+export const withLabel = Component => ({ children, ...props }) => {
   return (
     <Labelled
       label={children}
-      modified={modified}
+      modified={props.modified}
       required={props.required}
-      error={error}
+      error={props.error}
     >
       <Component {...props} />
     </Labelled>

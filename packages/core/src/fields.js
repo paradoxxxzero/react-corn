@@ -5,7 +5,10 @@ import { useMaybeMultipleValue, useOptions } from './hooks'
 
 export const Input = memo(function Input({ Component = 'input', ...props }) {
   const inputProps = useCornField(props)
-
+  if (['checkbox', 'radio'].includes(inputProps.type)) {
+    inputProps.checked = inputProps.value
+    delete inputProps.value
+  }
   return <Component {...inputProps} />
 })
 

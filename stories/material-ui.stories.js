@@ -13,7 +13,7 @@ export default {
 
 const useStyles = makeStyles(theme => ({
   form: {
-    '& .MuiTextField-root': {
+    '& .MuiFormControl-root': {
       display: 'block',
       margin: theme.spacing(4),
     },
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   inline: {
     margin: theme.spacing(2),
 
-    '& .MuiTextField-root': {
+    '& .MuiFormControl-root': {
       display: 'inline-flex',
       margin: theme.spacing(2),
     },

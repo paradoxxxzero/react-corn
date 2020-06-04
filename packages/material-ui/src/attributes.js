@@ -95,6 +95,34 @@ export const muiSliderProps = [
   'valueLabelFormat',
 ]
 
+export const muiSwitchProps = [
+  'classes',
+  'className',
+  'color',
+  'edge',
+  'size',
+  'autoFocus',
+  'checked',
+  'checkedIcon',
+  'classes',
+  'className',
+  'defaultChecked',
+  'disabled',
+  'icon',
+  'id',
+  'inputProps',
+  'inputRef',
+  'name',
+  'onBlur',
+  'onChange',
+  'onFocus',
+  'readOnly',
+  'required',
+  'tabIndex',
+  'type',
+  'value',
+]
+
 export const useFilteredProps = (props, ...groups) => {
   const filteredProps = groups.map(group =>
     Object.fromEntries(Object.entries(props).filter(([k]) => group.includes(k)))
