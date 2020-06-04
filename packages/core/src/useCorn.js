@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from 'react'
+import { useCallback, useEffect, useMemo, useReducer } from 'react'
 
 import { get, merge } from './object'
 
@@ -15,21 +8,54 @@ const normalizer = v => (v && v.trim ? v.trim() : v)
 const reducer = (state, action) => {
   // eslint-disable-next-line no-unused-vars
   let _
-  let transient
+  let transient, errors
   switch (action.type) {
     case 'change':
       if (action.value === action.itemValue) {
-        ;({ [action.name]: _, ...transient } = state)
-        return transient
+        ;({ [action.name]: _, ...transient } = state.transient)
+        return { ...state, transient }
       }
-      return { ...state, [action.name]: action.value }
+      return {
+        ...state,
+        transient: {
+          ...state.transient,
+          [action.name]: action.value,
+        },
+      }
     case 'plant':
-      return { ...state, [action.name]: '' }
+      return {
+        ...state,
+        transient: {
+          ...state.transient,
+          [action.name]: '',
+        },
+        names: [...state.names, action.name],
+      }
     case 'unplant':
-      ;({ [action.name]: _, ...transient } = state)
-      return transient
+      ;({ [action.name]: _, ...transient } = state.transient)
+      ;({ [action.name]: _, ...errors } = state.errors)
+      return {
+        ...state,
+        transient,
+        names: state.names.filter(name => name !== action.name),
+        touched: state.touched.filter(name => name !== action.name),
+        errors,
+      }
     case 'reset':
-      return {}
+      return { ...state, transient: {}, touched: [] }
+    case 'error':
+      if (state.errors[action.name] !== action.error) {
+        return {
+          ...state,
+          errors: { ...state.errors, [action.name]: action.error },
+        }
+      }
+      return state
+    case 'blur':
+      if (!state.touched.includes(action.name)) {
+        return { ...state, touched: [...state.touched, action.name] }
+      }
+      return state
     default:
       throw new Error()
   }
@@ -46,24 +72,22 @@ export default ({
   onSubmit: propagateSubmit,
 }) => {
   // transient hold the currently edited item
-  const [transient, dispatch] = useReducer(reducer, {})
-
   // errors is a mapping of all fields with theirs errors
-  const [errors, setErrors] = useState({})
-
-  // names hold all field names that this form is handling
-  const names = useRef([])
-
   // touched keep track of touched fields to prevent displaying errors
-  const [touched, setTouched] = useState([])
+  // names hold all field names that this form is handling
+  const [{ transient, errors, touched, names }, dispatch] = useReducer(
+    reducer,
+    { transient: {}, errors: {}, touched: [], names: [] }
+  )
 
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
 
   // Pre compute the modified item for field function calls
-  const mergedItem = useMemo(() => merge(item, transient, names.current), [
+  const mergedItem = useMemo(() => merge(item, transient, names), [
     item,
     transient,
+    names,
   ])
 
   // On form submit, call the super onSubmit function and prevent browser form submition
@@ -106,7 +130,6 @@ export default ({
 
   const plant = useCallback(
     name => {
-      names.current = [...names.current, name]
       dispatch({ type: 'plant', name, value: get(item, name) })
     },
     [item]
@@ -114,17 +137,6 @@ export default ({
 
   const unplant = useCallback(
     name => {
-      names.current = names.current.filter(n => n !== name)
-      setTouched(touched =>
-        touched.includes(name) ? touched.filter(n => n !== name) : touched
-      )
-      setErrors(errors =>
-        Object.keys(errors).includes(name)
-          ? Object.fromEntries(
-              Object.entries(errors).filter(([k]) => k !== name)
-            )
-          : errors
-      )
       dispatch({ type: 'unplant', name, value: get(item, name) })
     },
     [item]
@@ -142,9 +154,8 @@ export default ({
   // Normalize value on blur
   const onBlur = useCallback(
     (name, value) => {
-      if (!touched.includes(name)) {
-        setTouched([...touched, name])
-      }
+      dispatch({ type: 'blur', name })
+
       const normalized = normalizer(value)
       if (normalized !== value) {
         dispatch({
@@ -155,14 +166,18 @@ export default ({
         })
       }
     },
-    [item, touched]
+    [item]
   )
 
   // Update the error holder on value change
   // Fields should call this functions when there's an error in the field
   // value (and then with null when there's no more error).
   const onError = useCallback((name, error) => {
-    setErrors(e => (e[name] !== error ? { ...e, [name]: error } : e))
+    dispatch({
+      type: 'error',
+      name,
+      error,
+    })
   }, [])
 
   // This function generate field props from a field name and corn options
