@@ -108,4 +108,7 @@ export const SimpleUIDemo = () => {
 
 export default {
   title: '@react-corn/simple',
+  parameters: {
+    options: { showPanel: true },
+  },
 }

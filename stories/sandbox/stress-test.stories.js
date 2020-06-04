@@ -41,4 +41,7 @@ export const StressTest = () => {
 
 export default {
   title: 'Sandbox/simple-stress-test',
+  parameters: {
+    options: { showPanel: false },
+  },
 }

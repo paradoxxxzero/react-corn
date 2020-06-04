@@ -9,6 +9,9 @@ import { Story } from './helpers/Story'
 
 export default {
   title: '@react-corn/material-ui',
+  parameters: {
+    options: { showPanel: true },
+  },
 }
 
 const useStyles = makeStyles(theme => ({

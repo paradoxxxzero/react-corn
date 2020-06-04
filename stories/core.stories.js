@@ -4,6 +4,9 @@ import React, { useState } from 'react'
 
 export default {
   title: '@react-corn/core',
+  parameters: {
+    options: { showPanel: true },
+  },
 }
 
 export const BasicUsage = () => {

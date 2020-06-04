@@ -13,15 +13,21 @@ import 'prismjs/themes/prism-coy.css'
 
 import React from 'react'
 import styled from 'styled-components'
-
+import { addParameters } from '@storybook/react'
 // eslint-disable-next-line import/no-unresolved
 import ExampleSource from '!!raw-loader!./index-example.js'
 
 import { ExampleCorn } from './index-example'
 
+addParameters({ options: { showPanel: false } })
+
 export default {
   title: 'Home',
+  parameters: {
+    options: { showPanel: false },
+  },
 }
+
 const Root = styled.div`
   font-family: 'Nunito', sans-serif;
   display: flex;

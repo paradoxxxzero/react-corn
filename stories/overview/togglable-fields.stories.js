@@ -7,6 +7,9 @@ import { Story } from '../helpers/Story'
 
 export default {
   title: 'Overview/togglable-fields',
+  parameters: {
+    options: { showPanel: true },
+  },
 }
 
 const useStyles = makeStyles(theme => ({

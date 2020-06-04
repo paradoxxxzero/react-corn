@@ -7,6 +7,9 @@ import { Story } from '../helpers/Story'
 
 export default {
   title: 'Overview/dynamic-props',
+  parameters: {
+    options: { showPanel: true },
+  },
 }
 
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {

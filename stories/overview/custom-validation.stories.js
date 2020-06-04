@@ -7,6 +7,9 @@ import { Story } from '../helpers/Story'
 
 export default {
   title: 'Overview/custom-validation',
+  parameters: {
+    options: { showPanel: true },
+  },
 }
 
 const isPrime = n =>
