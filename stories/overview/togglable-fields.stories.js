@@ -53,10 +53,14 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         Day
       </Switch>
       {current(({ night }) => night) && (
-        <Text {...field('night-text')}>Night Text</Text>
+        <Text required {...field('night-text')}>
+          Night Text
+        </Text>
       )}
       {current(({ night }) => !night) && (
-        <Text {...field('day-text')}>Day Text</Text>
+        <Text required {...field('day-text')}>
+          Day Text
+        </Text>
       )}
       <Button
         className={classes.button}

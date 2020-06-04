@@ -24,7 +24,7 @@ const reducer = (state, action) => {
       }
       return { ...state, [action.name]: action.value }
     case 'plant':
-      return { ...state, [action.name]: null }
+      return { ...state, [action.name]: '' }
     case 'unplant':
       ;({ [action.name]: _, ...transient } = state)
       return transient
@@ -53,6 +53,9 @@ export default ({
 
   // names hold all field names that this form is handling
   const names = useRef([])
+
+  // touched keep track of touched fields to prevent displaying errors
+  const [touched, setTouched] = useState([])
 
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
@@ -112,6 +115,16 @@ export default ({
   const unplant = useCallback(
     name => {
       names.current = names.current.filter(n => n !== name)
+      setTouched(touched =>
+        touched.includes(name) ? touched.filter(n => n !== name) : touched
+      )
+      setErrors(errors =>
+        Object.keys(errors).includes(name)
+          ? Object.fromEntries(
+              Object.entries(errors).filter(([k]) => k !== name)
+            )
+          : errors
+      )
       dispatch({ type: 'unplant', name, value: get(item, name) })
     },
     [item]
@@ -128,7 +141,10 @@ export default ({
 
   // Normalize value on blur
   const onBlur = useCallback(
-    value => {
+    (name, value) => {
+      if (!touched.includes(name)) {
+        setTouched([...touched, name])
+      }
       const normalized = normalizer(value)
       if (normalized !== value) {
         dispatch({
@@ -139,7 +155,7 @@ export default ({
         })
       }
     },
-    [item]
+    [item, touched]
   )
 
   // Update the error holder on value change
@@ -167,7 +183,7 @@ export default ({
       // This field current value is stored in transient
       const value = modified ? transient[name] : get(item, name)
       // If there's an error, pass it
-      const error = errors[name]
+      const error = touched.includes(name) && errors[name]
 
       const dynamicProps = Object.entries(options || {}).reduce(
         (acc, [k, v]) => {
@@ -196,6 +212,7 @@ export default ({
     [
       transient,
       item,
+      touched,
       errors,
       mergedItem,
       plant,

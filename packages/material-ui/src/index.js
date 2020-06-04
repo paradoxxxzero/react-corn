@@ -333,7 +333,7 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
         ref={ref}
         name={`${name}-corn-control`}
         type="checkbox"
-        defaultChecked={value}
+        defaultChecked={!!value}
         className={classes.hidden}
         checked={undefined}
       />
