@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "react-corn-monorepo",
-  "version": "1.x.x-monorepo",
+  "version": "1.0.0-monorepo",
   "description": "Controlled forms with hooks for advanced object editing.",
   "main": "lib/corn.js",
   "module": "src/index.js",
@@ -22,7 +22,10 @@
     "storybook-deploy": "storybook-to-ghpages",
     "build-storybook": "build-storybook"
   },
-  "pre-commit": "lint,test",
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",

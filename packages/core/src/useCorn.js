@@ -8,7 +8,6 @@ const normalizer = v => (v && v.trim ? v.trim() : v)
 const isPromise = v => v && v.then !== undefined
 
 const reducer = (state, action) => {
-  // eslint-disable-next-line no-unused-vars
   let _
   let transient, errors
 

@@ -19,7 +19,14 @@ module.exports = {
     'simple-import-sort/sort': 'error',
     'import/order': 'off',
     'react/prop-types': 'off',
-    'no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    'no-unused-vars': [
+      'error',
+      {
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
   },
   settings: {
     react: {
