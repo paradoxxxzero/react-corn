@@ -18,6 +18,7 @@ import { addParameters } from '@storybook/react'
 import ExampleSource from '!!raw-loader!./index-example.js'
 
 import { ExampleCorn } from './index-example'
+import { version } from '../packages/core/package.json'
 
 addParameters({ options: { showPanel: false } })
 
@@ -48,6 +49,11 @@ const Title = styled.h1`
   display: flex;
   flex-direction: column;
 `
+const Version = styled.strong`
+  font-size: 0.33em;
+  color: hsl(0, 0%, 25%);
+`
+
 const SubTitle = styled.small`
   font-size: 0.25em;
   color: hsl(0, 0%, 50%);
@@ -90,7 +96,9 @@ export const Index = () => {
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
         <CornLogo role="img">🌽</CornLogo>
         <Title>
-          react-corn
+          <div>
+            react-corn <Version>{version}</Version>
+          </div>
           <SubTitle>
             Controlled forms with hooks for advanced object editing.
           </SubTitle>

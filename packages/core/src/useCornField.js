@@ -54,7 +54,20 @@ export default ({
         ? null
         : elementRef.current.validationMessage
     )
-  }, [name, customError, onError, value, props, modified])
+  }, [
+    name,
+    customError,
+    onError,
+    value,
+    // Native validation props:
+    props.required,
+    props.minLength,
+    props.maxLength,
+    props.min,
+    props.max,
+    props.type,
+    props.pattern,
+  ])
 
   return {
     ref: elementRef,

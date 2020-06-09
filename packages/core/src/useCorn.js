@@ -5,10 +5,13 @@ import { get, merge } from './object'
 // Normalize the value on field exit (defaults to removing extra spaces)
 const normalizer = v => (v && v.trim ? v.trim() : v)
 
+const isPromise = v => v && v.then !== undefined
+
 const reducer = (state, action) => {
   // eslint-disable-next-line no-unused-vars
   let _
   let transient, errors
+
   switch (action.type) {
     case 'change':
       if (action.value === action.itemValue) {
@@ -41,6 +44,25 @@ const reducer = (state, action) => {
         touched: state.touched.filter(name => name !== action.name),
         errors,
       }
+    case 'submit':
+      if (action.result === null || action.result === true) {
+        // Reset the form as the submit has been accepted
+        return { ...state, transient: {}, touched: [] }
+      } else if (typeof action.result === 'object') {
+        // Set server side errors
+        return {
+          ...state,
+          errors: {
+            ...state.errors,
+            ...Object.fromEntries(
+              Object.entries(action.result).filter(([name]) =>
+                state.names.includes(name)
+              )
+            ),
+          },
+        }
+      }
+      return state
     case 'reset':
       return { ...state, transient: {}, touched: [] }
     case 'error':
@@ -61,15 +83,23 @@ const reducer = (state, action) => {
   }
 }
 
+const emptyItem = {}
+
 export default ({
   // The item to edit:
-  item,
+  item = emptyItem,
   // onChange will be called with the name, the current item state and its diff
   // with the original item at each field change
   onChange: propagateChange,
   // onSubmit will be called with the current item state and its diff
-  // with the original item on form submit
+  // with the original item on form submit.
+  // This method can return a boolean or a promise resolving to a boolean
+  // to specify whether to reset the form or not (ie if it's valid or not)
+  // It can also return an object mapping field names with their respective
+  // error strings (in case of server side validation for example).
   onSubmit: propagateSubmit,
+  // Default method to post to avoid creating GET url with parameters when no js
+  method = 'POST',
 }) => {
   // transient hold the currently edited item
   // errors is a mapping of all fields with theirs errors
@@ -92,7 +122,7 @@ export default ({
 
   // On form submit, call the super onSubmit function and prevent browser form submition
   const onSubmit = useCallback(
-    e => {
+    async e => {
       e.preventDefault()
       if (Object.values(errors).some(x => x)) {
         // Should not happen as the form should prevent submit
@@ -105,15 +135,21 @@ export default ({
         )
         return
       }
+      let result = null
       if (Object.keys(transient).length) {
-        propagateSubmit?.(
+        result = propagateSubmit?.(
           merge(item, transient),
           merge({}, transient),
-          mergedItem
+          mergedItem,
+          names
         )
+        if (isPromise(result)) {
+          result = await result
+        }
       }
+      dispatch({ type: 'submit', result })
     },
-    [errors, transient, propagateSubmit, item, mergedItem]
+    [errors, transient, propagateSubmit, item, mergedItem, names]
   )
 
   // On transient changes, call the super onChange
@@ -121,7 +157,11 @@ export default ({
     propagateChange?.(
       merge(item, transient),
       merge({}, transient),
-      merge({}, Object.fromEntries(Object.entries(errors).filter(([, v]) => v)))
+      merge(
+        {},
+        Object.fromEntries(Object.entries(errors).filter(([, v]) => v))
+      ),
+      names
     )
     // We voluntarly omit everything except transient because it's only
     // transient changes that should initiate onChange
@@ -182,14 +222,10 @@ export default ({
 
   // This function generate field props from a field name and corn options
   const field = useCallback(
-    (name, customValidator, options) => {
-      // customValidator is not required, options can be passed as second arg
-      if (
-        customValidator &&
-        typeof customValidator !== 'function' &&
-        !options
-      ) {
-        options = customValidator
+    (name, customValidator, props) => {
+      // customValidator is not required, field props can be passed as second arg
+      if (customValidator && typeof customValidator !== 'function' && !props) {
+        props = customValidator
         customValidator = null
       }
 
@@ -200,13 +236,10 @@ export default ({
       // If there's an error, pass it
       const error = touched.includes(name) && errors[name]
 
-      const dynamicProps = Object.entries(options || {}).reduce(
-        (acc, [k, v]) => {
-          acc[k] = typeof v === 'function' ? v(mergedItem) : v
-          return acc
-        },
-        {}
-      )
+      const dynamicProps = Object.entries(props || {}).reduce((acc, [k, v]) => {
+        acc[k] = typeof v === 'function' ? v(mergedItem) : v
+        return acc
+      }, {})
 
       const customError =
         customValidator && customValidator(value, mergedItem, name)
@@ -246,7 +279,7 @@ export default ({
   )
 
   // Reset the transient item to the orginal one, resetting all field to item values
-  const reset = useCallback(() => {
+  const onReset = useCallback(() => {
     dispatch({ type: 'reset' })
   }, [])
 
@@ -258,11 +291,12 @@ export default ({
 
   return {
     form: {
+      method,
       onSubmit,
     },
     field,
     current,
     modified,
-    reset,
+    onReset,
   }
 }

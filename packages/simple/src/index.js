@@ -27,6 +27,10 @@ export const Field = withTheme(styled.div`
     border-radius: 0.15em;
     margin: 0.5em 0;
     max-width: 100%;
+    &[readonly],
+    &[disabled] {
+      opacity: 0.5;
+    }
   }
 `)
 

@@ -36,7 +36,7 @@ export const BasicUsage = () => {
       </label>
       &nbsp;
       <button disabled={!corn.modified}>Submit</button>
-      <button type="button" disabled={!corn.modified} onClick={corn.reset}>
+      <button type="button" disabled={!corn.modified} onClick={corn.onReset}>
         Reset
       </button>
     </form>

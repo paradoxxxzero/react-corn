@@ -16,6 +16,6 @@
     "react-dom": "^16.x.x"
   },
   "dependencies": {
-    "clsx": "^1.1.0"
+    "clsx": "^1.1.1"
   }
 }

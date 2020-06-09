@@ -11,11 +11,11 @@ const initialItem = Object.fromEntries(
 
 export const StressTest = () => {
   const [item, setItem] = useState(initialItem)
-  const { form, field, modified, reset } = useCorn({
+  const { form, field, modified, onReset } = useCorn({
     item,
     onSubmit: newItem => {
       const accepted = window.confirm(
-        `You submitted "${Object.values(newItem).join(', ')}`
+        `You submitted "${Object.values(newItem).join(', ')}"`
       )
       accepted && setItem(newItem)
     },
@@ -31,7 +31,7 @@ export const StressTest = () => {
       <div style={{ width: '100%' }} />
       <ButtonRow>
         <button disabled={!modified}>Submit</button>
-        <button type="button" disabled={!modified} onClick={reset}>
+        <button type="button" disabled={!modified} onClick={onReset}>
           Reset
         </button>
       </ButtonRow>

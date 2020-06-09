@@ -53,7 +53,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
     [onDelta, onItem]
   )
 
-  const { form, field, modified, reset } = useCorn({
+  const { form, field, modified, onReset } = useCorn({
     item,
     onChange: handleChange,
     onSubmit: handleSubmit,
@@ -115,7 +115,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Submit
       </Button>
-      <Button className={classes.button} disabled={!modified} onClick={reset}>
+      <Button className={classes.button} disabled={!modified} onClick={onReset}>
         Reset
       </Button>
     </form>
