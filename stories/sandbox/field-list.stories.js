@@ -2,6 +2,7 @@
 import { useCorn } from '@react-corn/core'
 import * as core from '@react-corn/core'
 import * as materialUI from '@react-corn/material-ui'
+import * as materialUIPickers from '@react-corn/material-ui-pickers'
 import * as simple from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
@@ -40,6 +41,7 @@ const MaterialUIForm = styled.div`
     margin: 1em;
   }
 `
+const MaterialUIPickerForm = styled.div``
 
 const choices = {
   Red: '#ff0000',
@@ -264,6 +266,11 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           Material-UI Switch
         </materialUI.Switch>
       </MaterialUIForm>
+      <MaterialUIPickerForm>
+        <materialUIPickers.Date {...field('material-ui-pickers.date')}>
+          Material-UI Pickers Date
+        </materialUIPickers.Date>
+      </MaterialUIPickerForm>
 
       <ButtonRow>
         <button disabled={!modified}>Submit</button>

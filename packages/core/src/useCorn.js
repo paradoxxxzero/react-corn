@@ -44,7 +44,11 @@ const reducer = (state, action) => {
         errors,
       }
     case 'submit':
-      if (action.result === null || action.result === true) {
+      if (
+        action.result === null ||
+        action.result === undefined ||
+        action.result === true
+      ) {
         // Reset the form as the submit has been accepted
         return { ...state, transient: {}, touched: [] }
       } else if (typeof action.result === 'object') {
