@@ -369,7 +369,6 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
         {...inputProps}
         ref={ref}
         name={`${name}-corn-control`}
-        type="checkbox"
         defaultChecked={!!value}
         className={classes.hidden}
         checked={undefined}

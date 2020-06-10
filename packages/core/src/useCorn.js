@@ -200,7 +200,10 @@ export default ({
       dispatch({ type: 'blur', name })
 
       const normalized = normalizer(value)
-      if (normalized !== value) {
+      const transientValue = Object.keys(transient).includes(name)
+        ? transient[name]
+        : get(item, name)
+      if (normalized !== transientValue) {
         dispatch({
           type: 'change',
           name,
@@ -209,7 +212,7 @@ export default ({
         })
       }
     },
-    [item]
+    [item, transient]
   )
 
   // Update the error holder on value change

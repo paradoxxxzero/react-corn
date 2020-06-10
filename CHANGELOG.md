@@ -5,6 +5,7 @@
 ### Added
 
 - New package @react-corn/material-ui-pickers for @material-ui/pickers integration
+- New package @react-corn/quill for react-quill (v2) integration
 
 ## [1.1.0] - 2020-06-09
 
