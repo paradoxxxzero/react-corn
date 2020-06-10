@@ -7,6 +7,7 @@ import { useCorn } from '@react-corn/core'
 import { Date } from '@react-corn/material-ui-pickers'
 import React, { memo, useCallback } from 'react'
 
+import { DateTime, Time } from '../packages/material-ui-pickers/src'
 import { Story } from './helpers/Story'
 
 export default {
@@ -75,14 +76,55 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         </Date>
       </div>
 
-      <Date
-        format="dd/MM/yyyy"
-        displayFormat="MM/dd/yyyy"
-        autoOk
-        {...field('date-other')}
-      >
-        Date with custom formats
-      </Date>
+      <div className={classes.inline}>
+        <Time required {...field('time')}>
+          Time
+        </Time>
+        <Time
+          displayFormat="pp"
+          autoOk
+          withSeconds
+          ariant="inline"
+          {...field('time')}
+        >
+          Time with display format
+        </Time>
+        <Time masked ampm {...field('time')}>
+          Time with keyboard input
+        </Time>
+      </div>
+      <div className={classes.inline}>
+        <DateTime required {...field('dateTime')}>
+          DateTime
+        </DateTime>
+        <DateTime
+          displayFormat="PP pp"
+          autoOk
+          withSeconds
+          variant="inline"
+          {...field('dateTime')}
+        >
+          DateTime with display fmt
+        </DateTime>
+        <DateTime masked {...field('dateTime')}>
+          DateTime with keyboard input
+        </DateTime>
+      </div>
+      <div className={classes.inline}>
+        <Date
+          format="dd/MM/yyyy"
+          displayFormat="MM/dd/yyyy"
+          autoOk
+          disableFuture
+          masked
+          {...field('date-other')}
+        >
+          Date with custom formats
+        </Date>
+        <Time ampm format="hh' -- 'mm' // 'a" {...field('time-ampm')}>
+          Time ampm custom format
+        </Time>
+      </div>
 
       <Button
         className={classes.button}
