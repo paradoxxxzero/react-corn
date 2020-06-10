@@ -1,8 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { DatePicker } from '@material-ui/pickers'
+import {
+  DatePicker,
+  KeyboardDatePicker,
+  MuiPickersContext,
+} from '@material-ui/pickers'
 import { useCornField } from '@react-corn/core'
 import clsx from 'clsx'
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useContext, useEffect } from 'react'
 
 import { useFilteredProps } from '../../material-ui/src/attributes'
 import { muiDatePickerOnlyProps } from './attributes'
@@ -24,30 +28,55 @@ const useStyles = makeStyles(theme => ({
 export const Date = memo(function Date({
   children,
   format = 'yyyy-MM-dd',
+  displayFormat,
+  masked,
   ...props
 }) {
-  const { modified, error, onChange } = props
+  const utils = useContext(MuiPickersContext)
+
+  const { modified, error, onChange, onError } = props
   const { ref, className, ...cornProps } = useCornField({
     ...props,
   })
-  const { name } = cornProps
+  const { name, value } = cornProps
   const classes = useStyles()
   const [datePickerProps, inputProps] = useFilteredProps(
     cornProps,
     muiDatePickerOnlyProps
   )
   const handleChange = useCallback(
-    v => onChange(name, v && v.toISOString().split('T')[0]),
-    [name, onChange]
+    (v, s) =>
+      onChange(
+        name,
+        v && (masked && !utils.isValid(v) ? s : utils.format(v, format))
+      ),
+    [onChange, name, masked, utils, format]
   )
-  console.log(datePickerProps, inputProps)
-  cornProps.value = cornProps.value || null
+
+  const dateValue = value ? utils.parse(value, format) : null
+
+  useEffect(() => {
+    if (masked) {
+      if (dateValue && !utils.isValid(dateValue)) {
+        onError(name, dateValue.toString())
+      } else {
+        onError(name, null)
+      }
+    }
+  }, [name, onError, dateValue, masked, utils])
+
+  const MaybeMaskedDatePicker = masked ? KeyboardDatePicker : DatePicker
+
   return (
-    <DatePicker
-      clearable
+    <MaybeMaskedDatePicker
+      clearable={
+        (datePickerProps.variant && datePickerProps.variant === 'dialog') ||
+        undefined
+      }
       {...datePickerProps}
-      format={format}
+      format={displayFormat || format}
       onChange={handleChange}
+      value={dateValue}
       inputProps={{ ref, readOnly: false, autoComplete: 'off', ...inputProps }}
       className={clsx(className, classes.field, {
         [classes.base]: !modified,

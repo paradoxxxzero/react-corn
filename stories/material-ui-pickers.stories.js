@@ -63,8 +63,25 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
   return (
     <form className={classes.form} {...form}>
-      <Date required {...field('date')}>
-        Date
+      <div className={classes.inline}>
+        <Date required {...field('date')}>
+          Date
+        </Date>
+        <Date displayFormat="PP" autoOk variant="inline" {...field('date')}>
+          Date with display format
+        </Date>
+        <Date masked {...field('date')}>
+          Date with keyboard input
+        </Date>
+      </div>
+
+      <Date
+        format="dd/MM/yyyy"
+        displayFormat="MM/dd/yyyy"
+        autoOk
+        {...field('date-other')}
+      >
+        Date with custom formats
       </Date>
 
       <Button

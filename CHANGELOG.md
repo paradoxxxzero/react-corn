@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- New package @react-corn/material-ui-pickers for @material-ui/pickers integration
+
 ## [1.1.0] - 2020-06-09
 
 ### Added
