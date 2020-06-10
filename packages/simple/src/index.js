@@ -25,8 +25,12 @@ export const Field = withTheme(styled.div`
     margin: 0.5em 0;
     background-color: ${props => props.theme.backgroundColor.base};
     border-radius: 0.15em;
-    margin: 0.5em 0;
     max-width: 100%;
+
+    &[type='range'] {
+      padding: 0;
+    }
+
     &[readonly],
     &[disabled] {
       opacity: 0.5;

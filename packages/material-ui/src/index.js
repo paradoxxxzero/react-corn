@@ -37,6 +37,15 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.text.primary,
     },
   },
+  field: {
+    '& input[type="checkbox"], & input[type="radio"]': {
+      minWidth: '1em',
+    },
+    '& input[type="color"]': {
+      minWidth: '3em',
+      minHeight: '2em',
+    },
+  },
   select: {
     '& .MuiInput-root': {
       minWidth: '200px',
@@ -96,7 +105,7 @@ export const Input = memo(function Input({ children, muiSize, ...props }) {
     <TextField
       {...textFieldProps}
       size={muiSize}
-      className={clsx(textFieldProps.className, {
+      className={clsx(textFieldProps.className, classes.field, {
         [classes.base]: !modified,
         [classes.modified]: modified,
       })}
@@ -109,10 +118,16 @@ export const Input = memo(function Input({ children, muiSize, ...props }) {
   )
 })
 
-export const Checkbox = props => <Input type="checkbox" {...props} />
+export const Checkbox = props => (
+  <Input type="checkbox" InputLabelProps={{ shrink: true }} {...props} />
+)
 export const Color = props => <Input type="color" {...props} />
-export const Date = props => <Input type="date" {...props} />
-export const DatetimeLocal = props => <Input type="datetime-local" {...props} />
+export const Date = props => (
+  <Input type="date" InputLabelProps={{ shrink: true }} {...props} />
+)
+export const DatetimeLocal = props => (
+  <Input type="datetime-local" InputLabelProps={{ shrink: true }} {...props} />
+)
 export const Email = props => {
   const avoidSpacesThatBreakReact = useCallback(e => {
     // https://github.com/facebook/react/issues/6368
@@ -122,18 +137,40 @@ export const Email = props => {
   }, [])
   return <Input type="email" onKeyDown={avoidSpacesThatBreakReact} {...props} />
 }
-export const File = props => <Input type="file" {...props} />
+export const File = props => (
+  <Input type="file" InputLabelProps={{ shrink: true }} {...props} />
+)
 export const Hidden = props => <Input type="hidden" {...props} />
-export const Month = props => <Input type="month" {...props} />
+export const Month = props => (
+  <Input type="month" InputLabelProps={{ shrink: true }} {...props} />
+)
 export const Password = props => <Input type="password" {...props} />
-export const Radio = props => <Input type="radio" {...props} />
+export const Radio = props => (
+  <Input type="radio" InputLabelProps={{ shrink: true }} {...props} />
+)
 export const Range = props => <Input type="range" {...props} />
 export const Search = props => <Input type="search" {...props} />
 export const Tel = props => <Input type="tel" {...props} />
 export const Text = props => <Input type="text" {...props} />
-export const Time = props => <Input type="time" {...props} />
+export const Time = props => (
+  <Input
+    type="time"
+    InputLabelProps={{
+      shrink: true,
+    }}
+    {...props}
+  />
+)
 export const Url = props => <Input type="url" {...props} />
-export const Week = props => <Input type="week" {...props} />
+export const Week = props => (
+  <Input
+    type="week"
+    InputLabelProps={{
+      shrink: true,
+    }}
+    {...props}
+  />
+)
 
 export const Number = ({ onChange, ...props }) => {
   const handleChange = useCallback(
