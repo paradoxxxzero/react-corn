@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/material-ui-quill",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Controlled forms with hooks for advanced object editing. HTML rich text edition with quill package integrated with material-ui.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
