@@ -27,10 +27,6 @@ const reducer = (state, action) => {
     case 'plant':
       return {
         ...state,
-        transient: {
-          ...state.transient,
-          [action.name]: '',
-        },
         names: [...state.names, action.name],
       }
     case 'unplant':
@@ -171,19 +167,13 @@ export default ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transient, errors])
 
-  const plant = useCallback(
-    name => {
-      dispatch({ type: 'plant', name, value: get(item, name) })
-    },
-    [item]
-  )
+  const plant = useCallback(name => {
+    dispatch({ type: 'plant', name })
+  }, [])
 
-  const unplant = useCallback(
-    name => {
-      dispatch({ type: 'unplant', name, value: get(item, name) })
-    },
-    [item]
-  )
+  const unplant = useCallback(name => {
+    dispatch({ type: 'unplant', name })
+  }, [])
 
   // Update transient object on field change
   // Fields must call this with the value (and not the event)
