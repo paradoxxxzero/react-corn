@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
       variant === 'filled' ? theme.spacing(4) : theme.spacing(2),
     color: ({ modified }) =>
       modified ? theme.palette.text.primary : theme.palette.text.secondary,
+    '& .ql-container': {
+      border: 'none',
+    },
   },
   control: {
     display: 'block',
@@ -60,16 +63,14 @@ export const Quill = memo(function Quill({
   const handleBlur = useCallback(
     (...args) => {
       quillProps.onBlur?.(...args)
-      // SetTimeout here because it messes with the toolbar otherwise
-      // This is not a very good fix sadly
-      setTimeout(() => setFocused(false), 50)
+      setFocused(false)
     },
     [quillProps.onBlur]
   )
   const handleFocus = useCallback(
     (...args) => {
       quillProps.onFocus?.(...args)
-      setTimeout(() => setFocused(true), 50)
+      setFocused(true)
     },
     [quillProps.onFocus]
   )
@@ -97,9 +98,7 @@ export const Quill = memo(function Quill({
           className
         )}
       >
-        <BaseQuill {...quillProps} onFocus={handleFocus} onBlur={handleBlur}>
-          <div className={classes.fakeInput}></div>
-        </BaseQuill>
+        <BaseQuill {...quillProps} onFocus={handleFocus} onBlur={handleBlur} />
         {variant === 'outlined' && (
           <NotchedOutline
             className={baseClasses.notchedOutline}
