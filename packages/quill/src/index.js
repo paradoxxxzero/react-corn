@@ -58,8 +58,7 @@ export const Label = withTheme(styled.label`
     `}
 `)
 
-export const Quill = memo(function Quill({
-  children,
+export const BaseQuill = ({
   disabled,
   readOnly,
   placeholder,
@@ -68,14 +67,17 @@ export const Quill = memo(function Quill({
   theme = 'snow',
   tabIndex,
   bounds,
+  onChange,
   onChangeSelection,
+  onFocus,
+  onBlur,
   onKeyPress,
   onKeyDown,
   onKeyUp,
   preserveWhitespace,
+  children,
   ...props
-}) {
-  const { required, modified, error, onChange, onBlur } = props
+}) => {
   const { ref, className, ...cornProps } = useCornField({
     disabled,
     readOnly,
@@ -96,11 +98,12 @@ export const Quill = memo(function Quill({
   }, [name, value, onBlur])
 
   return (
-    <Field modified={modified} error={error}>
-      <Label required={required}>{children}</Label>
+    <>
       <ReactQuill
+        className={className}
         value={value}
         onChange={handleChange}
+        onFocus={onFocus}
         onBlur={handleBlur}
         readOnly={readOnly || disabled}
         placeholder={placeholder}
@@ -114,7 +117,9 @@ export const Quill = memo(function Quill({
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
         preserveWhitespace={preserveWhitespace}
-      />
+      >
+        {children}
+      </ReactQuill>
       <Hidden
         {...cornProps}
         ref={ref}
@@ -125,6 +130,17 @@ export const Quill = memo(function Quill({
         disabled={disabled}
         placeholder={placeholder}
       />
+    </>
+  )
+}
+
+export const Quill = memo(function Quill({ children, className, ...props }) {
+  const { required, modified, error } = props
+
+  return (
+    <Field modified={modified} error={error} className={className}>
+      <Label required={required}>{children}</Label>
+      <BaseQuill {...props} />
       {error && <Error>{error}</Error>}
     </Field>
   )

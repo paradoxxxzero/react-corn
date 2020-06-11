@@ -1,0 +1,23 @@
+{
+  "name": "@react-corn/material-ui-quill",
+  "version": "1.2.0",
+  "description": "Controlled forms with hooks for advanced object editing. HTML rich text edition with quill package integrated with material-ui.",
+  "main": "dist/bundle.js",
+  "module": "src/index.js",
+  "repository": "https://github.com/paradoxxxzero/react-corn",
+  "author": "Florian Mounier",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.x.x",
+    "@material-ui/material-ui": "^4.x.x",
+    "react": "^16.x.x",
+    "react-dom": "^16.x.x"
+  },
+  "dependencies": {
+    "clsx": "^1.1.1",
+    "react-quill": "^2.0.0-beta.2"
+  }
+}

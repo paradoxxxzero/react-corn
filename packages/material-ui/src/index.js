@@ -24,6 +24,8 @@ import {
   useFilteredProps,
 } from './attributes'
 
+export * from './attributes'
+
 export const VALUE_DELIMITER = '/--/'
 
 const useStyles = makeStyles(theme => ({

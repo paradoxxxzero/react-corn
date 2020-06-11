@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- New package @react-corn/material-ui-quill for react-quill integration in material-ui
+
+### Changed
+
+- material-ui-pickers now throw an explicit error when date-io context is not available
+
 ## [1.2.0] - 2020-06-10
 
 ### Added

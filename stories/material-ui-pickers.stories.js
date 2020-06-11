@@ -4,10 +4,9 @@ import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { useCorn } from '@react-corn/core'
-import { Date } from '@react-corn/material-ui-pickers'
+import { Date, DateTime, Time } from '@react-corn/material-ui-pickers'
 import React, { memo, useCallback } from 'react'
 
-import { DateTime, Time } from '../packages/material-ui-pickers/src'
 import { Story } from './helpers/Story'
 
 export default {
