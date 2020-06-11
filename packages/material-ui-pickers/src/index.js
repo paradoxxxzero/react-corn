@@ -9,15 +9,17 @@ import {
   TimePicker,
 } from '@material-ui/pickers'
 import { useCornField } from '@react-corn/core'
+import { useFilteredProps } from '@react-corn/material-ui'
 import clsx from 'clsx'
 import React, { memo, useCallback, useContext, useEffect } from 'react'
 
-import { useFilteredProps } from '../../material-ui/src/attributes'
 import {
   muiDatePickerOnlyProps,
   muiDateTimePickerOnlyProps,
   muiTimePickerOnlyProps,
 } from './attributes'
+
+export * from './attributes'
 
 const useStyles = makeStyles(theme => ({
   base: {
@@ -50,6 +52,12 @@ export const Picker = ({
   format = format || defaultFormat
 
   const utils = useContext(MuiPickersContext)
+  if (!utils) {
+    throw new Error(
+      'To use material-ui pickers you have to use @date-io and its context ' +
+        'more info: https://material-ui-pickers.dev/getting-started/installation'
+    )
+  }
 
   const { modified, error, onChange, onError } = props
   const { ref, className, ...cornProps } = useCornField({
