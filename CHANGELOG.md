@@ -10,6 +10,10 @@
 
 - material-ui-pickers now throw an explicit error when date-io context is not available
 
+### Fixed
+
+- material-ui-pickers withSeconds was not respected in DateTime
+
 ## [1.2.0] - 2020-06-10
 
 ### Added

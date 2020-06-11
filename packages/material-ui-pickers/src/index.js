@@ -155,7 +155,14 @@ export const DateTime = memo(function DateTime({ withSeconds, ...props }) {
       ComponentProps={muiDateTimePickerOnlyProps}
       defaultFormat="yyyy-MM-dd'T'HH:mm:ss'Z'"
       defaultDisplayFormat={`yyyy-MM-dd HH:mm${withSeconds ? ':ss' : ''}`}
-      views={['year', 'month', 'date', 'hours', 'minutes', 'seconds']}
+      views={[
+        'year',
+        'month',
+        'date',
+        'hours',
+        'minutes',
+        ...(withSeconds ? ['seconds'] : []),
+      ]}
       ampm={false}
       {...props}
     />

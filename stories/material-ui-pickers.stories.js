@@ -76,19 +76,19 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       </div>
 
       <div className={classes.inline}>
-        <Time required {...field('time')}>
+        <Time required withSeconds {...field('time')}>
           Time
         </Time>
         <Time
           displayFormat="pp"
           autoOk
           withSeconds
-          ariant="inline"
+          variant="inline"
           {...field('time')}
         >
           Time with display format
         </Time>
-        <Time masked ampm {...field('time')}>
+        <Time masked withSeconds {...field('time')}>
           Time with keyboard input
         </Time>
       </div>
@@ -97,9 +97,9 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           DateTime
         </DateTime>
         <DateTime
-          displayFormat="PP pp"
+          displayFormat="PP p"
           autoOk
-          withSeconds
+          ampm
           variant="inline"
           {...field('dateTime')}
         >
