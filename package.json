@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "build": "lerna run build",
-    "publish": "lerna publish",
+    "publish-all": "lerna publish",
     "lint": "eslint .",
     "fix": "prettier --write **/*.js",
     "test": "jest --coverage --passWithNoTests",

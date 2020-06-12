@@ -121,7 +121,7 @@ export default ({
 
   // On form submit, call the super onSubmit function and prevent browser form submition
   const onSubmit = useCallback(
-    async e => {
+    e => {
       e.preventDefault()
       if (Object.values(errors).some(x => x)) {
         // Should not happen as the form should prevent submit
@@ -143,10 +143,18 @@ export default ({
           names
         )
         if (isPromise(result)) {
-          result = await result
+          return new Promise((resolve, reject) => {
+            result
+              .then(asyncResult => {
+                dispatch({ type: 'submit', result: asyncResult })
+                resolve()
+              })
+              .catch(reject)
+          })
         }
+        dispatch({ type: 'submit', result })
+        return Promise.resolve()
       }
-      dispatch({ type: 'submit', result })
     },
     [errors, transient, propagateSubmit, item, mergedItem, names]
   )

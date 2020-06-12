@@ -309,6 +309,7 @@ export const Slider = memo(function Slider({ children, ...props }) {
       </InputLabel>
       <MuiSlider
         {...sliderProps}
+        value={sliderProps.value === '' ? undefined : sliderProps.value}
         className={clsx(classes.slider, className)}
         onChange={handleChange}
       />
@@ -359,6 +360,7 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
         {children}
         <MuiSwitch
           {...switchProps}
+          checked={switchProps.checked === '' ? undefined : switchProps.checked}
           className={clsx(classes.switch, className)}
         />
         {onLabel}
