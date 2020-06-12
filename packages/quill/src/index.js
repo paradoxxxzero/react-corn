@@ -83,6 +83,9 @@ export const BaseQuill = ({
     readOnly,
     placeholder,
     tabIndex,
+    onChange,
+    onFocus,
+    onBlur,
     ...props,
   })
   const { name, value } = cornProps
