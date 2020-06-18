@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-06-18
+
+### Added
+
+- Add useControlField to uniformize hidden input control fields
+- Add a new package for @material-ui/lab based field containing the Autocomplete field
+
 ## [1.2.4] - 2020-06-12
 
 ### Fixed
@@ -59,7 +66,8 @@
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.4...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.4...v1.3.0
 [1.2.4]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.1...v1.2.2
