@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
+  useControlField,
   useCornField,
   useMaybeMultipleValue,
   useOptions,
@@ -25,8 +26,6 @@ import {
 } from './attributes'
 
 export * from './attributes'
-
-export const VALUE_DELIMITER = '/--/'
 
 const useStyles = makeStyles(theme => ({
   base: {
@@ -52,6 +51,10 @@ const useStyles = makeStyles(theme => ({
     '& .MuiInput-root': {
       minWidth: '200px',
     },
+  },
+  wrapper: {
+    position: 'relative',
+    width: 'fit-content',
   },
   hidden: {
     top: '50%',
@@ -194,10 +197,12 @@ export const Select = memo(function Select({
   const classes = useStyles()
   const { modified, error, onChange } = props
   const { ref, ...cornProps } = useCornField(props)
-  const { name, value } = cornProps
+  const { name, value: originalValue } = cornProps
 
   const options = useOptions(choices)
-  const multipleValue = useMaybeMultipleValue(multiple, value)
+  const value = useMaybeMultipleValue(multiple, originalValue)
+  const controlProps = useControlField(name, value)
+
   const handleChange = useCallback(
     e => {
       onChange(name, e.target.value)
@@ -210,37 +215,6 @@ export const Select = memo(function Select({
     muiTextFieldProps
   )
 
-  const InputProps = useMemo(
-    () => ({
-      ...(textFieldProps.InputProps || {}),
-      endAdornment: (
-        <>
-          {textFieldProps.InputProps || null}
-          <input
-            ref={ref}
-            name={`${name}-corn-control`}
-            required={textFieldProps.required}
-            disabled={textFieldProps.disabled}
-            defaultValue={
-              multiple ? multipleValue.join(VALUE_DELIMITER) : multipleValue
-            }
-            className={classes.hidden}
-          />
-        </>
-      ),
-    }),
-    [
-      classes.hidden,
-      textFieldProps.InputProps,
-      textFieldProps.disabled,
-      textFieldProps.required,
-      multiple,
-      multipleValue,
-      name,
-      ref,
-    ]
-  )
-
   const SelectProps = useMemo(
     () => ({
       ...(textFieldProps.SelectProps || {}),
@@ -250,31 +224,38 @@ export const Select = memo(function Select({
   )
 
   return (
-    <TextField
-      {...textFieldProps}
-      select
-      SelectProps={SelectProps}
-      className={clsx(className, classes.select, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
-      })}
-      onChange={handleChange}
-      value={multipleValue}
-      label={textFieldProps.label || children}
-      error={!!error}
-      helperText={error || textFieldProps.helperText}
-      InputProps={InputProps}
-      inputProps={inputProps}
-    >
-      {!multiple && options.every(([k]) => k) && (
-        <MenuItem value="">&nbsp;</MenuItem>
-      )}
-      {options.map(([label, key]) => (
-        <MenuItem key={key} value={key}>
-          {label}
-        </MenuItem>
-      ))}
-    </TextField>
+    <div className={classes.wrapper}>
+      <TextField
+        {...textFieldProps}
+        select
+        SelectProps={SelectProps}
+        className={clsx(className, classes.select, {
+          [classes.base]: !modified,
+          [classes.modified]: modified,
+        })}
+        onChange={handleChange}
+        value={value}
+        label={textFieldProps.label || children}
+        error={!!error}
+        helperText={error || textFieldProps.helperText}
+        inputProps={inputProps}
+      >
+        {!multiple && options.every(([k]) => k) && (
+          <MenuItem value="">&nbsp;</MenuItem>
+        )}
+        {options.map(([label, key]) => (
+          <MenuItem key={key} value={key}>
+            {label}
+          </MenuItem>
+        ))}
+      </TextField>
+      <input
+        {...inputProps}
+        ref={ref}
+        className={classes.hidden}
+        {...controlProps}
+      />
+    </div>
   )
 })
 
@@ -283,6 +264,8 @@ export const Slider = memo(function Slider({ children, ...props }) {
   const { ref, className, ...cornProps } = useCornField(props)
   const { name, value } = cornProps
   const classes = useStyles()
+
+  const controlProps = useControlField(name, value)
 
   const handleChange = useCallback(
     (e, v) => onChange(name, isNaN(parseFloat(v)) ? '' : parseFloat(v)),
@@ -319,11 +302,9 @@ export const Slider = memo(function Slider({ children, ...props }) {
       <input
         {...inputProps}
         ref={ref}
-        name={`${name}-corn-control`}
         type="number"
-        defaultValue={value}
         className={classes.hidden}
-        value={undefined}
+        {...controlProps}
       />
     </FormControl>
   )
@@ -337,6 +318,7 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
   })
   const { name, value } = cornProps
   const classes = useStyles()
+  const controlProps = useControlField(name, value, true)
 
   const [switchProps, fcProps, inputProps] = useFilteredProps(
     cornProps,
@@ -372,10 +354,8 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
       <input
         {...inputProps}
         ref={ref}
-        name={`${name}-corn-control`}
-        defaultChecked={!!value}
         className={classes.hidden}
-        checked={undefined}
+        {...controlProps}
       />
     </FormControl>
   )
