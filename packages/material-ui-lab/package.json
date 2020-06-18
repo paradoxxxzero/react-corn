@@ -1,0 +1,23 @@
+{
+  "name": "@react-corn/material-ui-lab",
+  "version": "1.2.1",
+  "description": "Controlled forms with hooks for advanced object editing. Material-ui lab fields package.",
+  "main": "dist/bundle.js",
+  "module": "src/index.js",
+  "repository": "https://github.com/paradoxxxzero/react-corn",
+  "author": "Florian Mounier",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.x.x",
+    "@react-corn/material-ui": "^4.x.x",
+    "react": "^16.x.x",
+    "react-dom": "^16.x.x"
+  },
+  "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "clsx": "^1.1.1"
+  }
+}
