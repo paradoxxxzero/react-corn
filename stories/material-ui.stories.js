@@ -1,8 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Button } from '@material-ui/core'
+import { InputAdornment } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
-import { Email, Select, Slider, Text, TextArea } from '@react-corn/material-ui'
+import {
+  Email,
+  Number,
+  Select,
+  Slider,
+  Text,
+  TextArea,
+} from '@react-corn/material-ui'
 import React, { memo, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
@@ -69,9 +77,28 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           Mail
         </Email>
       </div>
-      <Text size={5} {...field('address.zipcode')}>
-        Zip code
-      </Text>
+      <div className={classes.inline}>
+        <Number
+          style={{ width: '6ch' }}
+          {...field('address.number', {
+            InputProps: ({ address: { number: num } }) =>
+              num && {
+                endAdornment: (
+                  <InputAdornment>
+                    {num > 20 || num < 10
+                      ? { 1: 'st', 2: 'nd', 3: 'rd' }[num % 10] || 'th'
+                      : 'th'}
+                  </InputAdornment>
+                ),
+              },
+          })}
+        >
+          Num
+        </Number>
+        <Text size={5} {...field('address.street')}>
+          Street name
+        </Text>
+      </div>
       <Text {...field('address.city')}>City</Text>
       <Select
         choices={[
