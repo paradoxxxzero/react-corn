@@ -380,7 +380,7 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
         {children}
         <MuiSwitch
           {...switchProps}
-          checked={switchProps.checked === '' ? undefined : switchProps.checked}
+          checked={switchProps.checked === '' ? false : switchProps.checked}
           className={clsx(classes.switch, className)}
         />
         {onLabel}

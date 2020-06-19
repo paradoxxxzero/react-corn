@@ -206,7 +206,7 @@ export default ({
           type: 'change',
           name,
           value: normalized,
-          oldValue: get(item, value),
+          oldValue: get(item, name),
         })
       }
     },
