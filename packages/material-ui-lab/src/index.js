@@ -9,7 +9,7 @@ import {
 } from '@react-corn/core'
 import { muiTextFieldProps, useFilteredProps } from '@react-corn/material-ui'
 import clsx from 'clsx'
-import React, { useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 
 import { muiAutocompleteProps } from './attributes'
 
@@ -44,13 +44,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const Autocomplete = ({
+export const Autocomplete = memo(function Autocomplete({
   choices,
   meta,
   width = 200,
   children,
   ...props
-}) => {
+}) {
   const { modified, error, multiple, onChange } = props
   const { ref, className, ...cornProps } = useCornField({
     ...props,
@@ -76,7 +76,7 @@ export const Autocomplete = ({
       options.map(([title, value]) => ({
         title,
         value,
-        ...(meta && meta[value] ? { meta: meta[value] } : {}),
+        ...(meta && meta[title] ? { meta: meta[title] } : {}),
       })),
     [options, meta]
   )
@@ -128,4 +128,4 @@ export const Autocomplete = ({
       />
     </div>
   )
-}
+})
