@@ -185,6 +185,44 @@ export const Number = ({ onChange, ...props }) => {
   return <Input type="number" onChange={handleChange} {...props} />
 }
 
+export const Money = ({ precision = 2, onChange, onBlur, ...props }) => {
+  const order =
+    !precision && precision !== 0 ? props.i18n.money.precision : precision
+  if (!props.min) {
+    props.min = 0
+  }
+
+  const handleChange = useCallback(
+    (n, v) =>
+      onChange(n, v && v.includes('e') ? parseFloat(v).toFixed(order) : v),
+    [onChange, order]
+  )
+  const handleBlur = useCallback(
+    (n, v) => {
+      let value = null
+      if (v && v.includes('.') && ![...v].every(c => '0.'.includes(c))) {
+        const decimalLength = v.split('.')[1].length
+        if (decimalLength > precision) {
+          value = v.slice(0, precision - decimalLength)
+        } else if (decimalLength < precision) {
+          value = v + '0'.repeat(precision - decimalLength)
+        }
+      }
+      onBlur(n, value)
+    },
+    [onBlur, precision]
+  )
+
+  return (
+    <Input
+      type="number"
+      onChange={handleChange}
+      onBlur={handleBlur}
+      step={order === 0 ? 1 : `0.${'0'.repeat(order - 1)}1`}
+      {...props}
+    />
+  )
+}
 export const TextArea = props => <Input multiline {...props} />
 
 export const Select = memo(function Select({

@@ -4,6 +4,7 @@ import {
   ButtonRow,
   Email,
   Inline,
+  Money,
   Number,
   Select,
   Text,
@@ -76,6 +77,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         Age
       </Number>
       <TextArea {...field('message')}>Message</TextArea>
+      <Money {...field('price')}>Price</Money>
 
       <ButtonRow>
         <button disabled={!modified}>Submit</button>
@@ -101,6 +103,7 @@ export const SimpleUIDemo = () => {
         },
         age: 25,
         message: 'Hello,\nHow are you?',
+        price: '12.25',
       }}
     />
   )

@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Button } from '@material-ui/core'
-import { InputAdornment } from '@material-ui/core'
+import { Button, InputAdornment } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
 import {
   Email,
+  Money,
   Number,
   Select,
   Slider,
@@ -132,6 +132,12 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         Age
       </Slider>
       <TextArea {...field('message')}>Message</TextArea>
+      <Money
+        InputProps={{ endAdornment: <InputAdornment>$</InputAdornment> }}
+        {...field('price')}
+      >
+        Price
+      </Money>
 
       <Button
         className={classes.button}
@@ -163,6 +169,7 @@ export const MaterialUIDemo = () => {
         },
         age: 25,
         message: 'Hello,\nHow are you?',
+        price: '12.25',
       }}
     />
   )
