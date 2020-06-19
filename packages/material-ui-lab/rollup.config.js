@@ -6,11 +6,8 @@ export default {
     '@material-ui/core',
     '@material-ui/core/styles',
     '@material-ui/utils',
-    '@material-ui/pickers',
+    '@material-ui/lab',
     'clsx',
-    'prop-types',
-    'hoist-non-react-statics',
-    'react-is',
     '@react-corn/core',
   ],
 }
