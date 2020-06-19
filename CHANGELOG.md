@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.3.2] - 2020-06-19
+
+- Rerelease all packages
+
 ## [1.3.1] - 2020-06-18
 
 ### Added
@@ -70,7 +74,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.4...v1.3.0
 [1.2.4]: https://github.com/paradoxxxzero/react-corn/compare/v1.2.3...v1.2.4
