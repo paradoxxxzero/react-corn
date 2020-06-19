@@ -199,7 +199,7 @@ export const Money = ({ precision = 2, onChange, onBlur, ...props }) => {
   )
   const handleBlur = useCallback(
     (n, v) => {
-      let value = null
+      let value = v || null
       if (v && v.includes('.') && ![...v].every(c => '0.'.includes(c))) {
         const decimalLength = v.split('.')[1].length
         if (decimalLength > precision) {

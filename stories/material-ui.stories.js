@@ -82,15 +82,17 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           style={{ width: '6ch' }}
           {...field('address.number', {
             InputProps: ({ address: { number: num } }) =>
-              num && {
-                endAdornment: (
-                  <InputAdornment>
-                    {num > 20 || num < 10
-                      ? { 1: 'st', 2: 'nd', 3: 'rd' }[num % 10] || 'th'
-                      : 'th'}
-                  </InputAdornment>
-                ),
-              },
+              num
+                ? {
+                    endAdornment: (
+                      <InputAdornment>
+                        {num > 20 || num < 10
+                          ? { 1: 'st', 2: 'nd', 3: 'rd' }[num % 10] || 'th'
+                          : 'th'}
+                      </InputAdornment>
+                    ),
+                  }
+                : undefined,
           })}
         >
           Num
