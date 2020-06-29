@@ -17,13 +17,16 @@ const reducer = (state, action) => {
         ;({ [action.name]: _, ...transient } = state.transient)
         return { ...state, transient }
       }
-      return {
-        ...state,
-        transient: {
-          ...state.transient,
-          [action.name]: action.value,
-        },
+      if (state.transient[action.name] !== action.value) {
+        return {
+          ...state,
+          transient: {
+            ...state.transient,
+            [action.name]: action.value,
+          },
+        }
       }
+      return state
     case 'plant':
       return {
         ...state,
@@ -198,19 +201,14 @@ export default ({
       dispatch({ type: 'blur', name })
 
       const normalized = normalizer(value)
-      const transientValue = Object.keys(transient).includes(name)
-        ? transient[name]
-        : get(item, name)
-      if (normalized !== transientValue) {
-        dispatch({
-          type: 'change',
-          name,
-          value: normalized,
-          oldValue: get(item, name),
-        })
-      }
+      dispatch({
+        type: 'change',
+        name,
+        value: normalized,
+        oldValue: get(item, name),
+      })
     },
-    [item, transient]
+    [item]
   )
 
   // Update the error holder on value change
@@ -238,7 +236,7 @@ export default ({
       // This field current value is stored in transient
       const value = modified ? transient[name] : get(item, name)
       // If there's an error, pass it
-      const error = touched.includes(name) && errors[name]
+      const error = touched.includes(name) ? errors[name] : null
 
       const dynamicProps = Object.entries(props || {}).reduce((acc, [k, v]) => {
         acc[k] = typeof v === 'function' ? v(mergedItem) : v

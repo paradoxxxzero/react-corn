@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.6] - 2020-06-29
+
+### Fixed
+
+- Fix performance regression (onBlur prop was regenerated each render)
+
 ## [1.3.5] - 2020-06-19
 
 ### Fixed
@@ -95,7 +101,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.5...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.6...HEAD
+[1.3.6]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.2...v1.3.3
