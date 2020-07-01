@@ -32,7 +32,7 @@ const Root = styled.div`
     flex: 1;
   }
 `
-const Divider = styled.hr`
+export const Divider = styled.hr`
   border-color: hsla(0, 50%, 50%, 0.1);
 `
 

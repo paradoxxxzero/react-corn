@@ -8,9 +8,9 @@ import React, { lazy, memo, Suspense, useCallback } from 'react'
 import { Story } from '../helpers/Story'
 
 const Quill = lazy(() =>
-  import(
-    /* webpackChunkName: "nivoPie" */ '@react-corn/quill'
-  ).then(module => ({ default: module.Quill }))
+  import(/* webpackChunkName: "quill" */ '@react-corn/quill').then(module => ({
+    default: module.Quill,
+  }))
 )
 
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {

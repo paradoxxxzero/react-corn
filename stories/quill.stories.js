@@ -5,8 +5,9 @@ import { useCorn } from '@react-corn/core'
 import { Quill } from '@react-corn/quill'
 import { ButtonRow, TextArea } from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
+import styled from 'styled-components'
 
-import { Story } from './helpers/Story'
+import { Divider, Story } from './helpers/Story'
 
 const modules = {
   toolbar: [
@@ -37,6 +38,11 @@ const formats = [
   'image',
 ]
 
+const Preview = styled.div`
+  max-width: 30%;
+  margin: 1em;
+`
+
 const maxSize = html =>
   html.length > 250
     ? 'This field must be shorter than 250 characters html tags included ' +
@@ -66,25 +72,32 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   })
 
   return (
-    <form {...form}>
-      <Quill required {...field('html', maxSize)}>
-        Html
-      </Quill>
-      <TextArea required {...field('html', maxSize)}>
-        Raw html
-      </TextArea>
+    <>
+      <form {...form}>
+        <Quill required {...field('html', maxSize)}>
+          Html
+        </Quill>
+        <TextArea required {...field('html', maxSize)}>
+          Raw html
+        </TextArea>
 
-      <Quill modules={modules} formats={formats} {...field('other-html')}>
-        Custom Quill modules and formats
-      </Quill>
+        <Quill modules={modules} formats={formats} {...field('other-html')}>
+          Custom Quill modules and formats
+        </Quill>
 
-      <ButtonRow>
-        <button disabled={!modified}>Submit</button>
-        <button type="button" disabled={!modified} onClick={onReset}>
-          Reset
-        </button>
-      </ButtonRow>
-    </form>
+        <ButtonRow>
+          <button disabled={!modified}>Submit</button>
+          <button type="button" disabled={!modified} onClick={onReset}>
+            Reset
+          </button>
+        </ButtonRow>
+      </form>
+      <Divider />
+      <Preview>
+        <h1>Generated html:</h1>
+        <div dangerouslySetInnerHTML={{ __html: field('html').value }} />
+      </Preview>
+    </>
   )
 })
 
