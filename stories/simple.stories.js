@@ -6,6 +6,7 @@ import {
   Inline,
   Money,
   Number,
+  Password,
   Select,
   Text,
   TextArea,
@@ -43,6 +44,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           Name
         </Text>
         <Email {...field('mail')}>Mail</Email>
+        <Password {...field('password')}>Mot de passe</Password>
       </Inline>
       <Inline>
         <Text size={5} maxLength={5} {...field('address.zipcode')}>
@@ -96,6 +98,7 @@ export const SimpleUIDemo = () => {
       initialItem={{
         name: 'John Foo',
         mail: 'john.foo@example.com',
+        password: 'qwerty',
         address: {
           zipcode: 'Z4755A',
           city: 'Barville',

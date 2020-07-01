@@ -1,5 +1,5 @@
 import * as core from '@react-corn/core'
-import React from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import theme, { withTheme } from './theme'
@@ -86,9 +86,9 @@ export const Inline = styled.div`
     margin: 0.75em;
   }
 `
-export const Labelled = ({ label, children, ...props }) => {
+export const Labelled = ({ label, className, children, ...props }) => {
   return (
-    <Label {...props}>
+    <Label className={className} {...props}>
       {label}
       <Field {...props}>{children}</Field>
       {props.error && <Error>{props.error}</Error>}
@@ -120,7 +120,6 @@ export const Input = withLabel(core.Input)
 export const Number = withLabel(core.Number)
 export const Money = withLabel(core.Money)
 export const Month = withLabel(core.Month)
-export const Password = withLabel(core.Password)
 export const Radio = withLabel(core.Radio)
 export const Range = withLabel(core.Range)
 export const Search = withLabel(core.Search)
@@ -131,3 +130,92 @@ export const TextArea = withLabel(core.TextArea)
 export const Time = withLabel(core.Time)
 export const Url = withLabel(core.Url)
 export const Week = withLabel(core.Week)
+
+const PasswordToggler = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 0.25em;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  opacity: 0.75;
+  padding: 0;
+  transition: opacity 0.2s;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: 3em;
+  display: flex;
+`
+const Relativist = styled.div`
+  position: relative;
+`
+const SvgIcon = styled.svg`
+  width: 0.5em;
+`
+const SvgCircle = styled('circle')`
+  fill: ${props => (props.uncovered ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 1)')};
+  stroke: black;
+  transition: fill 250ms;
+`
+
+export const Password = ({ noUncover, children, ...props }) => {
+  const toggler = useRef()
+  const [uncovered, setUncovered] = useState(false)
+
+  const inputProps = core.useCornField({
+    type: uncovered ? 'text' : 'password',
+    ...props,
+  })
+
+  const { ref, onBlur } = inputProps
+
+  const handleClick = useCallback(() => {
+    setUncovered(currentUncovered => !currentUncovered)
+  }, [])
+
+  const handleBlur = useCallback(
+    e => {
+      onBlur(e)
+      if (
+        e.relatedTarget !== toggler.current &&
+        e.relatedTarget !== ref.current
+      ) {
+        setUncovered(false)
+      }
+    },
+    [ref, onBlur]
+  )
+
+  return (
+    <Labelled
+      label={children}
+      modified={props.modified}
+      required={props.required}
+      error={props.error}
+    >
+      {noUncover ? (
+        <input {...inputProps} />
+      ) : (
+        <Relativist>
+          <input {...inputProps} onBlur={handleBlur} />
+          <PasswordToggler
+            type="button"
+            onClick={handleClick}
+            ref={toggler}
+            onBlur={handleBlur}
+          >
+            <SvgIcon
+              version="1.1"
+              baseProfile="full"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 10 10"
+            >
+              <SvgCircle r="4" cx="5" cy="5" uncovered={uncovered} />
+            </SvgIcon>
+          </PasswordToggler>
+        </Relativist>
+      )}
+    </Labelled>
+  )
+}
