@@ -17,16 +17,13 @@ const reducer = (state, action) => {
         ;({ [action.name]: _, ...transient } = state.transient)
         return { ...state, transient }
       }
-      if (state.transient[action.name] !== action.value) {
-        return {
-          ...state,
-          transient: {
-            ...state.transient,
-            [action.name]: action.value,
-          },
-        }
+      return {
+        ...state,
+        transient: {
+          ...state.transient,
+          [action.name]: action.value,
+        },
       }
-      return state
     case 'plant':
       return {
         ...state,
@@ -111,6 +108,8 @@ export default ({
     reducer,
     { transient: {}, errors: {}, touched: [], names: [] }
   )
+
+  console.log(transient)
 
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
@@ -205,7 +204,7 @@ export default ({
         type: 'change',
         name,
         value: normalized,
-        oldValue: get(item, name),
+        itemValue: get(item, name),
       })
     },
     [item]

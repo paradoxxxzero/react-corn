@@ -1,5 +1,5 @@
 import * as core from '@react-corn/core'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import theme, { withTheme } from './theme'
@@ -160,32 +160,12 @@ const SvgCircle = styled('circle')`
 `
 
 export const Password = ({ noUncover, children, ...props }) => {
-  const toggler = useRef()
   const [uncovered, setUncovered] = useState(false)
-
-  const inputProps = core.useCornField({
-    type: uncovered ? 'text' : 'password',
-    ...props,
-  })
-
-  const { ref, onBlur } = inputProps
 
   const handleClick = useCallback(() => {
     setUncovered(currentUncovered => !currentUncovered)
   }, [])
-
-  const handleBlur = useCallback(
-    e => {
-      onBlur(e)
-      if (
-        e.relatedTarget !== toggler.current &&
-        e.relatedTarget !== ref.current
-      ) {
-        setUncovered(false)
-      }
-    },
-    [ref, onBlur]
-  )
+  const Component = uncovered ? core.Text : core.Password
 
   return (
     <Labelled
@@ -195,16 +175,11 @@ export const Password = ({ noUncover, children, ...props }) => {
       error={props.error}
     >
       {noUncover ? (
-        <input {...inputProps} />
+        <Component {...props} autoComplete="off" />
       ) : (
         <Relativist>
-          <input {...inputProps} onBlur={handleBlur} />
-          <PasswordToggler
-            type="button"
-            onClick={handleClick}
-            ref={toggler}
-            onBlur={handleBlur}
-          >
+          <Component {...props} autoComplete="off" />
+          <PasswordToggler type="button" onClick={handleClick}>
             <SvgIcon
               version="1.1"
               baseProfile="full"

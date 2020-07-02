@@ -1,6 +1,8 @@
 import {
   FormControl,
   FormHelperText,
+  IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Slider as MuiSlider,
@@ -8,6 +10,7 @@ import {
   TextField,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 import {
   useControlField,
   useCornField,
@@ -15,7 +18,7 @@ import {
   useOptions,
 } from '@react-corn/core'
 import clsx from 'clsx'
-import React, { memo, useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 
 import {
   muiFormControlProps,
@@ -149,7 +152,6 @@ export const Hidden = props => <Input type="hidden" {...props} />
 export const Month = props => (
   <Input type="month" InputLabelProps={{ shrink: true }} {...props} />
 )
-export const Password = props => <Input type="password" {...props} />
 export const Radio = props => (
   <Input type="radio" InputLabelProps={{ shrink: true }} {...props} />
 )
@@ -398,3 +400,38 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
     </FormControl>
   )
 })
+
+export const Password = ({ noUncover, InputProps, ...props }) => {
+  const [uncovered, setUncovered] = useState(false)
+  const handleClick = useCallback(() => {
+    setUncovered(currentUncovered => !currentUncovered)
+  }, [])
+
+  const InputPropsWithVisibility = useMemo(() => {
+    if (noUncover) {
+      return InputProps
+    }
+    return {
+      ...InputProps,
+      endAdornment: (
+        <InputAdornment position="end">
+          <IconButton
+            onClick={handleClick}
+            // onMouseDown={handleMouseDownPassword}
+          >
+            {uncovered ? <VisibilityOff /> : <Visibility />}
+          </IconButton>
+        </InputAdornment>
+      ),
+    }
+  }, [InputProps, handleClick, noUncover, uncovered])
+
+  return (
+    <Input
+      {...props}
+      type={uncovered ? 'text' : 'password'}
+      autoComplete="off"
+      InputProps={InputPropsWithVisibility}
+    />
+  )
+}

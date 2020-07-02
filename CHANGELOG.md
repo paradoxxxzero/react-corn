@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add password visibility toggler in simple and material-ui
+
+### Fixed
+
+- Remove all externals in rollup build
+- Fix bad change comparison in reducer
+
 ## [1.3.6] - 2020-06-29
 
 ### Fixed

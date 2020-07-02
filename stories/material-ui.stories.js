@@ -6,6 +6,7 @@ import {
   Email,
   Money,
   Number,
+  Password,
   Select,
   Slider,
   Text,
@@ -76,6 +77,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         <Email disabled {...field('mail')}>
           Mail
         </Email>
+        <Password {...field('password')}>Mot de passe</Password>
       </div>
       <div className={classes.inline}>
         <Number
@@ -164,6 +166,7 @@ export const MaterialUIDemo = () => {
       initialItem={{
         name: 'John Foo',
         mail: 'john.foo@example.com',
+        password: 'qwerty',
         address: {
           zipcode: 'Z4755A',
           city: 'Barville',
