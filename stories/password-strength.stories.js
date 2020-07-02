@@ -4,11 +4,18 @@ import 'react-quill/dist/quill.snow.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
 import { Password as materialUIPassword } from '@react-corn/material-ui'
-import { PasswordStrength } from '@react-corn/password-strength'
 import { ButtonRow, Password as simplePassword } from '@react-corn/simple'
-import React, { memo, useCallback } from 'react'
+import React, { lazy, memo, Suspense, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
+
+const PasswordStrength = lazy(() =>
+  import(
+    /* webpackChunkName: "password-strength" */ '@react-corn/password-strength'
+  ).then(module => ({
+    default: module.PasswordStrength,
+  }))
+)
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -57,44 +64,46 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
   return (
     <form className={classes.form} {...form}>
-      <PasswordStrength
-        Component={simplePassword}
-        required
-        {...field('password')}
-      >
-        Simple Password Strength
-      </PasswordStrength>
-      <PasswordStrength
-        Component={materialUIPassword}
-        required
-        {...field('password')}
-      >
-        Material-ui Password Strength
-      </PasswordStrength>
-      <PasswordStrength
-        variant="outlined"
-        Component={materialUIPassword}
-        required
-        {...field('password')}
-      >
-        Material-ui Password Strength
-      </PasswordStrength>
-      <PasswordStrength
-        variant="filled"
-        Component={materialUIPassword}
-        required
-        {...field('password')}
-      >
-        Material-ui Password Strength
-      </PasswordStrength>
-      <PasswordStrength
-        Component={simplePassword}
-        minScore={4}
-        lowScoreMessage="This password is still too weak"
-        {...field('password-very-strong')}
-      >
-        Strong requirement
-      </PasswordStrength>
+      <Suspense fallback="Loading…">
+        <PasswordStrength
+          Component={simplePassword}
+          required
+          {...field('password')}
+        >
+          Simple Password Strength
+        </PasswordStrength>
+        <PasswordStrength
+          Component={materialUIPassword}
+          required
+          {...field('password')}
+        >
+          Material-ui Password Strength
+        </PasswordStrength>
+        <PasswordStrength
+          variant="outlined"
+          Component={materialUIPassword}
+          required
+          {...field('password')}
+        >
+          Material-ui Password Strength
+        </PasswordStrength>
+        <PasswordStrength
+          variant="filled"
+          Component={materialUIPassword}
+          required
+          {...field('password')}
+        >
+          Material-ui Password Strength
+        </PasswordStrength>
+        <PasswordStrength
+          Component={simplePassword}
+          minScore={4}
+          lowScoreMessage="This password is still too weak"
+          {...field('password-very-strong')}
+        >
+          Strong requirement
+        </PasswordStrength>
+      </Suspense>
       <ButtonRow>
         <button disabled={!modified}>Submit</button>
         <button type="button" disabled={!modified} onClick={onReset}>
