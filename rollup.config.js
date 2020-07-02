@@ -7,7 +7,7 @@ export default {
     file: 'dist/bundle.js',
     format: 'cjs',
   },
-  external: id => !id.startsWith('./'),
+  external: id => !id.startsWith('.'),
   plugins: [
     resolve(),
     babel({

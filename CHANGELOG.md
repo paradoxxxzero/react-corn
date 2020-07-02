@@ -2,7 +2,15 @@
 
 ## [Unreleased]
 
+## [1.3.9] - 2020-07-02
+
+### Fixed
+
+- Fix "." considered as external
+
 ## [1.3.8] - 2020-07-02
+
+### Added
 
 - Add @react-corn/password-strength package to display and check password strength
 
@@ -116,7 +124,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.8...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.9...HEAD
+[1.3.9]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.7...v1.3.8
 [1.3.7]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.6...v1.3.7
 [1.3.6]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.5...v1.3.6
