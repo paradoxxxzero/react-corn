@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/quill",
-  "version": "1.3.7",
+  "version": "1.3.9",
   "description": "Controlled forms with hooks for advanced object editing. HTML rich text edition with quill package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
