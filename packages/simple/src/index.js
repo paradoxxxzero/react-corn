@@ -39,6 +39,9 @@ export const Field = withTheme(styled.div`
 `)
 
 export const Error = styled.div``
+export const Suggestion = withTheme(styled.div`
+  color: ${props => props.theme.color.suggestion};
+`)
 
 export const ButtonRow = styled.div`
   button {
@@ -92,6 +95,7 @@ export const Labelled = ({ label, className, children, ...props }) => {
       {label}
       <Field {...props}>{children}</Field>
       {props.error && <Error>{props.error}</Error>}
+      {props.suggestion && <Suggestion>{props.suggestion}</Suggestion>}
     </Label>
   )
 }
@@ -147,8 +151,10 @@ const PasswordToggler = styled.button`
   font-size: 3em;
   display: flex;
 `
+
 const Relativist = styled.div`
   position: relative;
+  width: fit-content;
 `
 const SvgIcon = styled.svg`
   width: 0.5em;
@@ -159,26 +165,40 @@ const SvgCircle = styled('circle')`
   transition: fill 250ms;
 `
 
-export const Password = ({ noUncover, children, ...props }) => {
+const PasswordScore = withTheme(styled.div`
+  height: 0.15em;
+  transition: background-color 250ms, width 250ms;
+  width: ${props => (100 * (props.score + 1)) / 5}%;
+  background-color: hsl(${props => props.score ** 2 * 12}, 100%, 50%);
+`)
+
+export const Password = ({
+  noUncover,
+  score,
+  suggestion,
+  children,
+  ...props
+}) => {
   const [uncovered, setUncovered] = useState(false)
 
   const handleClick = useCallback(() => {
     setUncovered(currentUncovered => !currentUncovered)
   }, [])
-  const Component = uncovered ? core.Text : core.Password
-
   return (
     <Labelled
       label={children}
       modified={props.modified}
       required={props.required}
       error={props.error}
+      suggestion={suggestion}
     >
-      {noUncover ? (
-        <Component {...props} autoComplete="off" />
-      ) : (
-        <Relativist>
-          <Component {...props} autoComplete="off" />
+      <Relativist>
+        <core.Password
+          {...props}
+          type={uncovered ? 'text' : 'password'}
+          autoComplete="off"
+        />
+        {!noUncover && (
           <PasswordToggler type="button" onClick={handleClick}>
             <SvgIcon
               version="1.1"
@@ -189,8 +209,9 @@ export const Password = ({ noUncover, children, ...props }) => {
               <SvgCircle r="4" cx="5" cy="5" uncovered={uncovered} />
             </SvgIcon>
           </PasswordToggler>
-        </Relativist>
-      )}
+        )}
+        {(score || score === 0) && <PasswordScore score={score} />}
+      </Relativist>
     </Labelled>
   )
 }

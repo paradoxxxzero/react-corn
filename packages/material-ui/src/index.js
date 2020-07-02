@@ -4,13 +4,16 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  LinearProgress,
   MenuItem,
   Slider as MuiSlider,
   Switch as MuiSwitch,
   TextField,
+  useFormControl,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
+import { withStyles } from '@material-ui/styles'
 import {
   useControlField,
   useCornField,
@@ -97,6 +100,10 @@ const useStyles = makeStyles(theme => ({
   sliderLabel: {
     top: '1.75em',
     position: 'relative',
+  },
+  suggestion: {
+    color: theme.palette.info.main,
+    display: 'block',
   },
 }))
 export const Input = memo(function Input({ children, muiSize, ...props }) {
@@ -400,8 +407,39 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
     </FormControl>
   )
 })
+const StyledLinearProgress = withStyles(() => ({
+  root: {
+    position: 'absolute',
+    height: props => (props.hasfocus ? '2px' : '1px'),
+    bottom: 0,
+    zIndex: 15,
+    width: props => (props.inputvariant === 'outlined' ? '96%' : '100%'),
+    left: props => (props.inputvariant === 'outlined' ? '2%' : '0'),
+  },
+  colorPrimary: {
+    backgroundColor: 'rgba(255, 255, 255, .75)',
+  },
+  bar: {
+    backgroundColor: props => `hsl(${props.score ** 2 * 12}, 100%, 50%)`,
+  },
+}))(LinearProgress)
 
-export const Password = ({ noUncover, InputProps, ...props }) => {
+const PasswordLinearProgress = props => {
+  const { focused } = useFormControl()
+  return (
+    <StyledLinearProgress hasfocus={focused ? 'y' : undefined} {...props} />
+  )
+}
+
+export const Password = ({
+  noUncover,
+  score,
+  error,
+  suggestion,
+  InputProps,
+  ...props
+}) => {
+  const classes = useStyles()
   const [uncovered, setUncovered] = useState(false)
   const handleClick = useCallback(() => {
     setUncovered(currentUncovered => !currentUncovered)
@@ -414,17 +452,24 @@ export const Password = ({ noUncover, InputProps, ...props }) => {
     return {
       ...InputProps,
       endAdornment: (
-        <InputAdornment position="end">
-          <IconButton
-            onClick={handleClick}
-            // onMouseDown={handleMouseDownPassword}
-          >
-            {uncovered ? <VisibilityOff /> : <Visibility />}
-          </IconButton>
-        </InputAdornment>
+        <>
+          <InputAdornment position="end">
+            <IconButton onClick={handleClick}>
+              {uncovered ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+          {(score || score === 0) && (
+            <PasswordLinearProgress
+              score={score}
+              inputvariant={props.variant || 'standard'}
+              variant="determinate"
+              value={(100 * (score + 1)) / 5}
+            />
+          )}
+        </>
       ),
     }
-  }, [InputProps, handleClick, noUncover, uncovered])
+  }, [noUncover, InputProps, handleClick, uncovered, score, props.variant])
 
   return (
     <Input
@@ -432,6 +477,16 @@ export const Password = ({ noUncover, InputProps, ...props }) => {
       type={uncovered ? 'text' : 'password'}
       autoComplete="off"
       InputProps={InputPropsWithVisibility}
+      error={
+        (error || suggestion) && (
+          <>
+            {error}
+            {suggestion && (
+              <span className={classes.suggestion}>{suggestion}</span>
+            )}
+          </>
+        )
+      }
     />
   )
 }

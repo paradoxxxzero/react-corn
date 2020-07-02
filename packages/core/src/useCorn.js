@@ -109,8 +109,6 @@ export default ({
     { transient: {}, errors: {}, touched: [], names: [] }
   )
 
-  console.log(transient)
-
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
 
