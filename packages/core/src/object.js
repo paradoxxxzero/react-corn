@@ -79,9 +79,11 @@ export const merge = (item, transient, names = null) => {
       update(
         newItem,
         name,
-        Object.keys(transient).includes(name)
-          ? emptyStringToNull(transient[name])
-          : get(item, name)
+        emptyStringToNull(
+          Object.keys(transient).includes(name)
+            ? transient[name]
+            : get(item, name)
+        )
       )
     })
     return newItem
