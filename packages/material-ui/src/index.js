@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
   },
 }))
-export const Input = memo(function Input({ children, muiSize, ...props }) {
+export const Input = memo(function Input({ children, ...props }) {
   const classes = useStyles()
   const { modified, error } = props
   const { ref, ...cornProps } = useCornField(props)
@@ -119,7 +119,6 @@ export const Input = memo(function Input({ children, muiSize, ...props }) {
   return (
     <TextField
       {...textFieldProps}
-      size={muiSize}
       className={clsx(textFieldProps.className, classes.field, {
         [classes.base]: !modified,
         [classes.modified]: modified,
