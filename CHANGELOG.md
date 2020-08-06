@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.3.10] - 2020-08-06
+
+### Fixed
+
+- Fix 3rd argument of onSubmit mixing null values and empty strings
+- Minor problems
+
 ## [1.3.9] - 2020-07-02
 
 ### Fixed
@@ -124,7 +131,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.9...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.10...HEAD
+[1.3.10]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.9...1.3.10
 [1.3.9]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.7...v1.3.8
 [1.3.7]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.6...v1.3.7
