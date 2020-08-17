@@ -58,6 +58,13 @@ export const Label = withTheme(styled.label`
     `}
 `)
 
+export const BLANK_VALUES = [
+  '<p><br></p>',
+  '<h1><br></h1>',
+  '<h2><br></h2>',
+  '<h3><br></h3>',
+]
+
 export const BaseQuill = ({
   disabled,
   readOnly,
@@ -92,12 +99,13 @@ export const BaseQuill = ({
 
   const handleChange = useCallback(
     content => {
-      onChange(name, content)
+      onChange(name, BLANK_VALUES.includes(content) ? '' : content)
     },
     [name, onChange]
   )
   const handleBlur = useCallback(() => {
-    onBlur(name, value === '<p><br></p>' ? '' : value ? value.trim() : '')
+    // TODO: Trim blank html here? (<p> </p>)
+    onBlur(name, BLANK_VALUES.includes(value) ? '' : value)
   }, [name, value, onBlur])
 
   return (
