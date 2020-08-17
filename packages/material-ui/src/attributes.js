@@ -56,7 +56,7 @@ export const muiFormControlProps = [
   'hiddenLabel',
   'margin',
   'required',
-  'size',
+  // 'size',
   'variant',
 ]
 export const muiTextFieldProps = muiTextFieldOnlyProps.concat(
@@ -122,6 +122,7 @@ export const muiSwitchProps = [
 ]
 
 export const useFilteredProps = (props, ...groups) => {
+  // size should not be caught if it's int -> inputProps
   const filteredProps = groups.map(group =>
     Object.fromEntries(Object.entries(props).filter(([k]) => group.includes(k)))
   )

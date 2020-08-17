@@ -137,6 +137,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       </Slider>
       <TextArea {...field('message')}>Message</TextArea>
       <Money
+        size="small"
         InputProps={{ endAdornment: <InputAdornment>$</InputAdornment> }}
         {...field('price')}
       >

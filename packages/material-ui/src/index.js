@@ -109,6 +109,14 @@ const useStyles = makeStyles(theme => ({
 export const Input = memo(function Input({ children, ...props }) {
   const classes = useStyles()
   const { modified, error } = props
+
+  // Handle size property collision between mui and input
+  let muiSize
+  if (props.size && typeof props.size === 'string') {
+    muiSize = props.size
+    delete props.size
+  }
+
   const { ref, ...cornProps } = useCornField(props)
 
   const [textFieldProps, inputProps] = useFilteredProps(
@@ -128,6 +136,7 @@ export const Input = memo(function Input({ children, ...props }) {
       error={!!error}
       helperText={error || textFieldProps.helperText}
       inputProps={inputProps}
+      size={muiSize}
     />
   )
 })
