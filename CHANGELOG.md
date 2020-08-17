@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.3.11] - 2020-08-17
+
+### Fixed
+
+- Trim blank values in quill on every change, this prevent some undesired modified
+- Handle size property collision between mui and input
+
 ## [1.3.10] - 2020-08-06
 
 ### Fixed
@@ -131,7 +138,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.10...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.11...HEAD
+[1.3.11]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.10...1.3.11
 [1.3.10]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.9...1.3.10
 [1.3.9]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.8...v1.3.9
 [1.3.8]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.7...v1.3.8
