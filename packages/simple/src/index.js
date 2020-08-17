@@ -100,18 +100,19 @@ export const Labelled = ({ label, className, children, ...props }) => {
   )
 }
 
-export const withLabel = Component => ({ children, ...props }) => {
-  return (
-    <Labelled
-      label={children}
-      modified={props.modified}
-      required={props.required}
-      error={props.error}
-    >
-      <Component {...props} />
-    </Labelled>
-  )
-}
+export const withLabel = Component =>
+  function WrapLabel({ children, ...props }) {
+    return (
+      <Labelled
+        label={children}
+        modified={props.modified}
+        required={props.required}
+        error={props.error}
+      >
+        <Component {...props} />
+      </Labelled>
+    )
+  }
 
 export const Checkbox = withLabel(core.Checkbox)
 export const Color = withLabel(core.Color)
