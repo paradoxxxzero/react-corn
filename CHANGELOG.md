@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [1.3.12] - 2020-08-24
+
+### Added
+
+- `onBlur` is now supported on useCorn
+
+### Fixed
+
+- Some extraneous `onChange` calls have been removed
+
 ## [1.3.11] - 2020-08-17
 
 ### Fixed
@@ -138,7 +148,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.11...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.12...HEAD
+[1.3.11]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.11...1.3.12
 [1.3.11]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.10...1.3.11
 [1.3.10]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.9...1.3.10
 [1.3.9]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.8...v1.3.9
