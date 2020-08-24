@@ -14,15 +14,21 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'change':
       if (action.value === action.itemValue) {
-        ;({ [action.name]: _, ...transient } = state.transient)
+        if (Object.keys(state.transient).includes(action.name)) {
+          ;({ [action.name]: _, ...transient } = state.transient)
+        } else {
+          ;({ transient } = state)
+        }
         return { ...state, transient }
       }
+
       return {
         ...state,
         transient: {
           ...state.transient,
           [action.name]: action.value,
         },
+        lastChangeReason: action.reason,
       }
     case 'plant':
       return {
@@ -87,9 +93,12 @@ const emptyItem = {}
 export default ({
   // The item to edit:
   item = emptyItem,
-  // onChange will be called with the name, the current item state and its diff
-  // with the original item at each field change
+  // onChange will be called with the name, the current item state, its diff
+  // with the original item at each field change and the fields errors
   onChange: propagateChange,
+  // onBlur will be called with the same parameters as onChange but only when
+  // a field lose focus
+  onBlur: propagateBlur,
   // onSubmit will be called with the current item state and its diff
   // with the original item on form submit.
   // This method can return a boolean or a promise resolving to a boolean
@@ -104,10 +113,16 @@ export default ({
   // errors is a mapping of all fields with theirs errors
   // touched keep track of touched fields to prevent displaying errors
   // names hold all field names that this form is handling
-  const [{ transient, errors, touched, names }, dispatch] = useReducer(
-    reducer,
-    { transient: {}, errors: {}, touched: [], names: [] }
-  )
+  const [
+    { transient, errors, touched, names, lastChangeReason },
+    dispatch,
+  ] = useReducer(reducer, {
+    transient: {},
+    errors: {},
+    touched: [],
+    names: [],
+    lastChangeReason: null,
+  })
 
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
@@ -161,15 +176,21 @@ export default ({
 
   // On transient changes, call the super onChange
   useEffect(() => {
-    propagateChange?.(
-      merge(item, transient),
-      merge({}, transient),
-      merge(
+    if (propagateChange || (propagateBlur && lastChangeReason === 'blur')) {
+      const newItem = merge(item, transient)
+      const itemDiff = merge({}, transient)
+      const currentErrors = merge(
         {},
         Object.fromEntries(Object.entries(errors).filter(([, v]) => v))
-      ),
-      names
-    )
+      )
+
+      propagateChange &&
+        propagateChange(newItem, itemDiff, currentErrors, names)
+      propagateBlur &&
+        lastChangeReason === 'blur' &&
+        propagateBlur(newItem, itemDiff, currentErrors, names)
+    }
+
     // We voluntarly omit everything except transient because it's only
     // transient changes that should initiate onChange
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -187,7 +208,13 @@ export default ({
   // Fields must call this with the value (and not the event)
   const onChange = useCallback(
     (name, value) => {
-      dispatch({ type: 'change', name, value, itemValue: get(item, name) })
+      dispatch({
+        type: 'change',
+        name,
+        value,
+        itemValue: get(item, name),
+        reason: 'change',
+      })
     },
     [item]
   )
@@ -203,6 +230,7 @@ export default ({
         name,
         value: normalized,
         itemValue: get(item, name),
+        reason: 'blur',
       })
     },
     [item]

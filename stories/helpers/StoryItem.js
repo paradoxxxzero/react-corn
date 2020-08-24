@@ -25,11 +25,8 @@ const EditorContainer = styled.div`
     props.syntaxError ? 'rgba(255, 0, 0, 0.025)' : 'inherit'};
 
   border: ${props => (props.editable ? '1px solid hsl(0,0%,50%)' : 'none')};
-
-  pre {
-    font-family: Menlo, monospace;
-    font-size: 11px;
-  }
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
 
   textarea {
     outline: none;
