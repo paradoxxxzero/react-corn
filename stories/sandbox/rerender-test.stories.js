@@ -34,9 +34,9 @@ const withRenderCount = Field =>
       .concat(Object.keys(props))
       .filter((k, i, array) => array.indexOf(k) === i)
       .filter(k => lastProps.current[k] !== props[k])
-    console.log(
-      ...changedProps.map(k => [props.name, k, lastProps.current[k], props[k]])
-    )
+    // console.log(
+    //   ...changedProps.map(k => [props.name, k, lastProps.current[k], props[k]])
+    // )
     lastProps.current = props
     rc.current++
     return (

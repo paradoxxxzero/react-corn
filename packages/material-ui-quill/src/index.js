@@ -65,6 +65,7 @@ export const Quill = memo(function Quill({
       quillProps.onBlur?.(...args)
       setFocused(false)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [quillProps.onBlur]
   )
   const handleFocus = useCallback(
@@ -72,6 +73,7 @@ export const Quill = memo(function Quill({
       quillProps.onFocus?.(...args)
       setFocused(true)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [quillProps.onFocus]
   )
 

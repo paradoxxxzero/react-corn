@@ -1,3 +1,4 @@
+import { StylesProvider } from '@material-ui/styles'
 import React, { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -36,6 +37,10 @@ export const Divider = styled.hr`
   border-color: hsla(0, 50%, 50%, 0.1);
 `
 
+const generateClassName = (rule, styleSheet) => {
+  return `${styleSheet.options.classNamePrefix}-${rule.key}`
+}
+
 export const Story = ({ Chapter, initialItem }) => {
   const [item, setItem] = useState(initialItem || {})
   const [transient, setTransient] = useDebouncedState({})
@@ -46,7 +51,7 @@ export const Story = ({ Chapter, initialItem }) => {
     setItem(it)
   }, [])
 
-  return (
+  const innerStory = (
     <Root>
       <Chapter
         item={item}
@@ -65,4 +70,16 @@ export const Story = ({ Chapter, initialItem }) => {
       />
     </Root>
   )
+  if (process.env.NODE_ENV === 'test') {
+    return (
+      <StylesProvider
+        generateClassName={
+          process.env.NODE_ENV === 'test' ? generateClassName : undefined
+        }
+      >
+        {innerStory}
+      </StylesProvider>
+    )
+  }
+  return innerStory
 }

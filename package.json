@@ -14,7 +14,7 @@
     "force-publish-all": "lerna publish --force-publish=* --yes",
     "lint": "eslint .",
     "fix": "prettier --write **/*.js",
-    "test": "jest --coverage --passWithNoTests",
+    "test": "jest --coverage",
     "coverage": "cat ./coverage/lcov.info | coveralls",
     "test-debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "prepublish": "yarn run build",
@@ -39,6 +39,7 @@
     "@material-ui/styles": "^4.10.0",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@storybook/addon-storyshots": "^6.0.19",
     "@storybook/addon-storysource": "^6.0.16",
     "@storybook/addons": "^6.0.16",
     "@storybook/react": "^6.0.16",
@@ -64,6 +65,7 @@
     "react-dom": "^16.13.1",
     "react-quill": "^2.0.0-beta.2",
     "react-simple-code-editor": "^0.11.0",
+    "react-test-renderer": "^16.13.1",
     "rollup": "^2.26.5",
     "styled-components": "^5.1.1",
     "webpack": "^4.44.1",
@@ -71,5 +73,21 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "modulePaths": [
+      "<rootDir>/packages/*/src"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|sass)$": "<rootDir>/stories/mock/style.js",
+      "^!!raw-loader!": "<rootDir>/stories/mock/raw.js"
+    }
+  }
 }

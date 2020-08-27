@@ -70,7 +70,7 @@ const Log = memo(function Log({ changes }) {
 })
 
 const inlineBlock = { display: 'inline-block' }
-export const ReRenderTest = () => {
+export const OnChangeOnBlurTest = () => {
   const [item, setItem] = useState(initialItem)
   const [changes, setChanges] = useState([])
 
