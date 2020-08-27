@@ -149,27 +149,24 @@ export default ({
         )
         return
       }
-      let result = null
-      if (Object.keys(transient).length) {
-        result = propagateSubmit?.(
-          merge(item, transient),
-          merge({}, transient),
-          mergedItem,
-          names
-        )
-        if (isPromise(result)) {
-          return new Promise((resolve, reject) => {
-            result
-              .then(asyncResult => {
-                dispatch({ type: 'submit', result: asyncResult })
-                resolve()
-              })
-              .catch(reject)
-          })
-        }
-        dispatch({ type: 'submit', result })
-        return Promise.resolve()
+      const result = propagateSubmit?.(
+        merge(item, transient),
+        merge({}, transient),
+        mergedItem,
+        names
+      )
+      if (isPromise(result)) {
+        return new Promise((resolve, reject) => {
+          result
+            .then(asyncResult => {
+              dispatch({ type: 'submit', result: asyncResult })
+              resolve()
+            })
+            .catch(reject)
+        })
       }
+      dispatch({ type: 'submit', result })
+      return Promise.resolve()
     },
     [errors, transient, propagateSubmit, item, mergedItem, names]
   )
