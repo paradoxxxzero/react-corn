@@ -45,6 +45,10 @@ export default ({
 
   // After render check for field errors and dispatch them
   useEffect(() => {
+    if (!elementRef.current) {
+      // This happens in tests
+      return
+    }
     // Assign a custom error to the field or remove it
     elementRef.current.setCustomValidity(customError || '')
     // Dispatch the name and the custom error or the native one.

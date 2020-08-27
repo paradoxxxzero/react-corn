@@ -3,7 +3,10 @@ module.exports = function (api) {
 
   const presets = [
     '@babel/preset-react',
-    ['@babel/preset-env', { modules: false }],
+    [
+      '@babel/preset-env',
+      { modules: process.env.NODE_ENV === 'test' ? 'auto' : false },
+    ],
   ]
 
   return {
