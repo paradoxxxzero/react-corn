@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.13] - 2020-08-27
+
+### Fixed
+
+- Don't prevent submit when there are no changes. (This case should only happen when we don't honor the modified state on submit button and should be intentional in this case)
+
 ## [1.3.12] - 2020-08-24
 
 ### Added
@@ -148,8 +154,9 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.12...HEAD
-[1.3.11]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.11...1.3.12
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.13...HEAD
+[1.3.13]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.12...1.3.13
+[1.3.12]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.11...1.3.12
 [1.3.11]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.10...1.3.11
 [1.3.10]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.9...1.3.10
 [1.3.9]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.8...v1.3.9
