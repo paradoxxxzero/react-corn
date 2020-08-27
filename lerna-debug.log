@@ -1,0 +1,152 @@
+54 error Error: Command failed: git commit -m v1.3.13
+54 error FAIL stories/storybook.test.js (12.504 s)
+54 error   Storyshots
+54 error     Home
+54 error       ✕ Index (80 ms)
+54 error     @react-corn/core
+54 error       ✓ Basic Usage (4 ms)
+54 error     @react-corn/material-ui-lab
+54 error       ✓ Material UI Autocomplete Demo (349 ms)
+54 error     @react-corn/material-ui-pickers
+54 error       ✓ Material UI Picker Demo (273 ms)
+54 error     @react-corn/material-ui-quill
+54 error       ✓ Material UI Quill Demo (124 ms)
+54 error     @react-corn/material-ui
+54 error       ✓ Material UI Demo (134 ms)
+54 error     Overview/custom-validation
+54 error       ✓ Corn Story (31 ms)
+54 error     Overview/dynamic-props
+54 error       ✓ Corn Story (26 ms)
+54 error     Overview/server-errors
+54 error       ✓ Corn Story (13 ms)
+54 error     Overview/togglable-fields
+54 error       ✓ Corn Story (45 ms)
+54 error     @react-corn/password-strength
+54 error       ✓ Password Strength Demo (126 ms)
+54 error     @react-corn/quill
+54 error       ✓ Quill Demo (15 ms)
+54 error     Sandbox/async-field-load
+54 error       ✓ Async Demo (8 ms)
+54 error     Sandbox/field-list
+54 error       ✓ Corn Story (122 ms)
+54 error     Sandbox/item-less-dual-corn
+54 error       ✓ Item Less Dual Corn (4 ms)
+54 error     Sandbox/onBlur-onChange-test
+54 error       ✓ On Change On Blur Test (6 ms)
+54 error     Sandbox/rerender-test
+54 error       ✓ Re Render Test (4 ms)
+54 error     Sandbox/simple-stress-test
+54 error       ✓ Stress Test (367 ms)
+54 error     @react-corn/simple
+54 error       ✓ Simple UI Demo (16 ms)
+54 error
+54 error   ● Storyshots › Home › Index
+54 error
+54 error     expect(received).toMatchSnapshot()
+54 error
+54 error     Snapshot name: `Storyshots Home Index 1`
+54 error
+54 error     - Snapshot  - 1
+54 error     + Received  + 1
+54 error
+54 error     @@ -16,11 +16,11 @@
+54 error             <div>
+54 error               react-corn
+54 error               <strong
+54 error                 className="sc-fznZeY gQkBqN"
+54 error               >
+54 error     -           1.3.12
+54 error     +           1.3.13
+54 error               </strong>
+54 error             </div>
+54 error             <small
+54 error               className="sc-fzokOt hmzAVz"
+54 error             >
+54 error
+54 error       at match (node_modules/@storybook/addon-storyshots/dist/test-bodies.js:25:32)
+54 error       at node_modules/@storybook/addon-storyshots/dist/test-bodies.js:34:16
+54 error       at Object.<anonymous> (node_modules/@storybook/addon-storyshots/dist/api/snapshotsTestsTemplate.js:42:20)
+54 error
+54 error  › 1 snapshot failed.
+54 error ----------------------------------|---------|----------|---------|---------|---------------------------------------------------------
+54 error File                              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+54 error ----------------------------------|---------|----------|---------|---------|---------------------------------------------------------
+54 error All files                         |   76.78 |    49.12 |   69.84 |   77.23 |
+54 error  .storybook                       |     100 |      100 |     100 |     100 |
+54 error   main.js                         |     100 |      100 |     100 |     100 |
+54 error  packages/core/src                |   57.63 |    41.21 |   60.98 |   56.17 |
+54 error   fields.js                       |   79.75 |    30.56 |      75 |   76.67 | 23-24,44,59,64-73,100-103
+54 error   hooks.js                        |   94.74 |    74.29 |    87.5 |   94.74 | 18
+54 error   index.js                        |       0 |        0 |       0 |       0 |
+54 error   object.js                       |   21.05 |    23.26 |      40 |   20.37 | 14-21,26-40,44-69,76-95
+54 error   useCorn.js                      |   51.09 |       45 |   42.31 |   52.27 | 16-25,39-70,80-87,140-169,181,208,222-225,307
+54 error   useCornField.js                 |   73.33 |     12.5 |   66.67 |   78.57 | 32,53-55
+54 error  packages/material-ui-lab/src     |      92 |    78.26 |      80 |   90.91 |
+54 error   attributes.js                   |     100 |      100 |     100 |     100 |
+54 error   index.js                        |   91.67 |    78.26 |      80 |   90.48 | 63-65
+54 error  packages/material-ui-pickers/src |   91.67 |    71.79 |    87.5 |   91.18 |
+54 error   attributes.js                   |     100 |      100 |     100 |     100 |
+54 error   index.js                        |   90.32 |    71.79 |    87.5 |   89.66 | 56,74,90
+54 error  packages/material-ui-quill/src   |   83.33 |    83.33 |   71.43 |   82.61 |
+54 error   index.js                        |   83.33 |    83.33 |   71.43 |   82.61 | 65-66,73-74
+54 error  packages/material-ui/src         |   82.01 |    45.68 |   69.39 |    82.4 |
+54 error   attributes.js                   |     100 |      100 |     100 |     100 |
+54 error   index.js                        |      80 |     44.3 |   65.91 |   80.53 | 157-158,199,214,219-228,263,326,421-431,436-437,453,458
+54 error  packages/password-strength/src   |      20 |        0 |       0 |      20 |
+54 error   index.js                        |      20 |        0 |       0 |      20 | 13-18
+54 error  packages/quill/src               |   90.91 |    53.33 |    62.5 |   90.91 |
+54 error   index.js                        |   90.91 |    53.33 |    62.5 |   90.91 | 102,108
+54 error  packages/simple/src              |   90.91 |    60.87 |   66.67 |   92.59 |
+54 error   index.js                        |    90.2 |    60.87 |   64.29 |      92 | 43,172-173,186
+54 error   theme.js                        |     100 |      100 |     100 |     100 |
+54 error  stories                          |   86.71 |    34.62 |   79.25 |   86.86 |
+54 error   -index.stories.js               |     100 |      100 |     100 |     100 |
+54 error   core.stories.js                 |   66.67 |        0 |      50 |   66.67 | 21-26
+54 error   index-example.js                |   83.33 |      100 |      50 |     100 |
+54 error   material-ui-lab.stories.js      |   82.61 |       50 |   72.73 |   81.82 | 75-76,108-120
+54 error   material-ui-pickers.stories.js  |   85.71 |      100 |      80 |   84.62 | 52-53
+54 error   material-ui-quill.stories.js    |    87.5 |       50 |   83.33 |   86.67 | 49-50
+54 error   material-ui.stories.js          |   88.24 |       25 |    87.5 |    87.5 | 59-60
+54 error   password-strength.stories.js    |   88.24 |      100 |   85.71 |    87.5 | 53-54
+54 error   quill.stories.js                |    87.5 |       50 |      80 |    87.5 | 62-63
+54 error   simple.stories.js               |   84.62 |       75 |   83.33 |   84.62 | 28-29
+54 error  stories/helpers                  |      90 |    69.57 |   84.21 |   91.23 |
+54 error   Story.js                        |   92.31 |    63.64 |   85.71 |      96 | 84
+54 error   StoryItem.js                    |   88.24 |       75 |   83.33 |    87.5 | 55,71,76-77
+54 error  stories/mock                     |       0 |        0 |       0 |       0 |
+54 error   raw.js                          |       0 |        0 |       0 |       0 |
+54 error   style.js                        |       0 |        0 |       0 |       0 |
+54 error  stories/overview                 |   76.47 |    53.33 |   76.67 |   78.13 |
+54 error   custom-validation.stories.js    |   81.25 |    57.14 |      75 |   81.25 | 18,31-32
+54 error   dynamic-props.stories.js        |   88.24 |      100 |   88.89 |    87.5 | 25-26
+54 error   server-errors.stories.js        |   52.63 |       25 |      50 |   58.82 | 27-37
+54 error   togglable-fields.stories.js     |    87.5 |       75 |   85.71 |   86.67 | 41-42
+54 error  stories/sandbox                  |   78.79 |     12.5 |    62.5 |   81.05 |
+54 error   async-field-load.stories.js     |   85.71 |      100 |   83.33 |   84.62 | 26-27
+54 error   field-list.stories.js           |   88.24 |      100 |      75 |   88.24 | 72-73
+54 error   item-less-dual-corn.stories.js  |   46.67 |       50 |      20 |   53.85 | 28,35-41
+54 error   onBlur-onChange-test.stories.js |   73.68 |        0 |   42.86 |   77.78 | 47,80-83,92
+54 error   rerender-test.stories.js        |   91.67 |        0 |   83.33 |   91.67 | 61-64
+54 error   stress-test.stories.js          |      80 |        0 |      75 |      80 | 17-20
+54 error ----------------------------------|---------|----------|---------|---------|---------------------------------------------------------
+54 error Snapshot Summary
+54 error  › 1 snapshot failed from 1 test suite. Inspect your code changes or run `yarn test -u` to update them.
+54 error
+54 error Test Suites: 1 failed, 1 total
+54 error Tests:       1 failed, 18 passed, 19 total
+54 error Snapshots:   1 failed, 18 passed, 19 total
+54 error Time:        13.329 s
+54 error Ran all test suites.
+54 error pre-commit:
+54 error pre-commit: We've failed to pass the specified git pre-commit hooks as the `test`
+54 error pre-commit: hook returned an exit code (1). If you're feeling adventurous you can
+54 error pre-commit: skip the git pre-commit hooks by adding the following flags to your commit:
+54 error pre-commit:
+54 error pre-commit:   git commit -n (or --no-verify)
+54 error pre-commit:
+54 error pre-commit: This is ill-advised since the commit is broken.
+54 error pre-commit:
+54 error
+54 error     at makeError (/home/zero/github/paradoxxxzero/react-corn/node_modules/execa/index.js:174:9)
+54 error     at /home/zero/github/paradoxxxzero/react-corn/node_modules/execa/index.js:278:16
+54 error     at processTicksAndRejections (internal/process/task_queues.js:93:5)

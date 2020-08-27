@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.14] - 2020-08-27
+
+### Fixed
+
+- Bad peer dependencies for @react-corn packages
+
 ## [1.3.13] - 2020-08-27
 
 ### Fixed
@@ -154,7 +160,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.13...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.14...HEAD
+[1.3.14]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.13...1.3.14
 [1.3.13]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.12...1.3.13
 [1.3.12]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.11...1.3.12
 [1.3.11]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.10...1.3.11

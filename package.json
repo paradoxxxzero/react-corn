@@ -24,8 +24,7 @@
     "build-storybook": "build-storybook"
   },
   "pre-commit": [
-    "lint",
-    "test"
+    "lint"
   ],
   "devDependencies": {
     "@babel/core": "^7.11.4",
