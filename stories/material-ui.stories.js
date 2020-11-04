@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
 import {
   Email,
+  Inline,
   Money,
   Number,
   Password,
@@ -28,14 +29,6 @@ const useStyles = makeStyles(theme => ({
     '& .MuiFormControl-root': {
       display: 'block',
       margin: theme.spacing(4),
-    },
-  },
-  inline: {
-    margin: theme.spacing(2),
-
-    '& .MuiFormControl-root': {
-      display: 'inline-flex',
-      margin: theme.spacing(2),
     },
   },
   button: {
@@ -70,7 +63,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
   return (
     <form className={classes.form} {...form}>
-      <div className={classes.inline}>
+      <Inline>
         <Text required maxLength={25} {...field('name')}>
           Name
         </Text>
@@ -78,8 +71,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           Mail
         </Email>
         <Password {...field('password')}>Mot de passe</Password>
-      </div>
-      <div className={classes.inline}>
+      </Inline>
+      <Inline>
         <Number
           style={{ width: '6ch' }}
           {...field('address.number', {
@@ -99,10 +92,10 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           Num
         </Number>
-        <Text size={5} {...field('address.street')}>
+        <Text size={8} {...field('address.street')}>
           Street name
         </Text>
-      </div>
+      </Inline>
       <Text {...field('address.city')}>City</Text>
       <Select
         choices={[

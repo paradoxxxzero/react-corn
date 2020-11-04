@@ -1,0 +1,78 @@
+import * as rccore from '@react-corn/core'
+import * as materialUI from '@react-corn/material-ui'
+import * as materialUILab from '@react-corn/material-ui-lab'
+import * as materialUIPickers from '@react-corn/material-ui-pickers'
+import * as rcsimple from '@react-corn/simple'
+
+export const core = {
+  checkbox: rccore.Checkbox,
+  color: rccore.Color,
+  date: rccore.Date,
+  datetimelocal: rccore.DatetimeLocal,
+  email: rccore.Email,
+  file: rccore.File,
+  hidden: rccore.Hidden,
+  month: rccore.Month,
+  password: rccore.Password,
+  radio: rccore.Radio,
+  range: rccore.Range,
+  search: rccore.Search,
+  tel: rccore.Tel,
+  text: rccore.Text,
+  time: rccore.Time,
+  url: rccore.Url,
+  week: rccore.Week,
+  number: rccore.Number,
+  textarea: rccore.TextArea,
+  select: rccore.Select,
+}
+
+export const simple = {
+  checkbox: rcsimple.Checkbox,
+  color: rcsimple.Color,
+  date: rcsimple.Date,
+  datetimelocal: rcsimple.DatetimeLocal,
+  email: rcsimple.Email,
+  file: rcsimple.File,
+  hidden: rcsimple.Hidden,
+  month: rcsimple.Month,
+  password: rcsimple.Password,
+  radio: rcsimple.Radio,
+  range: rcsimple.Range,
+  search: rcsimple.Search,
+  tel: rcsimple.Tel,
+  text: rcsimple.Text,
+  time: rcsimple.Time,
+  url: rcsimple.Url,
+  week: rcsimple.Week,
+  number: rcsimple.Number,
+  textarea: rcsimple.TextArea,
+  select: rcsimple.Select,
+}
+
+export const mui = {
+  checkbox: materialUI.Checkbox,
+  color: materialUI.Color,
+  date: materialUI.Date,
+  datetimelocal: materialUI.DatetimeLocal,
+  email: materialUI.Email,
+  file: materialUI.File,
+  hidden: materialUI.Hidden,
+  month: materialUI.Month,
+  password: materialUI.Password,
+  radio: materialUI.Radio,
+  range: materialUI.Range,
+  search: materialUI.Search,
+  tel: materialUI.Tel,
+  text: materialUI.Text,
+  time: materialUI.Time,
+  url: materialUI.Url,
+  week: materialUI.Week,
+  number: materialUI.Number,
+  textarea: materialUI.TextArea,
+  select: materialUI.Select,
+  slider: materialUI.Slider,
+  switch: materialUI.Switch,
+  pickerdate: materialUIPickers.Date,
+  autocomplete: materialUILab.Autocomplete,
+}

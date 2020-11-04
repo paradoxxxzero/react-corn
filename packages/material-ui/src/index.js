@@ -391,7 +391,6 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
         [classes.switchModified]: modified,
       })}
       error={!!error}
-      fullWidth
     >
       <InputLabel disableAnimation shrink>
         {children}
@@ -497,4 +496,22 @@ export const Password = ({
       }
     />
   )
+}
+
+const useInlineStyles = makeStyles(theme => ({
+  inline: {
+    margin: [theme.spacing(2), '!important'],
+
+    '& > *': {
+      display: ['inline-flex', '!important'],
+    },
+    '& .MuiFormControl-root': {
+      margin: [theme.spacing(2), '!important'],
+    },
+  },
+}))
+
+export const Inline = ({ children }) => {
+  const classes = useInlineStyles()
+  return <div className={classes.inline}>{children}</div>
 }
