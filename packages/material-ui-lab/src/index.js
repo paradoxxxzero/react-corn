@@ -91,7 +91,7 @@ export const Autocomplete = memo(function Autocomplete({
   )
 
   return (
-    <div className={classes.wrapper} style={width && { width }}>
+    <div className={classes.wrapper}>
       <MuiAutocomplete
         autoHighlight
         {...autocompleteProps}
@@ -109,6 +109,7 @@ export const Autocomplete = memo(function Autocomplete({
             value={undefined}
             onChange={undefined}
             {...params}
+            style={width && { width }}
             label={textFieldProps.label || params.label || children}
             error={!!error}
             helperText={error || textFieldProps.helperText || params.helperText}

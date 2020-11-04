@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.3.16] - 2020-11-04
+
+### Fixed
+
+- Better sizing of autocomplete
+
 ## [1.3.15] - 2020-11-04
 
 ### Added
@@ -167,7 +173,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.15...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.16...HEAD
+[1.3.16]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.15...1.3.16
 [1.3.15]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.14...1.3.15
 [1.3.14]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.13...1.3.14
 [1.3.13]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.12...1.3.13

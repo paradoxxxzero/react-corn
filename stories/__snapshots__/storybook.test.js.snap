@@ -1164,11 +1164,6 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
   >
     <div
       className="makeStyles-wrapper"
-      style={
-        Object {
-          "width": 200,
-        }
-      }
     >
       <div
         aria-expanded={false}
@@ -1181,6 +1176,11 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
       >
         <div
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          style={
+            Object {
+              "width": 200,
+            }
+          }
         >
           <label
             className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -1301,11 +1301,6 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
     </div>
     <div
       className="makeStyles-wrapper"
-      style={
-        Object {
-          "width": 400,
-        }
-      }
     >
       <div
         aria-expanded={false}
@@ -1318,6 +1313,11 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
       >
         <div
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          style={
+            Object {
+              "width": 400,
+            }
+          }
         >
           <label
             className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiFormLabel-required MuiInputLabel-required"
@@ -1447,11 +1447,6 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
     </div>
     <div
       className="makeStyles-wrapper"
-      style={
-        Object {
-          "width": 250,
-        }
-      }
     >
       <div
         aria-expanded={false}
@@ -1464,6 +1459,11 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
       >
         <div
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          style={
+            Object {
+              "width": 250,
+            }
+          }
         >
           <label
             className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiFormLabel-required MuiInputLabel-required"
@@ -1592,11 +1592,6 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
     </div>
     <div
       className="makeStyles-wrapper"
-      style={
-        Object {
-          "width": 400,
-        }
-      }
     >
       <div
         aria-expanded={false}
@@ -1609,6 +1604,11 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
       >
         <div
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          style={
+            Object {
+              "width": 400,
+            }
+          }
         >
           <label
             className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-required MuiInputLabel-required"
@@ -1827,6 +1827,284 @@ exports[`Storyshots @react-corn/material-ui-lab Material UI Autocomplete Demo 1`
         required={true}
         value="#008080/--/#800080/--/#000000"
       />
+    </div>
+    <div
+      className="makeStyles-inline"
+    >
+      <div
+        className="makeStyles-wrapper"
+      >
+        <div
+          aria-expanded={false}
+          aria-owns={null}
+          className="MuiAutocomplete-root makeStyles-base MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="combobox"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
+          >
+            <label
+              className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+              data-shrink={false}
+              id="undefined-label"
+            >
+              Continent
+            </label>
+            <div
+              className="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+              onClick={[Function]}
+            >
+              <input
+                aria-activedescendant={null}
+                aria-autocomplete="list"
+                aria-controls={null}
+                aria-invalid={false}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoFocus={false}
+                className="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
+                disabled={false}
+                name="continent"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                required={false}
+                spellCheck="false"
+                type="text"
+                value=""
+              />
+              <div
+                className="MuiAutocomplete-endAdornment"
+              >
+                <button
+                  aria-label="Clear"
+                  className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={-1}
+                  title="Clear"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <button
+                  aria-label="Open"
+                  className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={-1}
+                  title="Open"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M7 10l5 5 5-5z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input
+          className="makeStyles-hidden"
+          name="continent-corn-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value="EU"
+        />
+      </div>
+      <div
+        className="makeStyles-wrapper"
+      >
+        <div
+          aria-expanded={false}
+          aria-owns={null}
+          className="MuiAutocomplete-root makeStyles-base MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="combobox"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
+          >
+            <label
+              className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+              data-shrink={false}
+              id="undefined-label"
+            >
+              Colors
+            </label>
+            <div
+              className="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+              onClick={[Function]}
+            >
+              <input
+                aria-activedescendant={null}
+                aria-autocomplete="list"
+                aria-controls={null}
+                aria-invalid={false}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoFocus={false}
+                className="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
+                disabled={false}
+                name="continent"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onMouseDown={[Function]}
+                required={false}
+                spellCheck="false"
+                type="text"
+                value=""
+              />
+              <div
+                className="MuiAutocomplete-endAdornment"
+              >
+                <button
+                  aria-label="Clear"
+                  className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={-1}
+                  title="Clear"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <button
+                  aria-label="Open"
+                  className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={-1}
+                  title="Open"
+                  type="button"
+                >
+                  <span
+                    className="MuiIconButton-label"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M7 10l5 5 5-5z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input
+          className="makeStyles-hidden"
+          name="continent-corn-control"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value="EU"
+        />
+      </div>
     </div>
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button MuiButton-containedPrimary MuiButton-disabled MuiButtonBase-disabled"
@@ -6929,7 +7207,7 @@ exports[`Storyshots Home Index 1`] = `
         <strong
           className="sc-fznZeY gQkBqN"
         >
-          1.3.14
+          1.3.15
         </strong>
       </div>
       <small
@@ -12251,11 +12529,6 @@ exports[`Storyshots Sandbox/field-list Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -12268,6 +12541,11 @@ exports[`Storyshots Sandbox/field-list Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -13044,12 +13322,12 @@ exports[`Storyshots Sandbox/field-list Corn Story 1`] = `
 
 exports[`Storyshots Sandbox/inline Corn Story 1`] = `
 <form
-  className="sc-fzoKki ieUYfR"
+  className="sc-fzoxKX drRHlH"
   method="POST"
   onSubmit={[Function]}
 >
   <div
-    className="sc-fzoYkl iMSPiv"
+    className="sc-fzoKki fatNHo"
   >
     <h1>
       Simple
@@ -29890,7 +30168,7 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     </div>
   </div>
   <div
-    className="sc-fzpkJw pqkqV"
+    className="sc-fzoYkl faGZWO"
   >
     <h1>
       MaterialUI
@@ -31392,11 +31670,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -31409,6 +31682,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -33025,11 +33303,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -33042,6 +33315,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -34658,11 +34936,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -34675,6 +34948,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -36291,11 +36569,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -36308,6 +36581,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -37946,11 +38224,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -37963,6 +38236,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -39579,11 +39857,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -39596,6 +39869,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -41212,11 +41490,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -41229,6 +41502,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -42845,11 +43123,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -42862,6 +43135,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -45314,11 +45592,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -45331,6 +45604,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -46947,11 +47225,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -46964,6 +47237,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -48580,11 +48858,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -48597,6 +48870,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -50213,11 +50491,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -50230,6 +50503,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -51846,11 +52124,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -51863,6 +52136,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -53479,11 +53757,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -53496,6 +53769,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -55112,11 +55390,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -55129,6 +55402,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -56745,11 +57023,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -56762,6 +57035,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -58378,11 +58656,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -58395,6 +58668,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -60011,11 +60289,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -60028,6 +60301,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -61622,11 +61900,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -61639,6 +61912,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -64091,11 +64369,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -64108,6 +64381,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -65548,11 +65826,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -65565,6 +65838,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -67753,11 +68031,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -67770,6 +68043,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -69496,11 +69774,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
       </div>
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -69513,6 +69786,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -69637,11 +69915,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -69654,6 +69927,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -69807,11 +70085,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -69824,6 +70097,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -69977,11 +70255,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -69994,6 +70267,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -70147,11 +70425,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -70164,6 +70437,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -70317,11 +70595,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -70334,6 +70607,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -70488,11 +70766,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -70505,6 +70778,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -70658,11 +70936,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -70675,6 +70948,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -70828,11 +71106,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -70845,6 +71118,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -70998,11 +71276,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -71015,6 +71288,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -71206,11 +71484,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -71223,6 +71496,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -71376,11 +71654,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -71393,6 +71666,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -71546,11 +71824,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -71563,6 +71836,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -71716,11 +71994,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -71733,6 +72006,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -71886,11 +72164,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -71903,6 +72176,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -72056,11 +72334,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -72073,6 +72346,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -72226,11 +72504,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -72243,6 +72516,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -72396,11 +72674,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -72413,6 +72686,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -72566,11 +72844,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -72583,6 +72856,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -72736,11 +73014,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -72753,6 +73026,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -72905,11 +73183,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -72922,6 +73195,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -73113,11 +73391,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -73130,6 +73403,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -73275,11 +73553,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -73292,6 +73565,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -73471,11 +73749,6 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
     >
       <div
         className="makeStyles-wrapper-27"
-        style={
-          Object {
-            "width": 200,
-          }
-        }
       >
         <div
           aria-expanded={false}
@@ -73488,6 +73761,11 @@ exports[`Storyshots Sandbox/inline Corn Story 1`] = `
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            style={
+              Object {
+                "width": 200,
+              }
+            }
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -73958,7 +74236,7 @@ Array [
     </div>
   </form>,
   <ul
-    className="sc-fznMnq lpinLb"
+    className="sc-fznzOf hUXEIm"
   />,
 ]
 `;

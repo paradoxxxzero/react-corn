@@ -1,5 +1,6 @@
 import { Button, Chip, makeStyles } from '@material-ui/core'
 import { useCorn } from '@react-corn/core'
+import { Inline } from '@react-corn/material-ui'
 import { Autocomplete } from '@react-corn/material-ui-lab'
 import React, { memo, useCallback } from 'react'
 
@@ -137,6 +138,14 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Color value (custom tag)
       </Autocomplete>
+      <Inline>
+        <Autocomplete choices={continents} {...field('continent')}>
+          Continent
+        </Autocomplete>
+        <Autocomplete choices={colors} {...field('continent')}>
+          Colors
+        </Autocomplete>
+      </Inline>
       <Button
         className={classes.button}
         type="submit"
