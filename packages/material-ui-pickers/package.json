@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/material-ui-pickers",
-  "version": "1.3.14",
+  "version": "1.3.15",
   "description": "Controlled forms with hooks for advanced object editing. Material-ui pickers fields package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
