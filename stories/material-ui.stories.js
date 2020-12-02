@@ -3,6 +3,7 @@ import { Button, InputAdornment } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useCorn } from '@react-corn/core'
 import {
+  Checkbox,
   Email,
   Inline,
   Money,
@@ -128,14 +129,24 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Age
       </Slider>
-      <TextArea {...field('message')}>Message</TextArea>
-      <Money
-        size="small"
-        InputProps={{ endAdornment: <InputAdornment>$</InputAdornment> }}
-        {...field('price')}
-      >
-        Price
-      </Money>
+      <Inline>
+        <TextArea {...field('message')}>Message</TextArea>
+        <Checkbox option="Away" {...field('away')} required>
+          Status
+        </Checkbox>
+      </Inline>
+      <Inline>
+        <Money
+          size="small"
+          InputProps={{ endAdornment: <InputAdornment>$</InputAdornment> }}
+          {...field('price')}
+        >
+          Price
+        </Money>
+        <Checkbox noIndeterminate {...field('taxes')}>
+          Incl. taxes
+        </Checkbox>
+      </Inline>
 
       <Button
         className={classes.button}

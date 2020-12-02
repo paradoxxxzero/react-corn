@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react'
 
 import { useCornField } from '.'
-import { useMaybeMultipleValue, useOptions } from './hooks'
+import { useControlField, useMaybeMultipleValue, useOptions } from './hooks'
 
 export const Input = memo(function Input({ Component = 'input', ...props }) {
   const inputProps = useCornField(props)
@@ -122,5 +122,63 @@ export const Select = memo(function Select({ choices, multiple, ...props }) {
         </option>
       ))}
     </select>
+  )
+})
+
+export const Picker = memo(function Picker({
+  choices,
+  multiple,
+  Root = 'fieldset',
+  ...props
+}) {
+  const { onChange } = props
+  const { ref, ...cornProps } = useCornField(props)
+  const { name, value } = cornProps
+
+  const options = useOptions(choices)
+  const multipleValue = useMaybeMultipleValue(multiple, value)
+  const controlProps = useControlField(name, value)
+  const handleChange = useCallback(
+    e => {
+      const { key } = e.target.dataset
+      onChange(
+        name,
+        multiple
+          ? e.target.checked
+            ? [...multipleValue, key]
+            : multipleValue.filter(v => v !== key)
+          : key
+      )
+    },
+    [onChange, name, multiple, multipleValue]
+  )
+  const type = multiple ? 'checkbox' : 'radio'
+
+  return (
+    <Root>
+      {options.map(([label, key]) => (
+        <label key={key}>
+          <input
+            type={type}
+            checked={
+              multiple ? multipleValue.includes(key) : key === multipleValue
+            }
+            onChange={handleChange}
+            data-key={key}
+          />
+          {label}
+        </label>
+      ))}
+      <input
+        {...cornProps}
+        ref={ref}
+        style={{
+          opacity: 0,
+          position: 'absolute',
+          zIndex: -1,
+        }}
+        {...controlProps}
+      />
+    </Root>
   )
 })

@@ -38,6 +38,18 @@ export const Field = withTheme(styled.div`
   }
 `)
 
+export const PickerRoot = styled.fieldset`
+  display: flex;
+  flex-wrap: wrap;
+  border: none;
+  label {
+    margin: 1em;
+  }
+  input {
+    margin: 4px;
+  }
+`
+
 export const Error = styled.div``
 export const Suggestion = withTheme(styled.div`
   color: ${props => props.theme.color.suggestion};
@@ -100,7 +112,10 @@ export const Labelled = ({ label, className, children, ...props }) => {
   )
 }
 
-export const withLabel = Component =>
+export const withLabel = (
+  Component,
+  { labelProps = {}, componentProps = {} } = {}
+) =>
   function WrapLabel({ children, ...props }) {
     return (
       <Labelled
@@ -108,8 +123,9 @@ export const withLabel = Component =>
         modified={props.modified}
         required={props.required}
         error={props.error}
+        {...labelProps}
       >
-        <Component {...props} />
+        <Component {...componentProps} {...props} />
       </Labelled>
     )
   }
@@ -129,6 +145,10 @@ export const Radio = withLabel(core.Radio)
 export const Range = withLabel(core.Range)
 export const Search = withLabel(core.Search)
 export const Select = withLabel(core.Select)
+export const Picker = withLabel(core.Picker, {
+  componentProps: { Root: PickerRoot },
+  labelProps: { htmlFor: 'nothing' },
+})
 export const Tel = withLabel(core.Tel)
 export const Text = withLabel(core.Text)
 export const TextArea = withLabel(core.TextArea)

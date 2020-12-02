@@ -1,12 +1,12 @@
-// eslint-disable-next-line simple-import-sort/sort
+// eslint-disable-next-line simple-import-sort/imports
 import { highlight, languages } from 'prismjs/components/prism-core'
-// eslint-disable-next-line simple-import-sort/sort
+// eslint-disable-next-line simple-import-sort/imports
 import {} from 'prismjs/components/prism-clike'
-// eslint-disable-next-line simple-import-sort/sort
+// eslint-disable-next-line simple-import-sort/imports
 import {} from 'prismjs/components/prism-javascript'
-// eslint-disable-next-line simple-import-sort/sort
+// eslint-disable-next-line simple-import-sort/imports
 import {} from 'prismjs/components/prism-markup'
-// eslint-disable-next-line simple-import-sort/sort
+// eslint-disable-next-line simple-import-sort/imports
 import {} from 'prismjs/components/prism-jsx'
 
 import 'prismjs/themes/prism-coy.css'

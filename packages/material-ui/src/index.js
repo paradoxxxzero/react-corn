@@ -1,11 +1,15 @@
 import {
+  Checkbox as MuiCheckbox,
   FormControl,
+  FormControlLabel,
   FormHelperText,
+  FormLabel,
   IconButton,
   InputAdornment,
   InputLabel,
   LinearProgress,
   MenuItem,
+  Radio as MuiRadio,
   Slider as MuiSlider,
   Switch as MuiSwitch,
   TextField,
@@ -35,12 +39,12 @@ export * from './attributes'
 
 const useStyles = makeStyles(theme => ({
   base: {
-    '& .MuiInput-root': {
+    '& .MuiInput-root,.MuiFormControlLabel-label': {
       color: theme.palette.text.secondary,
     },
   },
   modified: {
-    '& .MuiInput-root': {
+    '& .MuiInput-root,.MuiFormControlLabel-label': {
       color: theme.palette.text.primary,
     },
   },
@@ -73,6 +77,9 @@ const useStyles = makeStyles(theme => ({
     width: 0,
     zIndex: -1,
   },
+  formControlLabel: {
+    marginTop: theme.spacing(2),
+  },
   sliderControl: {
     display: 'block',
     margin: theme.spacing(4),
@@ -97,6 +104,7 @@ const useStyles = makeStyles(theme => ({
   switchModified: {
     opacity: 1,
   },
+  switchLabel: {},
   sliderLabel: {
     top: '1.75em',
     position: 'relative',
@@ -141,9 +149,57 @@ export const Input = memo(function Input({ children, ...props }) {
   )
 })
 
-export const Checkbox = props => (
-  <Input type="checkbox" InputLabelProps={{ shrink: true }} {...props} />
-)
+export const Checkbox = memo(function Checkbox({
+  children,
+  option,
+  noIndeterminate,
+  ...props
+}) {
+  const { modified, error } = props
+  const { ref, ...cornProps } = useCornField({
+    ...props,
+    type: 'checkbox',
+  })
+  const classes = useStyles()
+
+  const [checkboxProps, fcProps] = useFilteredProps(
+    cornProps,
+    muiFormControlProps
+  )
+  const indeterminate = ![true, false].includes(cornProps.value)
+  checkboxProps.checked = !!cornProps.value
+
+  return (
+    <FormControl
+      {...fcProps}
+      error={!!error}
+      className={clsx(fcProps.className, classes.field, {
+        [classes.base]: !modified,
+        [classes.modified]: modified,
+      })}
+    >
+      {option && (
+        <InputLabel disableAnimation shrink>
+          {children}
+        </InputLabel>
+      )}
+      <FormControlLabel
+        className={clsx({ [classes.formControlLabel]: option })}
+        control={
+          <MuiCheckbox
+            {...checkboxProps}
+            inputRef={ref}
+            indeterminate={!noIndeterminate && indeterminate}
+          />
+        }
+        label={option || children}
+      />
+
+      {error && <FormHelperText>{error}</FormHelperText>}
+    </FormControl>
+  )
+})
+
 export const Color = props => <Input type="color" {...props} />
 export const Date = props => (
   <Input type="date" InputLabelProps={{ shrink: true }} {...props} />
@@ -250,20 +306,13 @@ export const Select = memo(function Select({
   ...props
 }) {
   const classes = useStyles()
-  const { modified, error, onChange } = props
+  const { modified, error } = props
   const { ref, ...cornProps } = useCornField(props)
   const { name, value: originalValue } = cornProps
 
   const options = useOptions(choices)
   const value = useMaybeMultipleValue(multiple, originalValue)
   const controlProps = useControlField(name, value)
-
-  const handleChange = useCallback(
-    e => {
-      onChange(name, e.target.value)
-    },
-    [name, onChange]
-  )
 
   const [textFieldProps, inputProps] = useFilteredProps(
     cornProps,
@@ -288,7 +337,6 @@ export const Select = memo(function Select({
           [classes.base]: !modified,
           [classes.modified]: modified,
         })}
-        onChange={handleChange}
         value={value}
         label={textFieldProps.label || children}
         error={!!error}
@@ -497,6 +545,78 @@ export const Password = ({
     />
   )
 }
+
+export const Picker = memo(function Picker({
+  choices,
+  multiple,
+  children,
+  ...props
+}) {
+  const { onChange, modified, error } = props
+  const { ref, ...cornProps } = useCornField(props)
+  const { name, value } = cornProps
+  const classes = useStyles()
+
+  const options = useOptions(choices)
+  const multipleValue = useMaybeMultipleValue(multiple, value)
+  const controlProps = useControlField(name, value)
+  const handleChange = useCallback(
+    e => {
+      const { key } = e.target.dataset
+      onChange(
+        name,
+        multiple
+          ? e.target.checked
+            ? [...multipleValue, key]
+            : multipleValue.filter(v => v !== key)
+          : key
+      )
+    },
+    [onChange, name, multiple, multipleValue]
+  )
+  const [typeProps, fcProps] = useFilteredProps(cornProps, muiFormControlProps)
+  const Type = multiple ? MuiCheckbox : MuiRadio
+
+  return (
+    <FormControl
+      component="fieldset"
+      error={!!error}
+      className={clsx(fcProps.className, classes.field, {
+        [classes.base]: !modified,
+        [classes.modified]: modified,
+      })}
+      {...fcProps}
+      onChange={undefined}
+    >
+      <FormLabel component="legend">{children}</FormLabel>
+      {options.map(([label, key]) => (
+        <FormControlLabel
+          key={key}
+          control={
+            <Type
+              checked={
+                multiple ? multipleValue.includes(key) : key === multipleValue
+              }
+              onChange={handleChange}
+              inputProps={{
+                'data-key': key,
+              }}
+            />
+          }
+          data-key={key}
+          label={label}
+        />
+      ))}
+      {error && <FormHelperText>{error}</FormHelperText>}
+      <input
+        {...typeProps}
+        ref={ref}
+        className={classes.hidden}
+        {...controlProps}
+      />
+    </FormControl>
+  )
+})
 
 const useInlineStyles = makeStyles(theme => ({
   inline: {

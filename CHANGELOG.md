@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [1.4.0] - 2020-12-02
+
+### Added
+
+- Picker component which can be a fieldset of checkbox or radio according to multiple attribute
+
+### Fixed
+
+- Materia-ui checkbox is now fixed and supports indeterminate state by default
+
 ## [1.3.16] - 2020-11-04
 
 ### Fixed
@@ -173,7 +183,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.16...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.16...1.4.0
 [1.3.16]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.15...1.3.16
 [1.3.15]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.14...1.3.15
 [1.3.14]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.13...1.3.14
