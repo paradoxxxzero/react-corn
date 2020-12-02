@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.4.1] - 2020-12-02
+
+### Fixed
+
+- Broken rollup config
+
 ## [1.4.0] - 2020-12-02
 
 ### Added
@@ -183,7 +189,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.0...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.0...1.4.1
 [1.4.0]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.16...1.4.0
 [1.3.16]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.15...1.3.16
 [1.3.15]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.14...1.3.15

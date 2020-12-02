@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react'
 
-import { useCornField } from '.'
 import { useControlField, useMaybeMultipleValue, useOptions } from './hooks'
+import useCornField from './useCornField'
 
 export const Input = memo(function Input({ Component = 'input', ...props }) {
   const inputProps = useCornField(props)

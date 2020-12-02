@@ -1,5 +1,6 @@
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
+import path from 'path'
 
 export default {
   input: 'src/index.js',
@@ -7,7 +8,7 @@ export default {
     file: 'dist/bundle.js',
     format: 'cjs',
   },
-  external: id => !id.startsWith('.'),
+  external: id => !(id.startsWith('.') || id.startsWith(path.resolve('.'))),
   plugins: [
     resolve(),
     babel({
