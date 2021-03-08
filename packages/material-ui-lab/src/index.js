@@ -1,6 +1,9 @@
 import { TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Autocomplete as MuiAutocomplete } from '@material-ui/lab'
+import {
+  Autocomplete as MuiAutocomplete,
+  createFilterOptions,
+} from '@material-ui/lab'
 import {
   useControlField,
   useCornField,
@@ -15,7 +18,8 @@ import { muiAutocompleteProps } from './attributes'
 
 export * from './attributes'
 
-const getOptionLabel = option => option.title
+const getOptionLabel = option =>
+  typeof option === 'string' ? option : option.title
 
 const useStyles = makeStyles(theme => ({
   base: {
@@ -44,10 +48,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+const filter = createFilterOptions()
 export const Autocomplete = memo(function Autocomplete({
   choices,
   meta,
   width = 200,
+  free,
+  addText = 'Add',
   children,
   ...props
 }) {
@@ -62,9 +69,27 @@ export const Autocomplete = memo(function Autocomplete({
     (_, option) =>
       onChange(
         name,
-        option && (multiple ? option.map(o => o.value) : option.value)
+        option &&
+          (multiple
+            ? option.map(o => o.value)
+            : (free && option.inputValue) || option.value)
       ),
-    [name, multiple, onChange]
+    [name, multiple, free, onChange]
+  )
+
+  const handleFilterOptions = useCallback(
+    (options, params) => {
+      const filtered = filter(options, params)
+      if (params.inputValue !== '') {
+        filtered.push({
+          inputValue: params.inputValue,
+          title: `${addText} "${params.inputValue}"`,
+        })
+      }
+
+      return filtered
+    },
+    [addText]
   )
 
   const value = useMaybeMultipleValue(multiple, originalValue)
@@ -82,7 +107,8 @@ export const Autocomplete = memo(function Autocomplete({
   )
   const optionValue = multiple
     ? autocompleteOptions.filter(({ value: v }) => value.includes(v)) || []
-    : autocompleteOptions.find(({ value: v }) => value === v) || null
+    : autocompleteOptions.find(({ value: v }) => value === v) ||
+      (free ? value : null)
 
   const [textFieldProps, autocompleteProps, inputProps] = useFilteredProps(
     cornProps,
@@ -95,10 +121,14 @@ export const Autocomplete = memo(function Autocomplete({
       <MuiAutocomplete
         autoHighlight
         {...autocompleteProps}
+        freeSolo={free}
         getOptionLabel={getOptionLabel}
         onChange={handleChange}
         value={optionValue}
         options={autocompleteOptions}
+        filterOptions={handleFilterOptions}
+        selectOnFocus={free || autocompleteProps.selectOnFocus}
+        clearOnBlur={free || autocompleteProps.clearOnBlur}
         className={clsx(className, classes.field, {
           [classes.base]: !modified,
           [classes.modified]: modified,
