@@ -132,9 +132,11 @@ export const Autocomplete = memo(function Autocomplete({
         onChange={handleChange}
         value={optionValue}
         options={autocompleteOptions}
-        filterOptions={handleFilterOptions}
-        selectOnFocus={free || autocompleteProps.selectOnFocus}
-        clearOnBlur={free || autocompleteProps.clearOnBlur}
+        filterOptions={
+          autocompleteProps.filterOptions || (free && handleFilterOptions)
+        }
+        selectOnFocus={autocompleteProps.selectOnFocus || free}
+        clearOnBlur={autocompleteProps.clearOnBlur || free}
         className={clsx(className, classes.field, {
           [classes.base]: !modified,
           [classes.modified]: modified,
