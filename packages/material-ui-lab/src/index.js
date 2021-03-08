@@ -18,8 +18,7 @@ import { muiAutocompleteProps } from './attributes'
 
 export * from './attributes'
 
-const getOptionLabel = option =>
-  typeof option === 'string' ? option : option.title
+const getOptionLabel = option => option.title
 
 const useStyles = makeStyles(theme => ({
   base: {
@@ -69,15 +68,9 @@ export const Autocomplete = memo(function Autocomplete({
     (_, option) =>
       onChange(
         name,
-        option &&
-          (multiple
-            ? option.map(
-                o =>
-                  (free && typeof o === 'string' ? o : o.inputValue) || o.value
-              )
-            : (free && option.inputValue) || option.value)
+        option && (multiple ? option.map(o => o.value) : option.value)
       ),
-    [name, multiple, free, onChange]
+    [name, multiple, onChange]
   )
 
   const handleFilterOptions = useCallback(
@@ -85,7 +78,7 @@ export const Autocomplete = memo(function Autocomplete({
       const filtered = filter(options, params)
       if (params.inputValue !== '') {
         filtered.push({
-          inputValue: params.inputValue,
+          value: params.inputValue,
           title: `${addText} "${params.inputValue}"`,
         })
       }
@@ -111,11 +104,17 @@ export const Autocomplete = memo(function Autocomplete({
   const optionValue = multiple
     ? free
       ? value.map(
-          v => autocompleteOptions.find(({ value: v2 }) => v === v2) || v
+          v =>
+            autocompleteOptions.find(
+              ({ value: optionValue }) => v === optionValue
+            ) || {
+              title: v,
+              value: v,
+            }
         )
       : autocompleteOptions.filter(({ value: v }) => value.includes(v))
     : autocompleteOptions.find(({ value: v }) => value === v) ||
-      (free ? value : null)
+      (free && value ? { title: value, value } : null)
 
   const [textFieldProps, autocompleteProps, inputProps] = useFilteredProps(
     cornProps,
