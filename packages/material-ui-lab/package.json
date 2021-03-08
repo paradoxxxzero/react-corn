@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/material-ui-lab",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Controlled forms with hooks for advanced object editing. Material-ui lab fields package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
