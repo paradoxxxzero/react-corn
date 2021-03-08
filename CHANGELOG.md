@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.4.3] - 2021-03-08
+
+### Fixed
+
+- Extra add showing up on non-free autocomplete
+
 ## [1.4.2] - 2021-03-08
 
 ### Added
@@ -195,7 +201,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.2...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.3...HEAD
+[1.4.3]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/paradoxxxzero/react-corn/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/paradoxxxzero/react-corn/compare/v1.3.16...v1.4.0
