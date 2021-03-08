@@ -71,7 +71,10 @@ export const Autocomplete = memo(function Autocomplete({
         name,
         option &&
           (multiple
-            ? option.map(o => o.value)
+            ? option.map(
+                o =>
+                  (free && typeof o === 'string' ? o : o.inputValue) || o.value
+              )
             : (free && option.inputValue) || option.value)
       ),
     [name, multiple, free, onChange]
@@ -106,7 +109,11 @@ export const Autocomplete = memo(function Autocomplete({
     [options, meta]
   )
   const optionValue = multiple
-    ? autocompleteOptions.filter(({ value: v }) => value.includes(v)) || []
+    ? free
+      ? value.map(
+          v => autocompleteOptions.find(({ value: v2 }) => v === v2) || v
+        )
+      : autocompleteOptions.filter(({ value: v }) => value.includes(v))
     : autocompleteOptions.find(({ value: v }) => value === v) ||
       (free ? value : null)
 

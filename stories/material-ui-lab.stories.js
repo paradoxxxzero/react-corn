@@ -142,7 +142,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         <Autocomplete free choices={continents} {...field('free-continent')}>
           Free Continent
         </Autocomplete>
-        <Autocomplete free choices={colors} {...field('free-colors')}>
+        <Autocomplete free multiple choices={colors} {...field('free-colors')}>
           Free Colors
         </Autocomplete>
       </Inline>
