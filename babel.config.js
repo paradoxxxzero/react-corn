@@ -1,6 +1,8 @@
 module.exports = function (api) {
-  api.cache(true)
-
+  try {
+    api.cache(true)
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
   const presets = [
     '@babel/preset-react',
     [

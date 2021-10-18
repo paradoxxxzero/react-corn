@@ -1,1 +1,1 @@
-module.exports = require('../../babel.config.js')
+export { default } from '../../babel.config.js'

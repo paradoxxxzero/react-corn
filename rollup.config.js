@@ -6,7 +6,7 @@ export default {
   input: 'src/index.js',
   output: {
     file: 'dist/bundle.js',
-    format: 'cjs',
+    format: 'module',
   },
   external: id => !(id.startsWith('.') || id.startsWith(path.resolve('.'))),
   plugins: [

@@ -3,8 +3,6 @@
   "name": "react-corn-monorepo",
   "version": "1.0.0-monorepo",
   "description": "Controlled forms with hooks for advanced object editing.",
-  "main": "lib/corn.js",
-  "module": "src/index.js",
   "repository": "https://github.com/paradoxxxzero/react-corn",
   "author": "Florian Mounier",
   "license": "MIT",
