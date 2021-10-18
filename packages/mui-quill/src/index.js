@@ -6,10 +6,7 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material'
-import filledClasses from '@mui/material/FilledInput/filledInputClasses'
-import inputClasses from '@mui/material/Input/inputClasses'
 import NotchedOutline from '@mui/material/OutlinedInput/NotchedOutline'
-import outlinedClasses from '@mui/material/OutlinedInput/outlinedInputClasses'
 import makeStyles from '@mui/styles/makeStyles'
 import { muiFormControlProps, useFilteredProps } from '@react-corn/mui'
 import { BaseQuill } from '@react-corn/quill'
@@ -57,10 +54,6 @@ export const Quill = memo(function Quill({
 }) {
   const { modified, error } = props
   const classes = useStyles({ modified, variant })
-  // This is now broken:
-  const baseClasses =
-    { filled: filledClasses, outlined: outlinedClasses }[variant] ||
-    inputClasses
 
   const [focused, setFocused] = useState(false)
 
@@ -107,7 +100,7 @@ export const Quill = memo(function Quill({
         className={clsx(
           classes.quill,
           {
-            [baseClasses.focused]: focused,
+            'Mui-focused': focused,
           },
           textFieldClasses,
           className
@@ -116,7 +109,7 @@ export const Quill = memo(function Quill({
         <BaseQuill {...quillProps} onFocus={handleFocus} onBlur={handleBlur} />
         {variant === 'outlined' && (
           <NotchedOutline
-            className={baseClasses.notchedOutline}
+            className="MuiOutlinedInput-notchedOutline"
             label={children}
             notched
           />
