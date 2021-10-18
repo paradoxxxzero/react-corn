@@ -4,10 +4,10 @@ import {
   InputLabel,
   makeStyles,
 } from '@material-ui/core'
-import { styles as filledStyles } from '@material-ui/core/FilledInput/FilledInput'
-import { styles as inputStyles } from '@material-ui/core/Input/Input'
+import filledClasses from '@material-ui/core/FilledInput/filledInputClasses'
+import inputClasses from '@material-ui/core/Input/inputClasses'
 import NotchedOutline from '@material-ui/core/OutlinedInput/NotchedOutline'
-import { styles as outlinedStyles } from '@material-ui/core/OutlinedInput/OutlinedInput'
+import outlinedClasses from '@material-ui/core/OutlinedInput/outlinedInputClasses'
 import { muiFormControlProps, useFilteredProps } from '@react-corn/material-ui'
 import { BaseQuill } from '@react-corn/quill'
 import clsx from 'clsx'
@@ -36,10 +36,6 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const useInputStyles = makeStyles(inputStyles)
-const useFilledStyles = makeStyles(filledStyles)
-const useOutlinedStyles = makeStyles(outlinedStyles)
-
 export const Quill = memo(function Quill({
   children,
   variant,
@@ -48,9 +44,6 @@ export const Quill = memo(function Quill({
 }) {
   const { modified, error } = props
   const classes = useStyles({ modified, variant })
-  const inputClasses = useInputStyles()
-  const filledClasses = useFilledStyles()
-  const outlinedClasses = useOutlinedStyles()
 
   const baseClasses =
     { filled: filledClasses, outlined: outlinedClasses }[variant] ||

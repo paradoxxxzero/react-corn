@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import DateFnsUtils from '@date-io/date-fns'
 import { Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
 import { Date, DateTime, Time } from '@react-corn/material-ui-pickers'
 import React, { memo, useCallback } from 'react'
@@ -143,13 +143,13 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
 export const MaterialUIPickerDemo = () => {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Story
         Chapter={CornForm}
         initialItem={{
           date: '2020-02-13',
         }}
       />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   )
 }
