@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/mui-lab",
-  "version": "1.5.0",
+  "version": "1.6.1",
   "description": "Controlled forms with hooks for advanced object editing. Mui lab fields package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
@@ -17,7 +17,7 @@
     "react-dom": "^17.x.x"
   },
   "dependencies": {
-    "@react-corn/mui": "^1.5.0",
+    "@react-corn/mui": "^1.6.1",
     "clsx": "^1.1.1"
   }
 }
