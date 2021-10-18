@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import 'react-quill/dist/quill.snow.css'
 
-import { Button, makeStyles } from '@material-ui/core'
+import { Button } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { useCorn } from '@react-corn/core'
-import { Quill } from '@react-corn/material-ui-quill'
+import { Quill } from '@react-corn/mui-quill'
 import React, { memo, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
@@ -60,7 +61,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
   return (
     <form className={classes.form} {...form}>
-      <Quill required {...field('html', maxSize)}>
+      <Quill required variant="standard" {...field('html', maxSize)}>
         Html
       </Quill>
 
@@ -92,8 +93,7 @@ export const MaterialUIQuillDemo = () => {
     <Story
       Chapter={CornForm}
       initialItem={{
-        html:
-          '<h1>HTML Sample</h1><p><br></p><p>Here’s a simple html text in the quill editor.</p><p><br></p><p>react-corn handles simple field validation (this field has <strong>required</strong> and <em>a custom 250 characters </em>validator).</p>',
+        html: '<h1>HTML Sample</h1><p><br></p><p>Here’s a simple html text in the quill editor.</p><p><br></p><p>react-corn handles simple field validation (this field has <strong>required</strong> and <em>a custom 250 characters </em>validator).</p>',
         'html-filled': '<h2>With filled variant</h2>',
         'html-outlined': '<h3>And outlined</h3>',
       }}
@@ -102,7 +102,7 @@ export const MaterialUIQuillDemo = () => {
 }
 
 export default {
-  title: '@react-corn/material-ui-quill',
+  title: '@react-corn/mui-quill',
   parameters: {
     options: { showPanel: true },
   },

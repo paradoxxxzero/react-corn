@@ -9,13 +9,13 @@ jest.mock('react-quill', () => ({
     return <div>React quill mock</div>
   },
 }))
-jest.mock('@material-ui/core/Slider', () => ({
+jest.mock('@mui/material/Slider', () => ({
   __esModule: true,
   default: function MuiSliderMock() {
     return <div>Mui slider mock</div>
   },
 }))
-jest.mock('@material-ui/core/TextareaAutosize', () => ({
+jest.mock('@mui/material/TextareaAutosize', () => ({
   __esModule: true,
   default: {
     //  This is a forwardRef (since we can't use anything external)

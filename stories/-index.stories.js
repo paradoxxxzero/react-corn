@@ -108,14 +108,14 @@ export const Index = () => {
         <Item>Lightweight core</Item>
         <Item>Advanced forms features for complex object editing</Item>
         <Item>Minimal but efficient styling with @react-corn/simple</Item>
-        <Item>Easy integration with ui libs @react-corn/material-ui</Item>
+        <Item>Easy integration with ui libs @react-corn/mui</Item>
         <Item>Easy integration with external form components</Item>
       </List>
       <Section>
         <SectionTitle>Installation</SectionTitle>
         <Code>$ yarn add @react-corn/core @react-corn/simple</Code>
         Or for material-ui integration:
-        <Code>$ yarn add @react-corn/core @react-corn/material-ui</Code>
+        <Code>$ yarn add @react-corn/core @react-corn/mui</Code>
       </Section>
       <Section>
         <SectionTitle>Usage</SectionTitle>

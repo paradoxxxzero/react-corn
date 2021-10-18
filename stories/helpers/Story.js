@@ -1,4 +1,5 @@
-import { StylesProvider } from '@material-ui/styles'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { StylesProvider } from '@mui/styles'
 import React, { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -41,6 +42,7 @@ const generateClassName = (rule, styleSheet) => {
   return `${styleSheet.options.classNamePrefix}-${rule.key}`
 }
 
+const theme = createTheme()
 export const Story = ({ Chapter, initialItem }) => {
   const [item, setItem] = useState(initialItem || {})
   const [transient, setTransient] = useDebouncedState({})
@@ -52,23 +54,25 @@ export const Story = ({ Chapter, initialItem }) => {
   }, [])
 
   const innerStory = (
-    <Root>
-      <Chapter
-        item={item}
-        onItem={setItem}
-        onTransient={setTransient}
-        onDelta={setDelta}
-        onErrors={setErrors}
-      />
-      <Divider />
-      <StoryItem
-        item={item}
-        transient={transient}
-        delta={delta}
-        errors={errors}
-        onItemEdited={handleItemEdited}
-      />
-    </Root>
+    <ThemeProvider theme={theme}>
+      <Root>
+        <Chapter
+          item={item}
+          onItem={setItem}
+          onTransient={setTransient}
+          onDelta={setDelta}
+          onErrors={setErrors}
+        />
+        <Divider />
+        <StoryItem
+          item={item}
+          transient={transient}
+          delta={delta}
+          errors={errors}
+          onItemEdited={handleItemEdited}
+        />
+      </Root>
+    </ThemeProvider>
   )
   if (process.env.NODE_ENV === 'test') {
     return (

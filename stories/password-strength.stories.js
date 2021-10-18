@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import 'react-quill/dist/quill.snow.css'
 
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import { useCorn } from '@react-corn/core'
-import { Password as materialUIPassword } from '@react-corn/material-ui'
+import { Password as materialUIPassword } from '@react-corn/mui'
 import { ButtonRow, Password as simplePassword } from '@react-corn/simple'
 import React, { lazy, memo, Suspense, useCallback } from 'react'
 

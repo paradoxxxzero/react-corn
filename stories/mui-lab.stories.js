@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import DateFnsUtils from '@date-io/date-fns'
-import { Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { Button } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { useCorn } from '@react-corn/core'
-import { Date, DateTime, Time } from '@react-corn/material-ui-pickers'
+import { Date, DateTime, Time } from '@react-corn/mui-lab'
 import React, { memo, useCallback } from 'react'
 
 import { Story } from './helpers/Story'
 
 export default {
-  title: '@react-corn/material-ui-pickers',
+  title: '@react-corn/mui-lab',
   parameters: {
     options: { showPanel: true },
   },
@@ -70,9 +70,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         <Date displayFormat="PP" autoOk variant="inline" {...field('date')}>
           Date with display format
         </Date>
-        <Date masked {...field('date')}>
-          Date with keyboard input
-        </Date>
       </div>
 
       <div className={classes.inline}>
@@ -88,9 +85,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           Time with display format
         </Time>
-        <Time masked withSeconds {...field('time')}>
-          Time with keyboard input
-        </Time>
       </div>
       <div className={classes.inline}>
         <DateTime required {...field('dateTime')}>
@@ -105,9 +99,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           DateTime with display fmt
         </DateTime>
-        <DateTime masked {...field('dateTime')}>
-          DateTime with keyboard input
-        </DateTime>
       </div>
       <div className={classes.inline}>
         <Date
@@ -115,7 +106,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           displayFormat="MM/dd/yyyy"
           autoOk
           disableFuture
-          masked
           {...field('date-other')}
         >
           Date with custom formats
@@ -143,13 +133,13 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
 export const MaterialUIPickerDemo = () => {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Story
         Chapter={CornForm}
         initialItem={{
           date: '2020-02-13',
         }}
       />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   )
 }

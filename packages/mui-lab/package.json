@@ -1,7 +1,7 @@
 {
-  "name": "@react-corn/material-ui",
-  "version": "1.4.2",
-  "description": "Controlled forms with hooks for advanced object editing. Material-ui fields package.",
+  "name": "@react-corn/mui-lab",
+  "version": "1.4.3",
+  "description": "Controlled forms with hooks for advanced object editing. Mui lab fields package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
   "repository": "https://github.com/paradoxxxzero/react-corn",
@@ -11,12 +11,13 @@
     "build": "rollup -c"
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.x.x",
-    "@material-ui/icons": "^4.x.x",
+    "@mui/material": "^5.x.x",
+    "@mui/lab": "^5.x.x",
     "react": "^17.x.x",
     "react-dom": "^17.x.x"
   },
   "dependencies": {
+    "@react-corn/mui": "^1.4.2",
     "clsx": "^1.1.1"
   }
 }

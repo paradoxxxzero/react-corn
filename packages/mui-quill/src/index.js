@@ -1,17 +1,26 @@
 import {
+  FilledInput,
   FormControl,
   FormHelperText,
+  Input,
   InputLabel,
-  makeStyles,
-} from '@material-ui/core'
-import { styles as filledStyles } from '@material-ui/core/FilledInput/FilledInput'
-import { styles as inputStyles } from '@material-ui/core/Input/Input'
-import NotchedOutline from '@material-ui/core/OutlinedInput/NotchedOutline'
-import { styles as outlinedStyles } from '@material-ui/core/OutlinedInput/OutlinedInput'
-import { muiFormControlProps, useFilteredProps } from '@react-corn/material-ui'
+  OutlinedInput,
+} from '@mui/material'
+import filledClasses from '@mui/material/FilledInput/filledInputClasses'
+import inputClasses from '@mui/material/Input/inputClasses'
+import NotchedOutline from '@mui/material/OutlinedInput/NotchedOutline'
+import outlinedClasses from '@mui/material/OutlinedInput/outlinedInputClasses'
+import makeStyles from '@mui/styles/makeStyles'
+import { muiFormControlProps, useFilteredProps } from '@react-corn/mui'
 import { BaseQuill } from '@react-corn/quill'
 import clsx from 'clsx'
 import React, { memo, useCallback, useState } from 'react'
+
+const variantComponent = {
+  standard: Input,
+  filled: FilledInput,
+  outlined: OutlinedInput,
+}
 
 const useStyles = makeStyles(theme => ({
   label: {},
@@ -26,6 +35,10 @@ const useStyles = makeStyles(theme => ({
     '& .ql-container': {
       border: 'none',
     },
+    width: '100%',
+    '& .quill': {
+      width: '100%',
+    },
   },
   control: {
     display: 'block',
@@ -36,10 +49,6 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const useInputStyles = makeStyles(inputStyles)
-const useFilledStyles = makeStyles(filledStyles)
-const useOutlinedStyles = makeStyles(outlinedStyles)
-
 export const Quill = memo(function Quill({
   children,
   variant,
@@ -48,10 +57,7 @@ export const Quill = memo(function Quill({
 }) {
   const { modified, error } = props
   const classes = useStyles({ modified, variant })
-  const inputClasses = useInputStyles()
-  const filledClasses = useFilledStyles()
-  const outlinedClasses = useOutlinedStyles()
-
+  // This is now broken:
   const baseClasses =
     { filled: filledClasses, outlined: outlinedClasses }[variant] ||
     inputClasses
@@ -76,7 +82,8 @@ export const Quill = memo(function Quill({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [quillProps.onFocus]
   )
-
+  const InputComponent = variantComponent[variant]
+  const [textFieldClasses, setTextFieldClasses] = useState('')
   return (
     <FormControl
       {...fcProps}
@@ -88,15 +95,21 @@ export const Quill = memo(function Quill({
       <InputLabel disableAnimation shrink variant={variant}>
         {children}
       </InputLabel>
+
+      <InputComponent
+        style={{ display: 'none' }}
+        type="hidden"
+        ref={e => {
+          e && setTextFieldClasses([...e.classList].join(' '))
+        }}
+      />
       <div
         className={clsx(
           classes.quill,
-          baseClasses.root,
-          baseClasses.input,
-          baseClasses.underline,
           {
             [baseClasses.focused]: focused,
           },
+          textFieldClasses,
           className
         )}
       >
@@ -105,7 +118,6 @@ export const Quill = memo(function Quill({
           <NotchedOutline
             className={baseClasses.notchedOutline}
             label={children}
-            labelWidth={0}
             notched
           />
         )}

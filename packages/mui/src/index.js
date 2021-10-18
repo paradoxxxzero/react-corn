@@ -1,4 +1,6 @@
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
+  Autocomplete as MuiAutocomplete,
   Checkbox as MuiCheckbox,
   FormControl,
   FormControlLabel,
@@ -14,10 +16,10 @@ import {
   Switch as MuiSwitch,
   TextField,
   useFormControl,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { withStyles } from '@material-ui/styles'
+} from '@mui/material'
+import { createFilterOptions } from '@mui/material/useAutocomplete'
+import { withStyles } from '@mui/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import {
   useControlField,
   useCornField,
@@ -28,6 +30,7 @@ import clsx from 'clsx'
 import React, { memo, useCallback, useMemo, useState } from 'react'
 
 import {
+  muiAutocompleteProps,
   muiFormControlProps,
   muiSliderProps,
   muiSwitchProps,
@@ -39,14 +42,16 @@ export * from './attributes'
 
 const useStyles = makeStyles(theme => ({
   base: {
-    '& .MuiInput-root,.MuiFormControlLabel-label': {
-      color: theme.palette.text.secondary,
-    },
+    '& .MuiInput-root,.MuiOutlinedInput-root,.MuiFilledInput-root,.MuiFormControlLabel-label,.MuiButtonBase-root.MuiCheckbox-root,.MuiSlider-root':
+      {
+        color: theme.palette.text.secondary,
+      },
   },
   modified: {
-    '& .MuiInput-root,.MuiFormControlLabel-label': {
-      color: theme.palette.text.primary,
-    },
+    '& .MuiInput-root,.MuiOutlinedInput-root,.MuiFilledInput-root,.MuiFormControlLabel-label':
+      {
+        color: theme.palette.text.primary,
+      },
   },
   field: {
     '& input[type="checkbox"], & input[type="radio"]': {
@@ -87,12 +92,6 @@ const useStyles = makeStyles(theme => ({
   },
   slider: {
     top: '1.75em',
-  },
-  sliderUnmodified: {
-    opacity: 0.75,
-  },
-  sliderModified: {
-    opacity: 1,
   },
   switch: {},
   switchControl: {
@@ -383,9 +382,9 @@ export const Slider = memo(function Slider({ children, ...props }) {
   return (
     <FormControl
       {...fcProps}
-      className={clsx(className, classes.sliderControl, {
-        [classes.sliderUnmodified]: !modified,
-        [classes.sliderModified]: modified,
+      className={clsx(fcProps.className, classes.sliderControl, {
+        [classes.base]: !modified,
+        [classes.modified]: modified,
       })}
       error={!!error}
       fullWidth
@@ -509,14 +508,14 @@ export const Password = ({
       endAdornment: (
         <>
           <InputAdornment position="end">
-            <IconButton onClick={handleClick}>
+            <IconButton onClick={handleClick} size="large">
               {uncovered ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
           {(score || score === 0) && (
             <PasswordLinearProgress
               score={score}
-              inputvariant={props.variant || 'standard'}
+              inputvariant={props.variant || 'outlined'}
               variant="determinate"
               value={(100 * (score + 1)) / 5}
             />
@@ -615,6 +614,129 @@ export const Picker = memo(function Picker({
         {...controlProps}
       />
     </FormControl>
+  )
+})
+
+const getOptionLabel = option => option.title
+const filter = createFilterOptions()
+export const Autocomplete = memo(function Autocomplete({
+  choices,
+  meta,
+  width = 200,
+  free,
+  addText = 'Add',
+  children,
+  ...props
+}) {
+  const { modified, error, multiple, onChange } = props
+  const { ref, className, ...cornProps } = useCornField({
+    ...props,
+  })
+  const { name, value: originalValue } = cornProps
+  const classes = useStyles()
+
+  const handleChange = useCallback(
+    (_, option) =>
+      onChange(
+        name,
+        option && (multiple ? option.map(o => o.value) : option.value)
+      ),
+    [name, multiple, onChange]
+  )
+
+  const handleFilterOptions = useCallback(
+    (options, params) => {
+      const filtered = filter(options, params)
+      if (params.inputValue !== '') {
+        filtered.push({
+          value: params.inputValue,
+          title: `${addText} "${params.inputValue}"`,
+        })
+      }
+
+      return filtered
+    },
+    [addText]
+  )
+
+  const value = useMaybeMultipleValue(multiple, originalValue)
+  const controlProps = useControlField(name, value)
+
+  const options = useOptions(choices)
+  const autocompleteOptions = useMemo(
+    () =>
+      options.map(([title, value]) => ({
+        title,
+        value,
+        ...(meta && meta[title] ? { meta: meta[title] } : {}),
+      })),
+    [options, meta]
+  )
+  const optionValue = multiple
+    ? free
+      ? value.map(
+          v =>
+            autocompleteOptions.find(
+              ({ value: optionValue }) => v === optionValue
+            ) || {
+              title: v,
+              value: v,
+            }
+        )
+      : autocompleteOptions.filter(({ value: v }) => value.includes(v))
+    : autocompleteOptions.find(({ value: v }) => value === v) ||
+      (free && value ? { title: value, value } : null)
+
+  const [textFieldProps, autocompleteProps, inputProps] = useFilteredProps(
+    cornProps,
+    muiTextFieldProps,
+    muiAutocompleteProps
+  )
+
+  return (
+    <div className={classes.wrapper}>
+      <MuiAutocomplete
+        autoHighlight
+        {...autocompleteProps}
+        freeSolo={free}
+        getOptionLabel={getOptionLabel}
+        onChange={handleChange}
+        value={optionValue}
+        options={autocompleteOptions}
+        filterOptions={
+          autocompleteProps.filterOptions || (free && handleFilterOptions)
+        }
+        selectOnFocus={autocompleteProps.selectOnFocus || free}
+        clearOnBlur={autocompleteProps.clearOnBlur || free}
+        className={clsx(className, classes.field, {
+          [classes.base]: !modified,
+          [classes.modified]: modified,
+        })}
+        renderInput={params => (
+          <TextField
+            {...textFieldProps}
+            value={undefined}
+            onChange={undefined}
+            {...params}
+            style={width && { width }}
+            label={textFieldProps.label || params.label || children}
+            error={!!error}
+            helperText={error || textFieldProps.helperText || params.helperText}
+            inputProps={{
+              ...textFieldProps.inputProps,
+              ...params.inputProps,
+              required: false,
+            }}
+          />
+        )}
+      />
+      <input
+        {...inputProps}
+        ref={ref}
+        className={classes.hidden}
+        {...controlProps}
+      />
+    </div>
   )
 })
 

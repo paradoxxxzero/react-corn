@@ -113,26 +113,23 @@ export default ({
   // errors is a mapping of all fields with theirs errors
   // touched keep track of touched fields to prevent displaying errors
   // names hold all field names that this form is handling
-  const [
-    { transient, errors, touched, names, lastChangeReason },
-    dispatch,
-  ] = useReducer(reducer, {
-    transient: {},
-    errors: {},
-    touched: [],
-    names: [],
-    lastChangeReason: null,
-  })
+  const [{ transient, errors, touched, names, lastChangeReason }, dispatch] =
+    useReducer(reducer, {
+      transient: {},
+      errors: {},
+      touched: [],
+      names: [],
+      lastChangeReason: null,
+    })
 
   // Modified is true if any field contains a different value from the original item
   const modified = !!Object.keys(transient).length
 
   // Pre compute the modified item for field function calls
-  const mergedItem = useMemo(() => merge(item, transient, names), [
-    item,
-    transient,
-    names,
-  ])
+  const mergedItem = useMemo(
+    () => merge(item, transient, names),
+    [item, transient, names]
+  )
 
   // On form submit, call the super onSubmit function and prevent browser form submition
   const onSubmit = useCallback(

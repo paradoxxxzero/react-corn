@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import DateFnsUtils from '@date-io/date-fns'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
 import { ButtonRow } from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
@@ -110,7 +110,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
           <Field
             key={key}
             choices={key === 'select' ? choices : undefined}
-            {...field(`material-ui.${key}`)}
+            {...field(`mui.${key}`)}
           >
             Material-UI {capitalize(key)}
           </Field>
@@ -129,8 +129,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
 
 export const CornStory = () => {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Story Chapter={CornForm} />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   )
 }

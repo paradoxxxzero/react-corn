@@ -1,6 +1,7 @@
-import { Button, makeStyles } from '@material-ui/core'
+import { Button } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { useCorn } from '@react-corn/core'
-import { Switch, Text } from '@react-corn/material-ui'
+import { Switch, Text } from '@react-corn/mui'
 import React, { memo, useCallback } from 'react'
 
 import { Story } from '../helpers/Story'

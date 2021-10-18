@@ -37,11 +37,10 @@ export default ({
   )
 
   // On blur call super onBlur with current value
-  const handleBlur = useCallback(() => onBlur(name, value), [
-    name,
-    value,
-    onBlur,
-  ])
+  const handleBlur = useCallback(
+    () => onBlur(name, value),
+    [name, value, onBlur]
+  )
 
   // After render check for field errors and dispatch them
   useEffect(() => {

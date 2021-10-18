@@ -1,6 +1,7 @@
-import { Button, makeStyles } from '@material-ui/core'
+import { Button } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { Picker as CorePicker, useCorn } from '@react-corn/core'
-import { Picker as MuiPicker } from '@react-corn/material-ui'
+import { Picker as MuiPicker } from '@react-corn/mui'
 import { Picker as SimplePicker } from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
 

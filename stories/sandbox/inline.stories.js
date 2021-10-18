@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import DateFnsUtils from '@date-io/date-fns'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
-import { Inline as MuiInline } from '@react-corn/material-ui'
+import { Inline as MuiInline } from '@react-corn/mui'
 import { ButtonRow, Inline } from '@react-corn/simple'
 import React from 'react'
 import styled from 'styled-components'
@@ -110,8 +110,8 @@ const CornForm = () => {
 
 export const CornStory = () => {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <CornForm />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   )
 }

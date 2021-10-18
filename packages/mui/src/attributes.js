@@ -59,9 +59,8 @@ export const muiFormControlProps = [
   // 'size',
   'variant',
 ]
-export const muiTextFieldProps = muiTextFieldOnlyProps.concat(
-  muiFormControlProps
-)
+export const muiTextFieldProps =
+  muiTextFieldOnlyProps.concat(muiFormControlProps)
 
 export const muiSliderProps = [
   'aria-label',
@@ -118,6 +117,70 @@ export const muiSwitchProps = [
   'required',
   'tabIndex',
   'type',
+  'value',
+]
+
+// Most are generated from https://material-ui.com/api/autocomplete/ by:
+// [...table.querySelectorAll("tr td:first-of-type")].map(e => e.textContent.replace("*", "").trim())
+export const muiAutocompleteProps = [
+  'autoComplete',
+  'autoHighlight',
+  'autoSelect',
+  'blurOnSelect',
+  'ChipProps',
+  'classes',
+  'clearOnBlur',
+  'clearOnEscape',
+  'clearText',
+  'clearIcon',
+  'closeText',
+  'debug',
+  'defaultValue',
+  'disableClearable',
+  'disableCloseOnSelect',
+  'disabled',
+  'disabledItemsFocusable',
+  'disableListWrap',
+  'disablePortal',
+  'filterOptions',
+  'filterSelectedOptions',
+  'forcePopupIcon',
+  'freeSolo',
+  'fullWidth',
+  'getLimitTagsText',
+  'getOptionDisabled',
+  'getOptionLabel',
+  'getOptionSelected',
+  'groupBy',
+  'handleHomeEndKeys',
+  'id',
+  'includeInputInList',
+  'inputValue',
+  'limitTags',
+  'ListboxComponent',
+  'ListboxProps',
+  'loading',
+  'loadingText',
+  'multiple',
+  'noOptionsText',
+  'onChange',
+  'onClose',
+  'onHighlightChange',
+  'onInputChange',
+  'onOpen',
+  'open',
+  'openOnFocus',
+  'openText',
+  'options',
+  'PaperComponent',
+  'PopperComponent',
+  'popupIcon',
+  'renderGroup',
+  'renderInput',
+  'renderOption',
+  'renderTags',
+  'selectOnFocus',
+  'size',
   'value',
 ]
 
