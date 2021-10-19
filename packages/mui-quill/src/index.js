@@ -52,6 +52,7 @@ export const Quill = memo(function Quill({
   className,
   ...props
 }) {
+  variant = variant || 'outlined'
   const { modified, error } = props
   const classes = useStyles({ modified, variant })
 
