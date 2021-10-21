@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import 'react-quill/dist/quill.snow.css'
-
 import { useCorn } from '@react-corn/core'
 import { ButtonRow, TextArea } from '@react-corn/simple'
 import React, { lazy, memo, Suspense, useCallback } from 'react'
-
+import 'react-quill/dist/quill.snow.css'
 import { Story } from '../helpers/Story'
 
 const Quill = lazy(() =>

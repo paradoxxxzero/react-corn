@@ -3,10 +3,10 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
 import { Inline as MuiInline } from '@react-corn/mui'
-import { ButtonRow } from '@react-corn/simple'
+import { ButtonRow, Inline } from '@react-corn/simple'
 import React from 'react'
 import styled from 'styled-components'
-import { mui } from '../helpers/fields'
+import { mui, simple } from '../helpers/fields'
 
 export default {
   title: 'Sandbox/inline',
@@ -50,7 +50,7 @@ const CornForm = () => {
 
   return (
     <Form {...form}>
-      {/* <SimpleForm>
+      <SimpleForm>
         <h1>Simple</h1>
         {product(Object.entries(simple), Object.entries(simple))
           .filter(([k1, , k2]) => k1 !== k2)
@@ -72,7 +72,7 @@ const CornForm = () => {
               </Field2>
             </Inline>
           ))}
-      </SimpleForm> */}
+      </SimpleForm>
       <MaterialUIForm>
         <h1>MaterialUI</h1>
         {product(Object.entries(mui), Object.entries(mui))

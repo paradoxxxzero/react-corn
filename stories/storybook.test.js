@@ -27,6 +27,7 @@ jest.mock('@mui/material/TextareaAutosize', () => ({
   },
 }))
 
+// eslint-disable-next-line no-undef
 expect.addSnapshotSerializer(createSerializer())
 
 initStoryshots()

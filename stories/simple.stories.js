@@ -12,7 +12,6 @@ import {
   TextArea,
 } from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
-
 import { Story } from './helpers/Story'
 
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {

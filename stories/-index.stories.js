@@ -1,24 +1,16 @@
-// eslint-disable-next-line simple-import-sort/imports
-import { highlight, languages } from 'prismjs/components/prism-core'
-// eslint-disable-next-line simple-import-sort/imports
-import {} from 'prismjs/components/prism-clike'
-// eslint-disable-next-line simple-import-sort/imports
-import {} from 'prismjs/components/prism-javascript'
-// eslint-disable-next-line simple-import-sort/imports
-import {} from 'prismjs/components/prism-markup'
-// eslint-disable-next-line simple-import-sort/imports
-import {} from 'prismjs/components/prism-jsx'
-
-import 'prismjs/themes/prism-coy.css'
-
-import React from 'react'
-import styled from 'styled-components'
-import { addParameters } from '@storybook/react'
 // eslint-disable-next-line import/no-unresolved
 import ExampleSource from '!!raw-loader!./index-example.js'
-
-import { ExampleCorn } from './index-example'
+import { addParameters } from '@storybook/react'
+import {} from 'prismjs/components/prism-clike'
+import { highlight, languages } from 'prismjs/components/prism-core'
+import {} from 'prismjs/components/prism-javascript'
+import {} from 'prismjs/components/prism-jsx'
+import {} from 'prismjs/components/prism-markup'
+import 'prismjs/themes/prism-coy.css'
+import React from 'react'
+import styled from 'styled-components'
 import { version } from '../packages/core/package.json'
+import { ExampleCorn } from './index-example'
 
 addParameters({ options: { showPanel: false } })
 

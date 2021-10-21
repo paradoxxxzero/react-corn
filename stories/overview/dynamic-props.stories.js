@@ -2,7 +2,6 @@
 import { useCorn } from '@react-corn/core'
 import { ButtonRow, Select, Text } from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
-
 import { Story } from '../helpers/Story'
 
 export default {

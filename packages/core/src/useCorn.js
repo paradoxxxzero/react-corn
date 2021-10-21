@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
-
 import { get, merge } from './object'
 
 // Normalize the value on field exit (defaults to removing extra spaces)
