@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.6.4] - 2021-10-21
+
+### Fixed
+
+- Unsafe access on element in mui-quill
+
 ## [1.6.3] - 2021-10-21
 
 ### Removed
@@ -233,7 +239,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.3...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.4...HEAD
+[1.6.4]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/paradoxxxzero/react-corn/compare/v1.5.1...v1.6.1

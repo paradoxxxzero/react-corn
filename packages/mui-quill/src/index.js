@@ -80,9 +80,12 @@ export const Quill = memo(function Quill({
           }
           setTextFieldClasses([...e.classList].join(' '))
           if (variant === 'outlined') {
-            setNotch(
-              e.querySelector('.MuiOutlinedInput-notchedOutline').outerHTML
+            const notchElement = e.querySelector(
+              '.MuiOutlinedInput-notchedOutline'
             )
+            if (notchElement) {
+              setNotch(notchElement.outerHTML)
+            }
           }
         }}
       />
