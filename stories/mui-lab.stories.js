@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import { Button } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import { useCorn } from '@react-corn/core'
+import { Inline } from '@react-corn/mui'
 import { Date, DateTime, Time } from '@react-corn/mui-lab'
 import React, { memo, useCallback } from 'react'
-
+import { Button, Form } from './helpers/muiForm'
 import { Story } from './helpers/Story'
 
 export default {
@@ -16,30 +15,7 @@ export default {
   },
 }
 
-const useStyles = makeStyles(theme => ({
-  form: {
-    '& .MuiFormControl-root': {
-      display: 'block',
-      margin: theme.spacing(4),
-    },
-  },
-  inline: {
-    margin: theme.spacing(2),
-
-    '& .MuiFormControl-root': {
-      display: 'inline-flex',
-      margin: theme.spacing(2),
-    },
-  },
-  button: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(4),
-  },
-}))
-
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
-  const classes = useStyles()
-
   const handleChange = useCallback(
     (transient, delta, errors) => {
       onTransient(transient)
@@ -62,17 +38,17 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   })
 
   return (
-    <form className={classes.form} {...form}>
-      <div className={classes.inline}>
+    <Form {...form}>
+      <Inline>
         <Date required {...field('date')}>
           Date
         </Date>
         <Date displayFormat="PP" autoOk variant="inline" {...field('date')}>
           Date with display format
         </Date>
-      </div>
+      </Inline>
 
-      <div className={classes.inline}>
+      <Inline>
         <Time required withSeconds {...field('time')}>
           Time
         </Time>
@@ -85,8 +61,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           Time with display format
         </Time>
-      </div>
-      <div className={classes.inline}>
+      </Inline>
+      <Inline>
         <DateTime required {...field('dateTime')}>
           DateTime
         </DateTime>
@@ -99,8 +75,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           DateTime with display fmt
         </DateTime>
-      </div>
-      <div className={classes.inline}>
+      </Inline>
+      <Inline>
         <Date
           format="dd/MM/yyyy"
           displayFormat="MM/dd/yyyy"
@@ -113,10 +89,9 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         <Time ampm format="hh' -- 'mm' // 'a" {...field('time-ampm')}>
           Time ampm custom format
         </Time>
-      </div>
+      </Inline>
 
       <Button
-        className={classes.button}
         type="submit"
         disabled={!modified}
         color="primary"
@@ -124,10 +99,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Submit
       </Button>
-      <Button className={classes.button} onClick={onReset}>
-        Reset
-      </Button>
-    </form>
+      <Button onClick={onReset}>Reset</Button>
+    </Form>
   )
 })
 

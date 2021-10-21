@@ -14,10 +14,8 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['simple-import-sort'],
+  plugins: [],
   rules: {
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'import/order': 'off',
     'react/prop-types': 'off',
     'no-unused-vars': [

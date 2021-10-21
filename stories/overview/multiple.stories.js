@@ -1,11 +1,9 @@
-import { Button } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import { Picker as CorePicker, useCorn } from '@react-corn/core'
 import { Picker as MuiPicker } from '@react-corn/mui'
 import { Picker as SimplePicker } from '@react-corn/simple'
 import React, { memo, useCallback } from 'react'
-
 import { Story } from '../helpers/Story'
+import { Button, Form } from '../helpers/muiForm'
 
 export default {
   title: 'Overview/multiple',
@@ -13,27 +11,6 @@ export default {
     options: { showPanel: true },
   },
 }
-
-const useStyles = makeStyles(theme => ({
-  form: {
-    '& .MuiFormControl-root': {
-      display: 'block',
-      margin: theme.spacing(4),
-    },
-  },
-  inline: {
-    margin: theme.spacing(2),
-
-    '& .MuiFormControl-root': {
-      display: 'inline-flex',
-      margin: theme.spacing(2),
-    },
-  },
-  button: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(4),
-  },
-}))
 
 const continents = {
   Africa: 'AF',
@@ -46,7 +23,6 @@ const continents = {
 }
 
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
-  const classes = useStyles()
   const handleChange = useCallback(
     (transient, delta, errors) => {
       onTransient(transient)
@@ -69,7 +45,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   })
 
   return (
-    <form className={classes.form} {...form}>
+    <Form {...form}>
       <h2>core</h2>
       <CorePicker choices={continents} {...field('continent')} />
       <CorePicker
@@ -104,7 +80,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       </MuiPicker>
 
       <Button
-        className={classes.button}
         type="submit"
         disabled={!modified}
         color="primary"
@@ -112,10 +87,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Submit
       </Button>
-      <Button className={classes.button} onClick={onReset}>
-        Reset
-      </Button>
-    </form>
+      <Button onClick={onReset}>Reset</Button>
+    </Form>
   )
 })
 

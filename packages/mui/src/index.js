@@ -10,25 +10,24 @@ import {
   InputAdornment,
   InputLabel,
   LinearProgress,
+  linearProgressClasses,
   MenuItem,
   Radio as MuiRadio,
   Slider as MuiSlider,
   Switch as MuiSwitch,
   TextField,
+  Typography,
   useFormControl,
 } from '@mui/material'
+import { styled, useTheme } from '@mui/material/styles'
 import { createFilterOptions } from '@mui/material/useAutocomplete'
-import { withStyles } from '@mui/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import {
   useControlField,
   useCornField,
   useMaybeMultipleValue,
   useOptions,
 } from '@react-corn/core'
-import clsx from 'clsx'
 import React, { memo, useCallback, useMemo, useState } from 'react'
-
 import {
   muiAutocompleteProps,
   muiFormControlProps,
@@ -40,81 +39,63 @@ import {
 
 export * from './attributes'
 
-const useStyles = makeStyles(theme => ({
-  base: {
-    '& .MuiInput-root,.MuiOutlinedInput-root,.MuiFilledInput-root,.MuiFormControlLabel-label,.MuiButtonBase-root.MuiCheckbox-root,.MuiSlider-root':
-      {
-        color: theme.palette.text.secondary,
-      },
+export const fieldOptions = {
+  shouldForwardProp: prop => prop !== 'modified',
+}
+export const rootStyles = ({ theme, modified, select }) => ({
+  '& .MuiInput-root': {
+    minWidth: select ? '200px' : undefined,
   },
-  modified: {
-    '& .MuiInput-root,.MuiOutlinedInput-root,.MuiFilledInput-root,.MuiFormControlLabel-label':
-      {
-        color: theme.palette.text.primary,
-      },
+  '& input[type="checkbox"], & input[type="radio"]': {
+    minWidth: '1em',
   },
-  field: {
-    '& input[type="checkbox"], & input[type="radio"]': {
-      minWidth: '1em',
-    },
-    '& input[type="color"]': {
-      minWidth: '3em',
-      minHeight: '2em',
-    },
-  },
-  select: {
-    '& .MuiInput-root': {
-      minWidth: '200px',
-    },
-  },
-  wrapper: {
-    position: 'relative',
-    width: 'fit-content',
-  },
-  hidden: {
-    top: '50%',
-    height: 0,
-    left: 0,
-    margin: 'auto !important',
-    opacity: 0,
-    position: 'absolute',
-    right: 0,
-    width: 0,
-    zIndex: -1,
-  },
-  formControlLabel: {
-    marginTop: theme.spacing(2),
-  },
-  sliderControl: {
-    display: 'block',
-    margin: theme.spacing(4),
-    maxWidth: '200px',
-  },
-  slider: {
-    top: '1.75em',
-  },
-  switch: {},
-  switchControl: {
+  '& input[type="color"]': {
+    minWidth: '3em',
     minHeight: '2em',
   },
-  switchUnmodified: {
-    opacity: 0.75,
+  '& .MuiInput-root,.MuiOutlinedInput-root,.MuiFilledInput-root,.MuiFormControlLabel-label,.MuiButtonBase-root.MuiCheckbox-root,.MuiSlider-root':
+    {
+      color: modified
+        ? theme.palette.text.primary
+        : theme.palette.text.secondary,
+    },
+})
+
+export const TextFieldRoot = styled(TextField, fieldOptions)(rootStyles)
+export const FormControlRoot = styled(FormControl, fieldOptions)(rootStyles)
+export const AutocompleteRoot = styled(
+  MuiAutocomplete,
+  fieldOptions
+)(rootStyles)
+
+export const Wrapper = styled('div')({
+  position: 'relative',
+  width: 'fit-content',
+})
+export const HiddenInput = styled('input')({
+  top: '50%',
+  height: 0,
+  left: 0,
+  margin: 'auto !important',
+  opacity: 0,
+  position: 'absolute',
+  right: 0,
+  width: 0,
+  zIndex: -1,
+})
+
+export const Inline = styled('div')(({ theme }) => ({
+  margin: `${theme.spacing(2)} !important`,
+
+  '& > *': {
+    display: 'inline-flex !important',
   },
-  switchModified: {
-    opacity: 1,
-  },
-  switchLabel: {},
-  sliderLabel: {
-    top: '1.75em',
-    position: 'relative',
-  },
-  suggestion: {
-    color: theme.palette.info.main,
-    display: 'block',
+  '& .MuiFormControl-root': {
+    margin: `${theme.spacing(2)} !important`,
   },
 }))
+
 export const Input = memo(function Input({ children, ...props }) {
-  const classes = useStyles()
   const { modified, error } = props
 
   // Handle size property collision between mui and input
@@ -132,18 +113,16 @@ export const Input = memo(function Input({ children, ...props }) {
   )
 
   return (
-    <TextField
+    <TextFieldRoot
       {...textFieldProps}
-      className={clsx(textFieldProps.className, classes.field, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
-      })}
+      className={textFieldProps.className}
       inputRef={ref}
       label={textFieldProps.label || children}
       error={!!error}
       helperText={error || textFieldProps.helperText}
       inputProps={inputProps}
       size={muiSize}
+      modified={modified}
     />
   )
 })
@@ -159,7 +138,6 @@ export const Checkbox = memo(function Checkbox({
     ...props,
     type: 'checkbox',
   })
-  const classes = useStyles()
 
   const [checkboxProps, fcProps] = useFilteredProps(
     cornProps,
@@ -169,13 +147,11 @@ export const Checkbox = memo(function Checkbox({
   checkboxProps.checked = !!cornProps.value
 
   return (
-    <FormControl
+    <FormControlRoot
+      modified={modified}
       {...fcProps}
       error={!!error}
-      className={clsx(fcProps.className, classes.field, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
-      })}
+      className={fcProps.className}
     >
       {option && (
         <InputLabel disableAnimation shrink>
@@ -183,7 +159,7 @@ export const Checkbox = memo(function Checkbox({
         </InputLabel>
       )}
       <FormControlLabel
-        className={clsx({ [classes.formControlLabel]: option })}
+        sx={{ mt: option ? 2 : undefined }}
         control={
           <MuiCheckbox
             {...checkboxProps}
@@ -195,7 +171,7 @@ export const Checkbox = memo(function Checkbox({
       />
 
       {error && <FormHelperText>{error}</FormHelperText>}
-    </FormControl>
+    </FormControlRoot>
   )
 })
 
@@ -304,7 +280,6 @@ export const Select = memo(function Select({
   className,
   ...props
 }) {
-  const classes = useStyles()
   const { modified, error } = props
   const { ref, ...cornProps } = useCornField(props)
   const { name, value: originalValue } = cornProps
@@ -327,15 +302,13 @@ export const Select = memo(function Select({
   )
 
   return (
-    <div className={classes.wrapper}>
-      <TextField
+    <Wrapper>
+      <TextFieldRoot
+        modified={modified}
         {...textFieldProps}
         select
         SelectProps={SelectProps}
-        className={clsx(className, classes.select, {
-          [classes.base]: !modified,
-          [classes.modified]: modified,
-        })}
+        className={className}
         value={value}
         label={textFieldProps.label || children}
         error={!!error}
@@ -350,14 +323,9 @@ export const Select = memo(function Select({
             {label}
           </MenuItem>
         ))}
-      </TextField>
-      <input
-        {...inputProps}
-        ref={ref}
-        className={classes.hidden}
-        {...controlProps}
-      />
-    </div>
+      </TextFieldRoot>
+      <HiddenInput {...inputProps} ref={ref} {...controlProps} />
+    </Wrapper>
   )
 })
 
@@ -365,8 +333,7 @@ export const Slider = memo(function Slider({ children, ...props }) {
   const { modified, error, onChange } = props
   const { ref, className, ...cornProps } = useCornField(props)
   const { name, value } = cornProps
-  const classes = useStyles()
-
+  const theme = useTheme()
   const controlProps = useControlField(name, value)
 
   const handleChange = useCallback(
@@ -380,12 +347,15 @@ export const Slider = memo(function Slider({ children, ...props }) {
   )
 
   return (
-    <FormControl
+    <FormControlRoot
+      modified={modified}
       {...fcProps}
-      className={clsx(fcProps.className, classes.sliderControl, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
-      })}
+      sx={{
+        display: 'block',
+        margin: theme.spacing(4),
+        maxWidth: '200px',
+      }}
+      className={fcProps.className}
       error={!!error}
       fullWidth
     >
@@ -395,20 +365,19 @@ export const Slider = memo(function Slider({ children, ...props }) {
       <MuiSlider
         {...sliderProps}
         value={sliderProps.value === '' ? undefined : sliderProps.value}
-        className={clsx(classes.slider, className)}
+        className={className}
+        sx={{
+          top: '0.5em',
+        }}
         onChange={handleChange}
       />
       {error && (
-        <FormHelperText className={classes.sliderLabel}>{error}</FormHelperText>
+        <FormHelperText sx={{ top: '0.5em', position: 'relative' }}>
+          {error}
+        </FormHelperText>
       )}
-      <input
-        {...inputProps}
-        ref={ref}
-        type="number"
-        className={classes.hidden}
-        {...controlProps}
-      />
-    </FormControl>
+      <HiddenInput {...inputProps} ref={ref} type="number" {...controlProps} />
+    </FormControlRoot>
   )
 })
 
@@ -419,7 +388,6 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
     type: 'checkbox',
   })
   const { name, value } = cornProps
-  const classes = useStyles()
   const controlProps = useControlField(name, value, true)
 
   const [switchProps, fcProps, inputProps] = useFilteredProps(
@@ -431,12 +399,11 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
   delete switchProps.value
 
   return (
-    <FormControl
+    <FormControlRoot
+      modified={modified}
       {...fcProps}
-      className={clsx(className, classes.switchControl, {
-        [classes.switchUnmodified]: !modified,
-        [classes.switchModified]: modified,
-      })}
+      sx={{ minHeight: '2em' }}
+      className={className}
       error={!!error}
     >
       <InputLabel disableAnimation shrink>
@@ -444,39 +411,34 @@ export const Switch = memo(function Switch({ children, onLabel, ...props }) {
         <MuiSwitch
           {...switchProps}
           checked={switchProps.checked === '' ? false : switchProps.checked}
-          className={clsx(classes.switch, className)}
+          className={className}
         />
         {onLabel}
       </InputLabel>
 
-      {error && (
-        <FormHelperText className={classes.switchLabel}>{error}</FormHelperText>
-      )}
-      <input
-        {...inputProps}
-        ref={ref}
-        className={classes.hidden}
-        {...controlProps}
-      />
-    </FormControl>
+      {error && <FormHelperText>{error}</FormHelperText>}
+      <HiddenInput {...inputProps} ref={ref} {...controlProps} />
+    </FormControlRoot>
   )
 })
-const StyledLinearProgress = withStyles(() => ({
-  root: {
+
+const StyledLinearProgress = styled(LinearProgress)(
+  ({ score, hasfocus, inputvariant }) => ({
     position: 'absolute',
-    height: props => (props.hasfocus ? '2px' : '1px'),
+    height: hasfocus ? '2px' : '1px',
     bottom: 0,
     zIndex: 15,
-    width: props => (props.inputvariant === 'outlined' ? '96%' : '100%'),
-    left: props => (props.inputvariant === 'outlined' ? '2%' : '0'),
-  },
-  colorPrimary: {
-    backgroundColor: 'rgba(255, 255, 255, .75)',
-  },
-  bar: {
-    backgroundColor: props => `hsl(${props.score ** 2 * 12}, 100%, 50%)`,
-  },
-}))(LinearProgress)
+    width: inputvariant === 'outlined' ? '96%' : '100%',
+    left: inputvariant === 'outlined' ? '2%' : '0',
+
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor: 'rgba(255, 255, 255, .75)',
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      backgroundColor: `hsl(${score ** 2 * 12}, 100%, 50%)`,
+    },
+  })
+)
 
 const PasswordLinearProgress = props => {
   const { focused } = useFormControl()
@@ -493,7 +455,6 @@ export const Password = ({
   InputProps,
   ...props
 }) => {
-  const classes = useStyles()
   const [uncovered, setUncovered] = useState(false)
   const handleClick = useCallback(() => {
     setUncovered(currentUncovered => !currentUncovered)
@@ -536,7 +497,9 @@ export const Password = ({
           <>
             {error}
             {suggestion && (
-              <span className={classes.suggestion}>{suggestion}</span>
+              <Typography component="div" sx={{ color: 'info.main' }}>
+                {suggestion}
+              </Typography>
             )}
           </>
         )
@@ -554,7 +517,6 @@ export const Picker = memo(function Picker({
   const { onChange, modified, error } = props
   const { ref, ...cornProps } = useCornField(props)
   const { name, value } = cornProps
-  const classes = useStyles()
 
   const options = useOptions(choices)
   const multipleValue = useMaybeMultipleValue(multiple, value)
@@ -577,13 +539,11 @@ export const Picker = memo(function Picker({
   const Type = multiple ? MuiCheckbox : MuiRadio
 
   return (
-    <FormControl
+    <FormControlRoot
+      modified={modified}
       component="fieldset"
       error={!!error}
-      className={clsx(fcProps.className, classes.field, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
-      })}
+      className={fcProps.className}
       {...fcProps}
       onChange={undefined}
     >
@@ -607,13 +567,8 @@ export const Picker = memo(function Picker({
         />
       ))}
       {error && <FormHelperText>{error}</FormHelperText>}
-      <input
-        {...typeProps}
-        ref={ref}
-        className={classes.hidden}
-        {...controlProps}
-      />
-    </FormControl>
+      <HiddenInput {...typeProps} ref={ref} {...controlProps} />
+    </FormControlRoot>
   )
 })
 
@@ -633,7 +588,6 @@ export const Autocomplete = memo(function Autocomplete({
     ...props,
   })
   const { name, value: originalValue } = cornProps
-  const classes = useStyles()
 
   const handleChange = useCallback(
     (_, option) =>
@@ -694,8 +648,9 @@ export const Autocomplete = memo(function Autocomplete({
   )
 
   return (
-    <div className={classes.wrapper}>
-      <MuiAutocomplete
+    <Wrapper>
+      <AutocompleteRoot
+        modified={modified}
         autoHighlight
         {...autocompleteProps}
         freeSolo={free}
@@ -708,10 +663,7 @@ export const Autocomplete = memo(function Autocomplete({
         }
         selectOnFocus={autocompleteProps.selectOnFocus || free}
         clearOnBlur={autocompleteProps.clearOnBlur || free}
-        className={clsx(className, classes.field, {
-          [classes.base]: !modified,
-          [classes.modified]: modified,
-        })}
+        className={className}
         renderInput={params => (
           <TextField
             {...textFieldProps}
@@ -730,30 +682,7 @@ export const Autocomplete = memo(function Autocomplete({
           />
         )}
       />
-      <input
-        {...inputProps}
-        ref={ref}
-        className={classes.hidden}
-        {...controlProps}
-      />
-    </div>
+      <HiddenInput {...inputProps} ref={ref} {...controlProps} />
+    </Wrapper>
   )
 })
-
-const useInlineStyles = makeStyles(theme => ({
-  inline: {
-    margin: [theme.spacing(2), '!important'],
-
-    '& > *': {
-      display: ['inline-flex', '!important'],
-    },
-    '& .MuiFormControl-root': {
-      margin: [theme.spacing(2), '!important'],
-    },
-  },
-}))
-
-export const Inline = ({ children }) => {
-  const classes = useInlineStyles()
-  return <div className={classes.inline}>{children}</div>
-}

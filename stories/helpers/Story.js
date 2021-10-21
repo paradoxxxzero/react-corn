@@ -1,8 +1,6 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { StylesProvider } from '@mui/styles'
 import React, { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
-
 import StoryItem from './StoryItem'
 
 function debounce(fn, wait) {
@@ -38,10 +36,6 @@ export const Divider = styled.hr`
   border-color: hsla(0, 50%, 50%, 0.1);
 `
 
-const generateClassName = (rule, styleSheet) => {
-  return `${styleSheet.options.classNamePrefix}-${rule.key}`
-}
-
 const theme = createTheme()
 export const Story = ({ Chapter, initialItem }) => {
   const [item, setItem] = useState(initialItem || {})
@@ -53,7 +47,7 @@ export const Story = ({ Chapter, initialItem }) => {
     setItem(it)
   }, [])
 
-  const innerStory = (
+  return (
     <ThemeProvider theme={theme}>
       <Root>
         <Chapter
@@ -74,16 +68,4 @@ export const Story = ({ Chapter, initialItem }) => {
       </Root>
     </ThemeProvider>
   )
-  if (process.env.NODE_ENV === 'test') {
-    return (
-      <StylesProvider
-        generateClassName={
-          process.env.NODE_ENV === 'test' ? generateClassName : undefined
-        }
-      >
-        {innerStory}
-      </StylesProvider>
-    )
-  }
-  return innerStory
 }

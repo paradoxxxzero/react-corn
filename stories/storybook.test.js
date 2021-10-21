@@ -1,5 +1,6 @@
 /* global jest */
 
+import { createSerializer } from '@emotion/jest'
 import initStoryshots from '@storybook/addon-storyshots'
 import React from 'react'
 
@@ -25,5 +26,7 @@ jest.mock('@mui/material/TextareaAutosize', () => ({
     },
   },
 }))
+
+expect.addSnapshotSerializer(createSerializer())
 
 initStoryshots()

@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import 'react-quill/dist/quill.snow.css'
-
-import makeStyles from '@mui/styles/makeStyles'
 import { useCorn } from '@react-corn/core'
 import { Password as materialUIPassword } from '@react-corn/mui'
 import { ButtonRow, Password as simplePassword } from '@react-corn/simple'
 import React, { lazy, memo, Suspense, useCallback } from 'react'
-
+import 'react-quill/dist/quill.snow.css'
 import { Story } from './helpers/Story'
 
 const PasswordStrength = lazy(() =>
@@ -17,30 +14,7 @@ const PasswordStrength = lazy(() =>
   }))
 )
 
-const useStyles = makeStyles(theme => ({
-  form: {
-    '& .MuiFormControl-root': {
-      display: 'block',
-      margin: theme.spacing(4),
-    },
-  },
-  inline: {
-    margin: theme.spacing(2),
-
-    '& .MuiFormControl-root': {
-      display: 'inline-flex',
-      margin: theme.spacing(2),
-    },
-  },
-  button: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(4),
-  },
-}))
-
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
-  const classes = useStyles()
-
   const handleChange = useCallback(
     (transient, delta, errors) => {
       onTransient(transient)
@@ -63,7 +37,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   })
 
   return (
-    <form className={classes.form} {...form}>
+    <form {...form}>
       <Suspense fallback="Loading…">
         <PasswordStrength
           Component={simplePassword}
@@ -72,29 +46,35 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           Simple Password Strength
         </PasswordStrength>
-        <PasswordStrength
-          Component={materialUIPassword}
-          required
-          {...field('password')}
-        >
-          Material-ui Password Strength
-        </PasswordStrength>
-        <PasswordStrength
-          variant="outlined"
-          Component={materialUIPassword}
-          required
-          {...field('password')}
-        >
-          Material-ui Password Strength
-        </PasswordStrength>
-        <PasswordStrength
-          variant="filled"
-          Component={materialUIPassword}
-          required
-          {...field('password')}
-        >
-          Material-ui Password Strength
-        </PasswordStrength>
+        <div style={{ margin: '32px 16px' }}>
+          <PasswordStrength
+            Component={materialUIPassword}
+            required
+            {...field('password')}
+          >
+            Material-ui Password Strength
+          </PasswordStrength>
+        </div>
+        <div style={{ margin: '32px 16px' }}>
+          <PasswordStrength
+            variant="outlined"
+            Component={materialUIPassword}
+            required
+            {...field('password')}
+          >
+            Material-ui Password Strength
+          </PasswordStrength>
+        </div>
+        <div style={{ margin: '32px 16px' }}>
+          <PasswordStrength
+            variant="filled"
+            Component={materialUIPassword}
+            required
+            {...field('password')}
+          >
+            Material-ui Password Strength
+          </PasswordStrength>
+        </div>
         <PasswordStrength
           Component={simplePassword}
           minScore={4}

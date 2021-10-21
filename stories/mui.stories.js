@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Button, Chip, InputAdornment } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import { Chip, InputAdornment } from '@mui/material'
 import { useCorn } from '@react-corn/core'
 import {
   Autocomplete,
@@ -16,7 +15,7 @@ import {
   TextArea,
 } from '@react-corn/mui'
 import React, { memo, useCallback } from 'react'
-
+import { Button, Form } from './helpers/muiForm'
 import { Story } from './helpers/Story'
 
 export default {
@@ -55,22 +54,7 @@ const colors = {
   Purple: '#800080',
 }
 
-const useStyles = makeStyles(theme => ({
-  form: {
-    '& .MuiFormControl-root': {
-      display: 'block',
-      margin: theme.spacing(4),
-    },
-  },
-  button: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(4),
-  },
-}))
-
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
-  const classes = useStyles()
-
   const handleChange = useCallback(
     (transient, delta, errors) => {
       onTransient(transient)
@@ -93,7 +77,7 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   })
 
   return (
-    <form className={classes.form} {...form}>
+    <Form {...form}>
       <Inline>
         <Text required maxLength={25} {...field('name')}>
           Name
@@ -101,11 +85,12 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         <Email disabled {...field('mail')}>
           Mail
         </Email>
-        <Password {...field('password')}>Mot de passe</Password>
+        <Password variant="filled" {...field('password')}>
+          Mot de passe
+        </Password>
       </Inline>
       <Inline>
         <Number
-          variant="standard"
           style={{ width: '6ch' }}
           {...field('address.number', {
             InputProps: ({ address: { number: num } }) =>
@@ -124,13 +109,28 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
         >
           Num
         </Number>
-        <Text variant="standard" size={8} {...field('address.street')}>
+        <Text size={8} {...field('address.street')}>
           Street name
         </Text>
       </Inline>
-      <Text {...field('address.city')} variant="filled">
-        City
+      <Text {...field('address.city')}>City</Text>
+      <Text
+        {...field('address.country')}
+        InputLabelProps={{ shrink: true, disableAnimation: true }}
+      >
+        Country
       </Text>
+      <Slider
+        min={12}
+        max={100}
+        valueLabelDisplay="auto"
+        {...field(
+          'age',
+          v => v > 90 && 'You might be too old for that, sorry.'
+        )}
+      >
+        Age
+      </Slider>
       <Select
         choices={Object.keys(continents)}
         // multiple
@@ -143,17 +143,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Continent
       </Select>
-      <Slider
-        min={12}
-        max={100}
-        valueLabelDisplay="auto"
-        {...field(
-          'age',
-          v => v > 90 && 'You might be too old for that, sorry.'
-        )}
-      >
-        Age
-      </Slider>
       <Inline>
         <TextArea {...field('message')}>Message</TextArea>
         <Checkbox option="Away" {...field('away')} required>
@@ -176,7 +165,6 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       </Inline>
 
       <Button
-        className={classes.button}
         type="submit"
         disabled={!modified}
         color="primary"
@@ -184,10 +172,10 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
       >
         Submit
       </Button>
-      <Button className={classes.button} disabled={!modified} onClick={onReset}>
+      <Button disabled={!modified} onClick={onReset}>
         Reset
       </Button>
-    </form>
+    </Form>
   )
 })
 
@@ -199,7 +187,6 @@ const getContrast = rgb =>
 
 const AutocompleteCornForm = memo(
   ({ item, onItem, onTransient, onDelta, onErrors }) => {
-    const classes = useStyles()
     const handleChange = useCallback(
       (transient, delta, errors) => {
         onTransient(transient)
@@ -222,7 +209,7 @@ const AutocompleteCornForm = memo(
     })
 
     return (
-      <form className={classes.form} {...form}>
+      <Form {...form}>
         <Autocomplete choices={continents} {...field('continent')}>
           Continent
         </Autocomplete>
@@ -292,7 +279,6 @@ const AutocompleteCornForm = memo(
           </Autocomplete>
         </Inline>
         <Button
-          className={classes.button}
           type="submit"
           disabled={!modified}
           color="primary"
@@ -300,10 +286,8 @@ const AutocompleteCornForm = memo(
         >
           Submit
         </Button>
-        <Button className={classes.button} onClick={onReset}>
-          Reset
-        </Button>
-      </form>
+        <Button onClick={onReset}>Reset</Button>
+      </Form>
     )
   }
 )

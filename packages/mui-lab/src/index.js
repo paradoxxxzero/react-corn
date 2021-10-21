@@ -1,12 +1,10 @@
 import { DatePicker, DateTimePicker, TimePicker } from '@mui/lab'
 import { MuiPickersAdapterContext } from '@mui/lab/LocalizationProvider'
 import { TextField } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import { useCornField } from '@react-corn/core'
-import { useFilteredProps } from '@react-corn/mui'
-import clsx from 'clsx'
+import { fieldOptions, rootStyles, useFilteredProps } from '@react-corn/mui'
 import React, { memo, useCallback, useContext, useEffect } from 'react'
-
 import {
   muiDatePickerOnlyProps,
   muiDateTimePickerOnlyProps,
@@ -14,20 +12,6 @@ import {
 } from './attributes'
 
 export * from './attributes'
-
-const useStyles = makeStyles(theme => ({
-  base: {
-    '& .MuiInput-root': {
-      color: theme.palette.text.secondary,
-    },
-  },
-  modified: {
-    '& .MuiInput-root': {
-      color: theme.palette.text.primary,
-    },
-  },
-  field: {},
-}))
 
 export const generateMaskFromFormat = format => {
   // This is broken enough but can be useful for non localized simple formats
@@ -40,6 +24,13 @@ export const generateMaskFromFormat = format => {
     return !escape && c.match(/[a-z]/i) ? '_' : c
   })
 }
+
+export const DatePickerRoot = styled(DatePicker, fieldOptions)(rootStyles)
+export const TimePickerRoot = styled(TimePicker, fieldOptions)(rootStyles)
+export const DateTimePickerRoot = styled(
+  DateTimePicker,
+  fieldOptions
+)(rootStyles)
 
 export const Picker = ({
   children,
@@ -72,7 +63,6 @@ export const Picker = ({
     ...props,
   })
   const { name, value } = cornProps
-  const classes = useStyles()
   const [componentProps, inputProps] = useFilteredProps(
     cornProps,
     ComponentProps
@@ -104,6 +94,7 @@ export const Picker = ({
 
   return (
     <Component
+      modified={modified}
       clearable={
         (componentProps.variant && componentProps.variant === 'dialog') ||
         undefined
@@ -113,10 +104,7 @@ export const Picker = ({
       mask={maskForFormat}
       onChange={handleChange}
       value={dateValue}
-      className={clsx(className, classes.field, {
-        [classes.base]: !modified,
-        [classes.modified]: modified,
-      })}
+      className={className}
       label={children}
       helperText={error || cornProps.helperText}
       error={!!error}
@@ -137,7 +125,7 @@ export const Picker = ({
 export const Date = memo(function Date(props) {
   return (
     <Picker
-      Component={DatePicker}
+      Component={DatePickerRoot}
       ComponentProps={muiDatePickerOnlyProps}
       defaultFormat="yyyy-MM-dd"
       {...props}
@@ -148,7 +136,7 @@ export const Date = memo(function Date(props) {
 export const Time = memo(function Time({ withSeconds, ...props }) {
   return (
     <Picker
-      Component={TimePicker}
+      Component={TimePickerRoot}
       ComponentProps={muiTimePickerOnlyProps}
       defaultFormat={`HH:mm${withSeconds ? ':ss' : ''}`}
       views={['hours', 'minutes', ...(withSeconds ? ['seconds'] : [])]}
@@ -161,7 +149,7 @@ export const Time = memo(function Time({ withSeconds, ...props }) {
 export const DateTime = memo(function DateTime({ withSeconds, ...props }) {
   return (
     <Picker
-      Component={DateTimePicker}
+      Component={DateTimePickerRoot}
       ComponentProps={muiDateTimePickerOnlyProps}
       defaultFormat="yyyy-MM-dd'T'HH:mm:ss'Z'"
       defaultDisplayFormat={`yyyy-MM-dd HH:mm${withSeconds ? ':ss' : ''}`}

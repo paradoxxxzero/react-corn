@@ -1,14 +1,17 @@
 import {
+  Box,
   FilledInput,
-  FormControl,
   FormHelperText,
   Input,
   InputLabel,
   OutlinedInput,
 } from '@mui/material'
-import NotchedOutline from '@mui/material/OutlinedInput/NotchedOutline'
-import makeStyles from '@mui/styles/makeStyles'
-import { muiFormControlProps, useFilteredProps } from '@react-corn/mui'
+import { useTheme } from '@mui/material/styles'
+import {
+  FormControlRoot,
+  muiFormControlProps,
+  useFilteredProps,
+} from '@react-corn/mui'
 import { BaseQuill } from '@react-corn/quill'
 import clsx from 'clsx'
 import React, { memo, useCallback, useState } from 'react'
@@ -19,33 +22,6 @@ const variantComponent = {
   outlined: OutlinedInput,
 }
 
-const useStyles = makeStyles(theme => ({
-  label: {},
-  quill: {
-    // Can't use margin here since it collapses
-    padding: ({ variant }) =>
-      ['filled', 'outlined'].includes(variant) && theme.spacing(1),
-    paddingTop: ({ variant }) =>
-      variant === 'filled' ? theme.spacing(4) : theme.spacing(2),
-    color: ({ modified }) =>
-      modified ? theme.palette.text.primary : theme.palette.text.secondary,
-    '& .ql-container': {
-      border: 'none',
-    },
-    width: '100%',
-    '& .quill': {
-      width: '100%',
-    },
-  },
-  control: {
-    display: 'block',
-    margin: theme.spacing(4),
-  },
-  fakeInput: {
-    border: 'none !important',
-  },
-}))
-
 export const Quill = memo(function Quill({
   children,
   variant,
@@ -54,7 +30,7 @@ export const Quill = memo(function Quill({
 }) {
   variant = variant || 'outlined'
   const { modified, error } = props
-  const classes = useStyles({ modified, variant })
+  const theme = useTheme()
 
   const [focused, setFocused] = useState(false)
 
@@ -78,12 +54,14 @@ export const Quill = memo(function Quill({
   )
   const InputComponent = variantComponent[variant]
   const [textFieldClasses, setTextFieldClasses] = useState('')
+  const [notch, setNotch] = useState('')
   return (
-    <FormControl
+    <FormControlRoot
+      modified={modified}
       {...fcProps}
       variant={variant}
       focused={focused}
-      className={clsx(className, classes.control)}
+      className={className}
       error={!!error}
     >
       <InputLabel disableAnimation shrink variant={variant}>
@@ -92,35 +70,50 @@ export const Quill = memo(function Quill({
 
       <InputComponent
         style={{ display: 'none' }}
+        label={children}
         type="hidden"
+        notched={variant === 'outlined' ? true : undefined}
         ref={e => {
-          e && setTextFieldClasses([...e.classList].join(' '))
+          // This may be a gore hack, hmm yeah it is
+          if (!e) {
+            return
+          }
+          setTextFieldClasses([...e.classList].join(' '))
+          if (variant === 'outlined') {
+            setNotch(
+              e.querySelector('.MuiOutlinedInput-notchedOutline').outerHTML
+            )
+          }
         }}
       />
-      <div
+      <Box
         className={clsx(
-          classes.quill,
           {
             'Mui-focused': focused,
           },
           textFieldClasses,
           className
         )}
+        sx={{
+          // Can't use margin here since it collapses
+          padding:
+            ['filled', 'outlin ed'].includes(variant) && theme.spacing(1),
+          paddingTop:
+            variant === 'filled' ? theme.spacing(4) : theme.spacing(2),
+          color: modified ? 'text.primary' : 'text.secondary',
+          '& .ql-container': {
+            border: 'none',
+          },
+          width: 1,
+          '& .quill': {
+            width: 1,
+          },
+        }}
       >
         <BaseQuill {...quillProps} onFocus={handleFocus} onBlur={handleBlur} />
-        {variant === 'outlined' && (
-          <NotchedOutline
-            className="MuiOutlinedInput-notchedOutline"
-            label={children}
-            notched
-          />
-        )}
-      </div>
-      {error && (
-        <FormHelperText className={classes.label} variant={variant}>
-          {error}
-        </FormHelperText>
-      )}
-    </FormControl>
+        {notch && <div dangerouslySetInnerHTML={{ __html: notch }} />}
+      </Box>
+      {error && <FormHelperText variant={variant}>{error}</FormHelperText>}
+    </FormControlRoot>
   )
 })
