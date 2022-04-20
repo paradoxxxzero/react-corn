@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/mui",
-  "version": "1.6.3",
+  "version": "1.7.0",
   "description": "Controlled forms with hooks for advanced object editing. Mui fields package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/mui-x",
-  "version": "1.6.3",
+  "version": "1.7.0",
   "description": "Controlled forms with hooks for advanced object editing. Mui x fields package.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
@@ -11,13 +11,13 @@
     "build": "rollup -c"
   },
   "peerDependencies": {
-    "@mui/x-date-pickers": "^5.x.x",
     "@mui/material": "^5.x.x",
+    "@mui/x-date-pickers": "^5.x.x",
     "react": "^18.x.x",
     "react-dom": "^18.x.x"
   },
   "dependencies": {
-    "@react-corn/mui": "^1.6.3",
+    "@react-corn/mui": "^1.7.0",
     "clsx": "^1.1.1"
   }
 }
