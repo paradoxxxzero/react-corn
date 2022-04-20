@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
 import { Inline } from '@react-corn/mui'
-import { Date, DateTime, Time } from '@react-corn/mui-lab'
+import { Date, DateTime, Time } from '@react-corn/mui-x'
 import React, { memo, useCallback } from 'react'
 import { Button, Form } from './helpers/muiForm'
 import { Story } from './helpers/Story'
 
 export default {
-  title: '@react-corn/mui-lab',
+  title: '@react-corn/mui-x',
   parameters: {
     options: { showPanel: true },
   },

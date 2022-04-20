@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     'import/order': 'off',
     'react/prop-types': 'off',
+    'react/display-name': 'off',
     'no-unused-vars': [
       'error',
       {

@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.7.0] - 2022-04-20
+
+### Changed
+
+- **BREAKING** Renamed mui-lab package to mui-x, @mui/x-date-pickers is now used
+- React 18 as peer dependency
+
 ## [1.6.4] - 2021-10-21
 
 ### Fixed
@@ -239,7 +246,8 @@ Bad release
 
 ## [1.0.1] - 2020-06-04
 
-[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.4...HEAD
+[unreleased]: https://github.com/paradoxxxzero/react-corn/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.4...v1.7.0
 [1.6.4]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/paradoxxxzero/react-corn/compare/v1.6.1...v1.6.2

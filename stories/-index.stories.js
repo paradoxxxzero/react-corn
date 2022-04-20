@@ -1,12 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import ExampleSource from '!!raw-loader!./index-example.js'
 import { addParameters } from '@storybook/react'
-import {} from 'prismjs/components/prism-clike'
-import { highlight, languages } from 'prismjs/components/prism-core'
-import {} from 'prismjs/components/prism-javascript'
-import {} from 'prismjs/components/prism-jsx'
-import {} from 'prismjs/components/prism-markup'
-import 'prismjs/themes/prism-coy.css'
+import Prism from 'prismjs'
 import React from 'react'
 import styled from 'styled-components'
 import { version } from '../packages/core/package.json'
@@ -114,7 +109,7 @@ export const Index = () => {
         Typical usage should be as simple as:
         <Code
           dangerouslySetInnerHTML={{
-            __html: highlight(ExampleSource, languages.jsx),
+            __html: Prism.highlight(ExampleSource, Prism.languages.jsx),
           }}
         />
         Resulting in:

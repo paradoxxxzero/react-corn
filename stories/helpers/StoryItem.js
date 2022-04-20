@@ -1,6 +1,4 @@
-import { highlight, languages } from 'prismjs/components/prism-core'
-import {} from 'prismjs/components/prism-json'
-import 'prismjs/themes/prism-coy.css'
+import Prism from 'prismjs'
 import React, { useCallback, useEffect, useState } from 'react'
 import Editor from 'react-simple-code-editor'
 import styled from 'styled-components'
@@ -40,7 +38,7 @@ const Mute = styled.small`
   color: rgba(0, 0, 0, 0.2);
 `
 
-const highlightJson = code => highlight(code, languages.json)
+const highlightJson = code => Prism.highlight(code, Prism.languages.json)
 
 const Object = ({ item, onItemEdited, children }) => {
   const [strItem, setStrItem] = useState(prettyJson(item))

@@ -11,5 +11,16 @@ module.exports = function (api) {
 
   return {
     presets,
+    plugins: [
+      [
+        'prismjs',
+        {
+          languages: ['json', 'jsx'],
+          plugins: ['line-numbers'],
+          theme: 'coy',
+          css: true,
+        },
+      ],
+    ],
   }
 }

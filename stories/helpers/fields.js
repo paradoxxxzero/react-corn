@@ -1,6 +1,6 @@
 import * as rccore from '@react-corn/core'
 import * as materialUI from '@react-corn/mui'
-import * as materialUILab from '@react-corn/mui-lab'
+import * as materialUIX from '@react-corn/mui-x'
 import * as rcsimple from '@react-corn/simple'
 
 export const core = {
@@ -73,7 +73,7 @@ export const mui = {
   slider: materialUI.Slider,
   switch: materialUI.Switch,
   autocomplete: materialUI.Autocomplete,
-  pickerdate: materialUILab.Date,
-  pickertime: materialUILab.Time,
-  pickerdatetime: materialUILab.DateTime,
+  pickerdate: materialUIX.Date,
+  pickertime: materialUIX.Time,
+  pickerdatetime: materialUIX.DateTime,
 }
