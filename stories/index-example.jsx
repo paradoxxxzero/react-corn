@@ -1,6 +1,7 @@
 import { useCorn } from '@react-corn/core'
 import { Select, Text } from '@react-corn/simple'
-import { useCallback } from 'react';
+import React, { useCallback } from 'react'
+window.React = React
 
 const item = {
   name: 'John',

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Checkbox, Number, Text, useCorn } from '@react-corn/core'
-import { useState } from 'react';
+import { useState } from 'react'
 
 export default {
   title: '@react-corn/core',
