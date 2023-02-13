@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/core",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Controlled forms with hooks for advanced object editing. Core package.",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",

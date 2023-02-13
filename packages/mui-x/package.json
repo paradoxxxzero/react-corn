@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/mui-x",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Controlled forms with hooks for advanced object editing. Mui x fields package.",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
@@ -18,7 +18,7 @@
     "react-dom": "^18.x.x"
   },
   "dependencies": {
-    "@react-corn/mui": "^1.7.0",
+    "@react-corn/mui": "^1.8.0",
     "clsx": "^1.1.1"
   }
 }
