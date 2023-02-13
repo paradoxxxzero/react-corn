@@ -2,12 +2,9 @@
 import { useCorn } from '@react-corn/core'
 import { Quill } from '@react-corn/quill'
 import { ButtonRow, Number, Select, Text } from '@react-corn/simple'
-import Prism from 'prismjs'
 import { memo, useState } from 'react'
 import styled from 'styled-components'
-
-const highlightJson = code =>
-  Prism.highlight(code, Prism.languages.json, 'json')
+import { highlight } from '../helpers/highlight'
 
 const initialItem = {
   text: 'text',
@@ -51,7 +48,8 @@ const Log = memo(function Log({ changes }) {
               <div
                 dangerouslySetInnerHTML={{
                   __html:
-                    '<i> item: </i>' + highlightJson(JSON.stringify(newItem)),
+                    '<i> item: </i>' +
+                    highlight(JSON.stringify(newItem), 'json'),
                 }}
               />
             }
@@ -59,7 +57,8 @@ const Log = memo(function Log({ changes }) {
               <div
                 dangerouslySetInnerHTML={{
                   __html:
-                    '<i> errors: </i>' + highlightJson(JSON.stringify(errors)),
+                    '<i> errors: </i>' +
+                    highlight(JSON.stringify(errors), 'json'),
                 }}
               />
             }

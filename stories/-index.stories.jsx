@@ -1,9 +1,6 @@
-import Prism from 'prismjs'
-import 'prismjs/components/prism-json'
-import 'prismjs/components/prism-jsx'
-import 'prismjs/themes/prism.css'
 import styled from 'styled-components'
 import { version } from '../packages/core/package.json'
+import { highlight } from './helpers/highlight'
 import { ExampleCorn } from './index-example.jsx'
 
 export default {
@@ -106,41 +103,38 @@ export const Index = () => {
         Typical usage should be as simple as:
         <Code
           dangerouslySetInnerHTML={{
-            __html: Prism.highlight(
-              `
-              import { useCorn } from '@react-corn/core'
-              import { Select, Text } from '@react-corn/simple'
-              import { useCallback } from 'react'
-              
-              const item = {
-                name: 'John',
-              }
-              
-              export const ExampleCorn = () => {
-                const onSubmit = useCallback(newItem => alert(JSON.stringify(newItem)), [])
-              
-                const { form, field, modified } = useCorn({ item, onSubmit })
-              
-                return (
-                  <form {...form}>
-                    <Text required {...field('name')}>
-                      What’s your name?
-                    </Text>
-              
-                    <Select
-                      choices={{ One: 1, Two: 2, Three: 3 }}
-                      {...field('number-select')}
-                    >
-                      Choose a number:
-                    </Select>
-              
-                    <button disabled={!modified}>Submit</button>
-                  </form>
-                )
-              }
-              `,
+            __html: highlight(
+              `\
+import { useCorn } from '@react-corn/core'
+import { Select, Text } from '@react-corn/simple'
+import { useCallback } from 'react'
 
-              Prism.languages.jsx,
+const item = {
+  name: 'John',
+}
+
+export const ExampleCorn = () => {
+  const onSubmit = useCallback(newItem => alert(JSON.stringify(newItem)), [])
+
+  const { form, field, modified } = useCorn({ item, onSubmit })
+
+  return (
+    <form {...form}>
+      <Text required {...field('name')}>
+        What’s your name?
+      </Text>
+
+      <Select
+        choices={{ One: 1, Two: 2, Three: 3 }}
+        {...field('number-select')}
+      >
+        Choose a number:
+      </Select>
+
+      <button disabled={!modified}>Submit</button>
+    </form>
+  )
+}`,
               'jsx'
             ),
           }}

@@ -19,7 +19,7 @@
     "prepublish": "yarn run build",
     "storybook": "storybook dev -p 6006",
     "storybook-debug": "node --inspect-brk ./node_modules/.bin/start-storybook -p 9001",
-    "storybook-build": "storybook build"
+    "storybook-build": "rm -r docs/ && storybook build && mv storybook-static docs && touch docs/.nojekyll"
   },
   "pre-commit": [
     "lint"
