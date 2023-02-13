@@ -2,11 +2,12 @@
   "name": "@react-corn/password-strength",
   "version": "1.7.0",
   "description": "Controlled forms with hooks for advanced object editing. Password field with strength check package.",
-  "main": "dist/bundle.js",
-  "module": "src/index.js",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
   "repository": "https://github.com/paradoxxxzero/react-corn",
   "author": "Florian Mounier",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "rollup -c"
   },

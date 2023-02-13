@@ -2,11 +2,12 @@
   "name": "@react-corn/quill",
   "version": "1.7.0",
   "description": "Controlled forms with hooks for advanced object editing. HTML rich text edition with quill package.",
-  "main": "dist/bundle.js",
-  "module": "src/index.js",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
   "repository": "https://github.com/paradoxxxzero/react-corn",
   "author": "Florian Mounier",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "rollup -c"
   },
@@ -16,7 +17,7 @@
   },
   "dependencies": {
     "clsx": "^1.1.1",
-    "react-quill": "2.0.0-beta.4",
+    "react-quill": "2.0.0",
     "styled-components": "^5.3.1"
   }
 }

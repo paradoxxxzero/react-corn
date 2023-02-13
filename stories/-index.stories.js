@@ -2,7 +2,6 @@
 import ExampleSource from '!!raw-loader!./index-example.js'
 import { addParameters } from '@storybook/react'
 import Prism from 'prismjs'
-import React from 'react'
 import styled from 'styled-components'
 import { version } from '../packages/core/package.json'
 import { ExampleCorn } from './index-example'
