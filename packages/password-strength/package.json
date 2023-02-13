@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/password-strength",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Controlled forms with hooks for advanced object editing. Password field with strength check package.",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",

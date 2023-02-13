@@ -1,6 +1,6 @@
 {
   "name": "@react-corn/simple",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Controlled forms with hooks for advanced object editing. Simple ui field package.",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
