@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCorn } from '@react-corn/core'
 import { ButtonRow, Date, Text } from '@react-corn/simple'
-import React, { useState } from 'react'
+import { useState } from 'react';
 import styled from 'styled-components'
 
 const Spinner = styled.div`

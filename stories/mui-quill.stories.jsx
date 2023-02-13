@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCorn } from '@react-corn/core'
 import { Quill } from '@react-corn/mui-quill'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react';
 import 'react-quill/dist/quill.snow.css'
 import { Button, Form } from './helpers/muiForm'
 import { Story } from './helpers/Story'

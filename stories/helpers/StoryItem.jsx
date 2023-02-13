@@ -1,5 +1,5 @@
 import Prism from 'prismjs'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor'
 import styled from 'styled-components'
 

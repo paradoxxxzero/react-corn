@@ -2,7 +2,7 @@
 import { useCorn } from '@react-corn/core'
 import { Quill } from '@react-corn/quill'
 import { ButtonRow, Number, Select, Text } from '@react-corn/simple'
-import React, { memo, useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react';
 
 const initialItem = {
   text: 'text',

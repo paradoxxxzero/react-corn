@@ -1,5 +1,5 @@
 import * as core from '@react-corn/core'
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import styled, { css } from 'styled-components'
 import theme, { withTheme } from './theme'
 

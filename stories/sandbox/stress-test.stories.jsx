@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCorn } from '@react-corn/core'
 import { ButtonRow, Text } from '@react-corn/simple'
-import React, { useState } from 'react'
+import { useState } from 'react';
 
 const fields = 1000
 

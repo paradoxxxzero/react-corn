@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCorn } from '@react-corn/core'
 import { ButtonRow, Number, Text } from '@react-corn/simple'
-import React, { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react';
 import { Story } from '../helpers/Story'
 
 export default {

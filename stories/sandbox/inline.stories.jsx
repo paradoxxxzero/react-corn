@@ -4,7 +4,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
 import { Inline as MuiInline } from '@react-corn/mui'
 import { ButtonRow, Inline } from '@react-corn/simple'
-import React from 'react'
 import styled from 'styled-components'
 import { mui, simple } from '../helpers/fields'
 

@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCorn } from '@react-corn/core'
-import { ButtonRow, Select, Text } from '@react-corn/simple'
-import React, { memo, useCallback } from 'react'
+import { ButtonRow, TextArea } from '@react-corn/simple'
+import { lazy, memo, Suspense, useCallback } from 'react';
+import 'react-quill/dist/quill.snow.css'
 import { Story } from '../helpers/Story'
 
-export default {
-  title: 'Overview/dynamic-props',
-  parameters: {
-    options: { showPanel: true },
-  },
-}
+const Quill = lazy(() =>
+  import(/* webpackChunkName: "quill" */ '@react-corn/quill').then(module => ({
+    default: module.Quill,
+  }))
+)
 
 const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   const handleChange = useCallback(
@@ -20,8 +20,8 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
     [onErrors, onTransient]
   )
   const handleSubmit = useCallback(
-    (item, delta) => {
-      onItem(item)
+    (item, delta, cleanItem) => {
+      onItem(cleanItem)
       onDelta(delta)
     },
     [onDelta, onItem]
@@ -33,26 +33,13 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
     onSubmit: handleSubmit,
   })
 
-  const choices = Object.entries(item).filter(([k]) => k.startsWith('choice'))
-
   return (
     <form {...form}>
-      {choices.map(([k]) => (
-        <Text key={k} required {...field(k)}>
-          {k}
-        </Text>
-      ))}
-      <Text {...field(`choice${choices.length + 1}`)}>New choice</Text>
-      <Select
-        {...field('dynamic-select', {
-          choices: currentItem =>
-            Object.entries(currentItem)
-              .filter(([k]) => k.startsWith('choice'))
-              .map(([k, v]) => [v, k]),
-        })}
-      >
-        Dynamic select
-      </Select>
+      <Suspense fallback="Loading...">
+        <Quill {...field('html')}>Html</Quill>
+      </Suspense>
+      <TextArea {...field('html')}>Raw html</TextArea>
+
       <ButtonRow>
         <button disabled={!modified}>Submit</button>
         <button type="button" disabled={!modified} onClick={onReset}>
@@ -63,14 +50,20 @@ const CornForm = memo(({ item, onItem, onTransient, onDelta, onErrors }) => {
   )
 })
 
-export const CornStory = () => {
+export const AsyncDemo = () => {
   return (
     <Story
       Chapter={CornForm}
       initialItem={{
-        choice1: 'One',
-        choice2: 'Two',
+        html: '<p>Here I am, async as possible</p>',
       }}
     />
   )
+}
+
+export default {
+  title: 'Sandbox/async-field-load',
+  parameters: {
+    options: { showPanel: true },
+  },
 }

@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import zxcvbn from 'zxcvbn'
 
 export const PasswordStrength = memo(function PasswordStrength({

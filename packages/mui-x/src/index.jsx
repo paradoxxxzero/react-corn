@@ -4,7 +4,7 @@ import { DatePicker, DateTimePicker, TimePicker } from '@mui/x-date-pickers'
 import { MuiPickersAdapterContext } from '@mui/x-date-pickers/LocalizationProvider'
 import { useCornField } from '@react-corn/core'
 import { fieldOptions, rootStyles, useFilteredProps } from '@react-corn/mui'
-import React, { memo, useCallback, useContext, useEffect } from 'react'
+import { memo, useCallback, useContext, useEffect } from 'react'
 import {
   muiDatePickerOnlyProps,
   muiDateTimePickerOnlyProps,

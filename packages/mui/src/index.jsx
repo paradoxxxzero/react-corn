@@ -27,7 +27,7 @@ import {
   useMaybeMultipleValue,
   useOptions,
 } from '@react-corn/core'
-import React, { memo, useCallback, useMemo, useState } from 'react'
+import { memo, useCallback, useMemo, useState } from 'react'
 import {
   muiAutocompleteProps,
   muiFormControlProps,

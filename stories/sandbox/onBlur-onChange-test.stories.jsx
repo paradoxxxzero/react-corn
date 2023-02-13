@@ -3,7 +3,7 @@ import { useCorn } from '@react-corn/core'
 import { Quill } from '@react-corn/quill'
 import { ButtonRow, Number, Select, Text } from '@react-corn/simple'
 import Prism from 'prismjs'
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react';
 import styled from 'styled-components'
 
 const highlightJson = code => Prism.highlight(code, Prism.languages.json)

@@ -2,7 +2,7 @@
 import { useCorn } from '@react-corn/core'
 import { Password as materialUIPassword } from '@react-corn/mui'
 import { ButtonRow, Password as simplePassword } from '@react-corn/simple'
-import React, { lazy, memo, Suspense, useCallback } from 'react'
+import { lazy, memo, Suspense, useCallback } from 'react';
 import 'react-quill/dist/quill.snow.css'
 import { Story } from './helpers/Story'
 

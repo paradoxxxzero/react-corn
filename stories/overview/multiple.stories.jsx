@@ -1,7 +1,7 @@
 import { Picker as CorePicker, useCorn } from '@react-corn/core'
 import { Picker as MuiPicker } from '@react-corn/mui'
 import { Picker as SimplePicker } from '@react-corn/simple'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react';
 import { Button, Form } from '../helpers/muiForm'
 import { Story } from '../helpers/Story'
 

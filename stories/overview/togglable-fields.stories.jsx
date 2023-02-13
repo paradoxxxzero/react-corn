@@ -1,6 +1,6 @@
 import { useCorn } from '@react-corn/core'
 import { Switch, Text } from '@react-corn/mui'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react';
 import { Button, Form } from '../helpers/muiForm'
 import { Story } from '../helpers/Story'
 

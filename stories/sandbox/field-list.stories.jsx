@@ -3,7 +3,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { useCorn } from '@react-corn/core'
 import { ButtonRow } from '@react-corn/simple'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react';
 import styled from 'styled-components'
 import { core, mui, simple } from '../helpers/fields'
 import { Story } from '../helpers/Story'

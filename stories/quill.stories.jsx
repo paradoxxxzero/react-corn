@@ -2,7 +2,7 @@
 import { useCorn } from '@react-corn/core'
 import { Quill } from '@react-corn/quill'
 import { ButtonRow, TextArea } from '@react-corn/simple'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react';
 import 'react-quill/dist/quill.snow.css'
 import styled from 'styled-components'
 import { Divider, Story } from './helpers/Story'

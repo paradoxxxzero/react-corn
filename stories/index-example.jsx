@@ -1,6 +1,6 @@
 import { useCorn } from '@react-corn/core'
 import { Select, Text } from '@react-corn/simple'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react';
 
 const item = {
   name: 'John',

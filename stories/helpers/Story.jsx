@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import React, { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components'
 import StoryItem from './StoryItem'
 

@@ -2,7 +2,6 @@
 
 import { createSerializer } from '@emotion/jest'
 import initStoryshots from '@storybook/addon-storyshots'
-import React from 'react'
 
 jest.mock('react-quill', () => ({
   __esModule: true,

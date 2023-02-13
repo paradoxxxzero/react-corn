@@ -14,7 +14,7 @@ import {
 } from '@react-corn/mui'
 import { BaseQuill } from '@react-corn/quill'
 import clsx from 'clsx'
-import React, { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 const variantComponent = {
   standard: Input,

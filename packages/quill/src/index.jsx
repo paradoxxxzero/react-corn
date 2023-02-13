@@ -1,5 +1,5 @@
 import { useCornField } from '@react-corn/core'
-import React, { memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import ReactQuill from 'react-quill'
 import styled, { css } from 'styled-components'
 
