@@ -1,7 +1,9 @@
 import { useCornField } from '@react-corn/core'
 import { memo, useCallback } from 'react'
 import ReactQuill from 'react-quill'
-import styled, { css } from 'styled-components'
+import { css, default as defaultStyled } from 'styled-components'
+
+const styled = defaultStyled.default || defaultStyled
 
 const theme = {
   color: {

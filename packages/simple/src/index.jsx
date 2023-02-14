@@ -1,7 +1,9 @@
 import * as core from '@react-corn/core'
 import { useCallback, useState } from 'react'
-import styled, { css } from 'styled-components'
+import { css, default as defaultStyled } from 'styled-components'
 import theme, { withTheme } from './theme'
+
+const styled = defaultStyled.default || defaultStyled
 
 export { theme, withTheme }
 export const Field = withTheme(styled.div`
